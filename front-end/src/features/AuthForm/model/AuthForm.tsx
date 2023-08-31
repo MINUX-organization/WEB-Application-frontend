@@ -55,7 +55,7 @@ export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
           {!state.showPassword.value && <AiOutlineEyeInvisible onClick={state.showPassword.toggle} />}
         </div>
       </div>
-      <FButton isLoading={state.isAuthenticating.value} type="submit" severity="good" className={styles['login-button']}>Login</FButton>
+      <FButton loading={state.isAuthenticating.value} type="submit" severity="good" className={styles['login-button']}>Login</FButton>
     </form>
   )
 }

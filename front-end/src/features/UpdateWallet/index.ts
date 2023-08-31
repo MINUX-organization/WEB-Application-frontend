@@ -1,0 +1,1 @@
+export { UpdateWallet } from './model'

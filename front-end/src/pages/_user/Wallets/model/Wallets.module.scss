@@ -1,4 +1,4 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 $gap: 10px;
 $head-height: 70px;
 $body-padding: 15px;
@@ -98,7 +98,20 @@ $bg-color: rgba(0, 0, 0, 20%);
   }
 }
 
-.new-address-wrapper {
+.new-wallet-wrapper {
   background: $bg-color;
-  padding: 25px;
+  min-width: 0;
+  width: 650px;
+  max-width: 100%;
+}
+
+.new-wallet-body {
+  background: values.$bg-color;
+  padding: 15px;
+}
+
+.buttons {
+  display: flex;
+  align-self: flex-end;
+  gap: 30px;
 }

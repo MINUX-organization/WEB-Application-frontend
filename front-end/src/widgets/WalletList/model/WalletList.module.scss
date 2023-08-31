@@ -1,0 +1,106 @@
+@use '@app/values.scss';
+
+$gap: 10px;
+$head-height: 50px;
+$body-padding: 15px;
+$cell-gap: 20px;
+$bg-color: rgba(0, 0, 0, 20%);
+
+.wrapper {
+  display: block;
+  background: $bg-color;
+  padding: 0;
+}
+
+.table-wrapper {
+  display: block;
+  padding-top: 0;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc($head-height + $body-padding / 2);
+    left: 0;
+    height: 0;
+    width: 100%;
+    border-bottom: 1px solid values.$line-color;
+  }
+
+  table {
+    width: 100%;
+    font-size: 24px;
+  }
+
+  thead {
+    height: calc($head-height + $body-padding / 2);
+  }
+
+  th {
+    text-align: left;
+    padding-right: $cell-gap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  td, th {
+    width: fit-content;
+    &:first-child {
+      padding-left: $cell-gap;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    &:last-child {
+      padding-right: $cell-gap;
+    }
+  }
+
+  td {
+    padding-right: $cell-gap;
+    padding-left: 0;
+    word-break: break-word;
+  }
+}
+
+.actions {
+  white-space: nowrap;
+  display: flex;
+  gap: 4px;
+
+  .icon.sp1 {
+    font-size: 35px;
+    padding: 5px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.137);
+    }
+    &:first-child {
+      margin-right: 5px;
+    }
+  }
+}
+
+.wrapper-item {
+  cursor: pointer;
+  &:hover {
+    background: color-mix(in srgb, values.$line-color 80%, transparent);
+  }
+  &.deleting {
+    background: rgb(197, 51, 51);
+  }
+
+  td {
+    padding-top: calc($cell-gap / 2);
+    padding-bottom: calc($cell-gap / 2);
+  }
+}
+
+.modal-container {
+  padding: 20px;
+  width: 600px;
+  min-width: 0;
+  max-width: 100%;
+}

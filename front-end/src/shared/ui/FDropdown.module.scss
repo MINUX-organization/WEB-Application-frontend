@@ -1,0 +1,207 @@
+@use '@app/values.scss';
+
+$height: 50px;
+$icon-width: 50px;
+$p: 10px;
+
+@property --color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: white;
+}
+
+.wrapper {
+  --color: #{values.$line-color};
+  display: flex;
+  position: relative;
+  height: $height;
+  align-items: center;
+  justify-content: start;
+  min-width: 100px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.0470588235);
+  border: 1px solid var(--color);
+
+  transition: --color 100ms;
+
+  &.open {
+    --color: #{values.$text-color-thirdy};
+    .option-list {
+      outline-color: var(--color);
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  &.warn-no-options {
+    --color: rgb(214, 61, 61);
+    border-color: var(--color);
+
+    .icon.sp1 {
+      color: color-mix(in srgb, var(--color) 50%, transparent);
+    }
+
+    .divider {
+      color: var(--color);
+    }
+
+    .value-null {
+      color: color-mix(in srgb, var(--color) 50%, transparent);
+    }
+
+    .no-options {
+      color: var(--color);
+    }
+  }
+}
+
+.divider {
+  color: var(--color);
+  height: 50%;
+  width: 0;
+  border-right: 2px solid color-mix(in srgb, currentColor 50%, transparent);
+}
+
+.value {
+  color: white;
+  user-select: none;
+  flex-grow: 1;
+  display: inline;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 0;
+  padding: 0 $p;
+  align-self: stretch;
+  display: inline;
+  line-height: $height;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    background: #ffffff0a;
+  }
+
+}
+
+.placeholder {
+  position: absolute;
+  left: $p;
+  top: 0;
+  width: calc(100% - 2 * #{$p});
+  height: 100%;
+  overflow: hidden;
+  color: rgba(255,255,255, 20%);
+}
+
+.icon.sp1 {
+  color: var(--color);
+  flex-shrink: 0;
+  height: $height;
+  width: $icon-width;
+  padding: 0 10px;
+  cursor: pointer;
+
+  &:hover {
+    background: #ffffff0e;;
+  }
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.spin {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $icon-width;
+  height: $height;
+  max-width: none;
+  max-height: none;
+}
+
+.option-list {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  flex-direction: column;
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 1px);
+  left: 0;
+  width: 100%;
+  min-height: 0;
+  height: fit-content;
+  max-height: var(--options-list-height);
+  overflow: auto;
+  outline: 1px solid values.$line-color;
+  background: color-mix(in srgb, values.$bg-color 100%, white);
+
+  &.above {
+    top: unset;
+    bottom: calc(100% + 1px);
+  }
+}
+
+.option-item {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  min-height: $height;
+  line-height: calc($height * 0.6);
+  padding: calc($p * 0.5) $p;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover, &:focus {
+    outline: none;
+    background: #ffffff10;
+  }
+
+  &.active {
+    background: var(--color);
+  }
+
+  &.active-multiple {
+    color: var(--color);
+  }
+}
+
+.no-options {
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  color: #ffffff52;
+}
+
+.scroll-thumb {
+  background: color-mix(in srgb, values.$line-color 50%, transparent);
+}
+
+.multiple-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.multiple-item-checkbox {
+  color: inherit;
+}

@@ -1,1 +1,1 @@
-export { authenticate } from '@shared/api/authenticate'
+export { authenticate } from '@shared/api'

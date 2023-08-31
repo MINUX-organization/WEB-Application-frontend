@@ -51,7 +51,7 @@ const _setValue = (setSp: Dispatch<SetStateAction<URLSearchParams>>, key: string
 
 /**
  * this hook provides interface to store boolean state in url search params,
- * note that key should be uniq
+ * note that key should be uniq accross whole application
  * @param key 
  */
 export const useBooleanUrl = (key: string) => {

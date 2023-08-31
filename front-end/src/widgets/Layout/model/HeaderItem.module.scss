@@ -1,4 +1,4 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 @use '../lib/shared.scss';
 
 $color: values.$line-color;
@@ -7,9 +7,9 @@ $active-color: values.$text-color-thirdy;
 .wrapper {
   position: relative;
   color: $color;
-  z-index: 1;
+  // z-index: 1;
 
-  &:hover {
+  &.open {
     .dropdown {
       display: block;
     }
@@ -50,7 +50,12 @@ $active-color: values.$text-color-thirdy;
 
 .group-label {
   @include item;
+  cursor: pointer;
   user-select: none;
+
+  &:hover {
+    background: #ffffff0e;
+  }
 }
 
 .text {

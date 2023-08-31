@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLProps, SetStateAction, useEffect, useMemo, useRef, useState } from "react"
+import { CSSProperties, HTMLProps, SetStateAction, useEffect, useRef, useState } from "react"
 import { useStateObj } from "@shared/lib"
 import { useElementSize } from "usehooks-ts";
 import styles from './FTextInput.module.scss'
@@ -37,21 +37,15 @@ export const FTextInput = (props: FTextInputProps) => {
   const multiline = props.multiline ?? false
   const refTextArea = useRef<HTMLTextAreaElement>(null)
   const refRTLine = useRef<HTMLDivElement>(null)
-  const innerState = {
-    value: useStateObj('')
-  }
-  const state = useMemo(() => {
-    return {
-      value: {
-        value: props.value ?? innerState.value.value,
-        setValue: (newValue: SetStateAction<string>) => innerState.value.setValue(prev => {
-          const outValue = _.isFunction(newValue) ? newValue(prev) : newValue;
-          if (props.onChange !== undefined) props.onChange(outValue)
-          return outValue
-        })
-      }
+  const innerState = useStateObj('')
+  const state = {
+    value: props.value ?? innerState.value,
+    setValue: (argValue: SetStateAction<string>) => {
+      const newValue = _.isFunction(argValue) ? argValue(state.value) : argValue;
+      if (props.onChange !== undefined) props.onChange(newValue)
+      innerState.setValue(newValue)
     }
-  }, [props.value, innerState.value.value, props.onChange])
+  }
   const [refTitle, titleSize] = useElementSize()
   const [titleWidth, setTitleWidth] = useState(0)
 
@@ -80,7 +74,7 @@ export const FTextInput = (props: FTextInputProps) => {
   return (
     <div {..._.omit(props, omitProps)}
       onClick={() => setTitleWidth(titleSize.width)}
-      className={(props.className ?? '') + ' ' + styles['wrapper'] + ' ' + (state.value.value !== '' ? styles['active'] : '') + ' ' + (props.title === undefined || props.title === '' ? styles['no-title'] : '')}
+      className={(props.className ?? '') + ' ' + styles['wrapper'] + ' ' + (state.value !== '' ? styles['active'] : '') + ' ' + (props.title === undefined || props.title === '' ? styles['no-title'] : '')}
       style={{
         '--px': px + 'px',
         '--py': py + 'px',
@@ -99,8 +93,8 @@ export const FTextInput = (props: FTextInputProps) => {
           spellCheck={false}
           ref={refTextArea}
           placeholder={props.placeholder}
-          value={state.value.value}
-          onChange={e => state.value.setValue(e.target.value)}
+          value={state.value}
+          onChange={e => state.setValue(e.target.value)}
         />
       }
       {!multiline &&
@@ -110,8 +104,8 @@ export const FTextInput = (props: FTextInputProps) => {
           autoComplete={props.autoComplete}
           type={(props.password ?? false) ? 'password' : 'text'}
           placeholder={props.placeholder}
-          value={state.value.value}
-          onChange={e => state.value.setValue(e.target.value)}
+          value={state.value}
+          onChange={e => state.setValue(e.target.value)}
         />
       }
     </div> 

@@ -1,15 +1,16 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 
 $item-gap: 10px;
 $item-px: 15px;
 $offset: 50px;
+$padding: 30px;
 
 .wrapper {
   min-width: 100%;
   min-height: 100%;
   display: flex;
   gap: $offset;
-  padding: 30px;
+  padding: $padding;
   align-items: flex-start;
   justify-content: center;
 }
@@ -23,7 +24,7 @@ $offset: 50px;
   min-width: 220px;
   width: min-content;
   max-width: 400px;
-  display: none;
+  display: block;
   font-size: 24px;
 
   &>* {
@@ -76,30 +77,21 @@ $offset: 50px;
   }
 }
 
-.body {
+@mixin body() {
   flex-grow: 1;
   min-width: 50px;
   min-height: min-content;
+  height: auto;
   align-self: stretch;
-  max-width: 800px;
-  padding: 50px;
 }
 
-@media screen and (min-width: 1440px) {
+.body {
+  @include body();
+  padding: 40px;
+  max-width: 1500px;
+}
 
-  .wrapper {
-    padding: 95px 100px;
-  }
+.body-no-border {
+  @include body();
 
-  .left-panel {
-    display: block;
-  }
-
-  .body {
-    max-width: 1400px;
-  }
-
-  .left-panel {
-    top: 95px;
-  }
 }

@@ -15,6 +15,7 @@
       "@app/*": ["app/*"],
       "@app": ["app"],
       "@entities/*": ["entities/*"],
+      "@features/*": ["features/*"],
       "@pages": ["pages"],
       "@pages/*": ["pages/*"],
       "@shared/*": ["shared/*"],

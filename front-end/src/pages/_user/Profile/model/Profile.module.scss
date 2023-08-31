@@ -1,7 +1,9 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 
 .wrapper {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
 @mixin box {
@@ -9,12 +11,11 @@
   flex-direction: column;
   align-items: center;
   background: rgba(0, 0, 0, 20%);
-  padding: 65px;
+  padding: 30px;
 }
 
 .password {
   @include box();
-  margin-bottom: 80px;
 }
 
 .name {
@@ -23,8 +24,14 @@
 
 @mixin box-inner {
   display: flex;
-  align-items: center;
   justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: 28px;
+  gap: 20px;
+  min-width: 0;
+  width: 400px;
+  max-width: 100%;
 }
 
 .password-inner {
@@ -40,7 +47,9 @@
   flex-direction: column;
   gap: 20px;
   font-size: 28px;
-  max-width: min-content
+  min-width: 0;
+  max-width: 100%;
+  width: 400px;
 }
 
 .password-inner-inner {
@@ -59,5 +68,5 @@
 
 .buttons {
   display: flex;
-  gap: 162px;
+  justify-content: space-between;
 }

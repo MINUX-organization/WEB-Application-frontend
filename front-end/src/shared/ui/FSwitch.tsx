@@ -1,5 +1,5 @@
 import { HTMLProps } from "react"
-import { useBoolean } from "@shared/lib"
+import { useBoolean } from "usehooks-ts"
 import styles from './FSwitch.module.scss'
 import _ from 'lodash'
 

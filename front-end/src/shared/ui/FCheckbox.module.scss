@@ -1,0 +1,41 @@
+
+.wrapper {
+  display: block;
+  position: relative;
+  border: 1px solid currentColor;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  cursor: pointer;
+
+  --line-width: 0%;
+
+  &.checked {
+    --line-width: 180%;
+  }
+
+  &:hover {
+    background: color-mix(in srgb, currentColor 20%, transparent);
+  }
+}
+
+@mixin line() {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% + 1px), 0) rotate(45deg);
+  border-bottom: 2px solid currentColor;
+  width: var(--line-width);
+  // transition: width 100ms;
+  height: 0;
+}
+
+.first-line {
+  @include line();
+}
+
+.second-line {
+  @include line();
+  transform: translate(calc(-50% - 1px), 0) rotate(-45deg);
+}

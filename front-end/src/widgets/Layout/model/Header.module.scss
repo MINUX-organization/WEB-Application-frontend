@@ -1,9 +1,11 @@
 @use '../lib/shared.scss';
-@use 'app/values.scss';
+@use '@app/values.scss';
 
 .wrapper {
   display: flex;
   height: shared.$layout-size;
+  overflow: visible;
+  z-index: 1;
 }
 
 

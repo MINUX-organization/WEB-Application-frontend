@@ -1,93 +1,113 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 
-
-$line-thickness: .5px;
-$fat-line-thickness: 1px; 
-$corner-size: 20px;
 $quad-size: 10px;
-$offset: calc(-1 * $quad-size / 2);
-$min-line-length: 5px;
+$line-length: 30px;
+$corner-offset: calc(-0.5 * $quad-size);
 
 .wrapper {
-    min-width: calc($quad-size * 2 + $min-line-length);
-    min-height: calc($quad-size * 2 + $min-line-length);
-    padding: $quad-size;
-    position: relative; 
-    border-color: values.$line-color;
+  min-width: calc($quad-size + $line-length * 2);
+  min-height: calc($quad-size + $line-length * 2);
+  padding: $quad-size;
+  position: relative; 
+  --color: #{values.$line-color};
 }
 
 @mixin corner {
-    position: absolute;
-    box-sizing: border-box;
-    width: $quad-size;
-    height: $quad-size;
-    border: 1px solid;
-    background-color: values.$bg-color;
-    border-color: inherit; 
-    z-index: 3;
-  }
+  position: absolute;
+  box-sizing: border-box;
+  width: $quad-size;
+  height: $quad-size;
+  color: var(--color);
+  border: 1px solid currentColor;
+}
 
-  .lt-corner {
-    @include corner();
-    left: $offset;
-    top: $offset;
-  }
-  
-  .rt-corner {
-    @include corner();
-    right: $offset;
-    top: $offset;
-  }
-  
-  .lb-corner {
-    @include corner();
-    left: $offset;
-    bottom: $offset;
-  }
-  
-  .rb-corner {
-    @include corner();
-    right: $offset;
-    bottom: $offset;
-  }
+.lt-corner {
+  @include corner();
+  left: $corner-offset;
+  top: $corner-offset;
+}
 
-  @mixin corner-line {
-    width: $corner-size;
-    height: $corner-size;
-    border: $fat-line-thickness solid;
-    border-color: values.$line-color;
-    position: absolute; 
-    z-index: 2;
+.rt-corner {
+  @include corner();
+  right: $corner-offset;
+  top: $corner-offset;
+}
+
+.lb-corner {
+  @include corner();
+  left: $corner-offset;
+  bottom: $corner-offset;
+}
+
+.rb-corner {
+  @include corner();
+  right: $corner-offset;
+  bottom: $corner-offset;
+}
+
+@mixin corner-line($orientation) {
+  color: var(--color);
+  border-color: currentColor;
+  position: absolute; 
+  @if $orientation == 'horizontal' {
+    left: calc($quad-size / 2);
+    width: calc(100% - $quad-size);
+    height: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: $line-length;
+      border-bottom: 1px solid currentColor;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: $line-length;
+      border-bottom: 1px solid currentColor;
+    }
+  } @else {
+    top: calc($quad-size / 2);
+    width: 0;
+    height: calc(100% - $quad-size);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: $line-length;
+      border-right: 1px solid currentColor;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      height: $line-length;
+      border-right: 1px solid currentColor;
+    }
   }
-  
-  .lt-corner-line {
-    @include corner-line();
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-  }
-  
-  .rt-corner-line {
-    @include corner-line();
-    right: 0;
-    top: 0;
-    border-left: none;
-    border-bottom: none;
-  }
-  
-  .lb-corner-line {
-    @include corner-line();
-    left: 0;
-    bottom: 0;
-    border-right: none;
-    border-top: none;
-  }
-  
-  .rb-corner-line {
-    @include corner-line();
-    right: 0;
-    bottom: 0;
-    border-left: none;
-    border-top: none;
-  }
+}
+
+.t-line {
+  @include corner-line('horizontal');
+  top: 0;
+}
+
+.b-line {
+  @include corner-line('horizontal');
+  bottom: 0;
+}
+
+.l-line {
+  @include corner-line('vertical');
+  left: 0;
+}
+
+.r-line {
+  @include corner-line('vertical');
+  right: 0;
+}

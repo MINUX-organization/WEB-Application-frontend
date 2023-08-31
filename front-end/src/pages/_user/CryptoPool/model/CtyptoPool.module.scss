@@ -1,0 +1,11 @@
+@use '@app/values.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.label {
+  color: values.$line-color;
+}

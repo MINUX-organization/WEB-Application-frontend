@@ -1,7 +1,7 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 
 /**
-  those variables are defined inside component
+  those variables are defined inside FTextInput.tsx
   --line-height
   --px
   --py
@@ -21,7 +21,8 @@ $title-scale: 0.6;
   border: 1px solid values.$line-color;
   border-top-color: transparent;
   background: #ffffff0c;
-  min-height: calc($line-height + 2 * $py);
+  min-height: 50px;
+  min-width: 100px;
   height: fit-content;
   transition: all $transition-duration;
   &:focus-within {
@@ -106,7 +107,6 @@ $title-scale: 0.6;
 }
 
 .textarea {
-  // position: absolute;
   left: 0;
   background: transparent !important;
   margin: 0;
@@ -126,7 +126,6 @@ $title-scale: 0.6;
 
 }
 
-
 .input {
   position: absolute;
   left: 0;
@@ -145,6 +144,10 @@ $title-scale: 0.6;
   resize: none;
   &:focus {
     outline: none;
+  }
+
+  &::placeholder {
+    color: rgba(255,255,255, 20%);
   }
 
 }

@@ -1,20 +1,14 @@
 @use '../lib/shared.scss';
-@use 'app/values.scss';
+@use '@app/values.scss';
 
 .wrapper {
-  display: flex;
   user-select: none;
   position: relative;
   color: values.$line-color;
-  z-index: 1;
-  padding-right: 8px;
-  padding-left: 30px;
-  gap: 8px;
   box-sizing: content-box;
   height: shared.$layout-size;
-  border-bottom: 1px solid transparent;
 
-  &:hover {
+  &.open {
     background-image: linear-gradient(to left, color-mix(in srgb, currentColor 20%, transparent), transparent);
 
     .dropdown-wrapper {
@@ -29,8 +23,20 @@
   &.active {
     background-image: linear-gradient(to left, color-mix(in srgb, currentColor 20%, transparent), transparent);
     color: values.$text-color-thirdy;
-    border-bottom: 1px solid currentColor;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to left, currentColor 0%, transparent) 1;
   }
+}
+
+.button {
+  display: flex;
+  padding-right: 8px;
+  padding-left: 30px;
+  gap: 8px;
+  box-sizing: content-box;
+  height: shared.$layout-size;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
 }
 
 .profile-image-wrapper {

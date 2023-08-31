@@ -1,4 +1,4 @@
-@use 'app/values.scss';
+@use '@app/values.scss';
 
 $corner-size: 20px;
 $line-thickness: .5px;
@@ -11,11 +11,13 @@ $bg-body-color: #232836;
 $padding: 9px;
 
 .wrapper {
-  display: grid;
+  display: block;
   min-height: calc(2 * #{$corner-size} + 4 * #{$line-gap} + #{$center-line-length} + 2 * #{$min-thin-line-length});
   min-width: calc(2 * #{$corner-size} + 4 * #{$line-gap} + #{$center-line-length} + 2 * #{$min-thin-line-length});
   width: fit-content;
   height: fit-content;
+  max-width: 100%;
+  max-height: 100%;
   position: relative;
   padding: $padding;
   color: values.$line-color;

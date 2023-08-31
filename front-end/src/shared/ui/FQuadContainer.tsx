@@ -2,6 +2,13 @@ import { HTMLProps } from "react"
 import styles from './FQuadContainer.module.scss'
 import _ from 'lodash'
 
+const omittedProps = [
+  'filled',
+  'defaultHideDecorators',
+  'visibility',
+  'bodyProps'
+]
+
 type FQuadContainerProps = HTMLProps<HTMLDivElement> & {
   /** fill quads */
   filled?: boolean
@@ -62,7 +69,7 @@ export const FQuadContainer = (props: FQuadContainerProps) => {
     ...hvis
   }
   return (
-    <div {..._.omit(props, 'filled', 'defaultHideDecorators', 'visibility')} className={(props.className ?? '') + ' ' + styles['wrapper']}>
+    <div {..._.omit(props, omittedProps)} className={(props.className ?? '') + ' ' + styles['wrapper']}>
       {vis.lt && <div className={styles['lt-corner'] + ' ' + (filled ? styles['filled'] : '')} />}
       {vis.rt && <div className={styles['rt-corner'] + ' ' + (filled ? styles['filled'] : '')} />}
       {vis.lb && <div className={styles['lb-corner'] + ' ' + (filled ? styles['filled'] : '')} />}
