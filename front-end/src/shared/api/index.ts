@@ -1,5 +1,4 @@
-export { getUserInfo } from './getUserInfo'
-export { sendRequestApi } from './sendRequestApi'
+export { getUserInfo } from './getUserInfo' 
 export { getFlightSheetAddOptions } from './getFlightSheetAddOptions'
 export { authenticate } from './authenticate'
 export { createFlightSheet } from './createFlightSheet'
