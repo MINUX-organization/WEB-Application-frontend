@@ -51,6 +51,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
 
   return (
     <div {..._.omit(props, omittedProps)} className={(props.className ?? '') + ' ' + styles['wrapper']}>
+      <div className={styles['label']}>Add cryptocurrency</div>
       <div className={styles['field-label']}>Short name</div>
       <FTextInput className={styles['field-value']} value={shortName.value} onChange={value => shortName.setValue(value)} placeholder="Example: BTC" />
       <div className={styles['field-label']}>Full name</div>

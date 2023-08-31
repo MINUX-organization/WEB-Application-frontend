@@ -7,6 +7,7 @@ import { dynamicDataAction } from 'shared/store/storeData'
 import { staticDataAction } from 'shared/store/storeData'
 import { testDynamicData } from 'shared/hook'
 import { testStaticData } from 'shared/hook/useTestStatic'
+import 'react-toastify/dist/ReactToastify.css';
 
 export const FRoutes = () => {
 

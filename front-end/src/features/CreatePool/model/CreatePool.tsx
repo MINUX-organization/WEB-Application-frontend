@@ -1,10 +1,14 @@
 import { HTMLProps } from "react";
-import { FButton, FTextInput } from "@shared/ui";
+import { FButton, FDropdown, FTextInput } from "@shared/ui";
 import { useStateObj } from "@shared/lib";
 import { useBoolean } from "usehooks-ts";
 import { createPool } from "../api";
 import styles from './CreatePool.module.scss'
 import _ from 'lodash'
+import { showNotifyInfo } from "@shared/utils";
+import { TCryptocurrency } from "@shared/types";
+import { useQuery } from "react-query";
+import { getCryptocurrencyList } from "@shared/api";
 
 const omittedProps = [
   'onAdd'
@@ -18,6 +22,8 @@ export const CreatePool = (props: CreatePoolProps) => {
   const domain = useStateObj('');
   const port = useStateObj('');
   const isAdding = useBoolean(false);
+  const cryptocurrencyListQuery = useQuery(['load cryptocurrency list'], () => getCryptocurrencyList({}))
+  const cryptocurrency = useStateObj<TCryptocurrency | null>(null)
 
   const action = {
     reset: () => {
@@ -25,10 +31,10 @@ export const CreatePool = (props: CreatePoolProps) => {
       port.setValue('');
     },
     add: () => {
-      if (domain.value === '') {alert('domain must be entered'); return;}
-      if (domain.value === '') {alert('domain must be entered'); return;}
+      if (domain.value === '') {showNotifyInfo('Domain must be entered'); return;}
+      if (port.value === '') {showNotifyInfo('Port must be entered'); return;}
       const numPort = Number.parseInt(port.value);
-      if (Number.isNaN(numPort)) {alert('port must be a number'); return;}
+      if (Number.isNaN(numPort)) {showNotifyInfo('Port must be a number'); return;}
       isAdding.setTrue();
       createPool({
         domain: domain.value,
@@ -46,6 +52,18 @@ export const CreatePool = (props: CreatePoolProps) => {
 
   return (
     <div {..._.omit(props, omittedProps)} className={(props.className ?? '') + ' ' + styles['wrapper']}>
+      <div className={styles['label']}>Add pool</div>
+      <div className={styles['field-label']}>Cryptocurrency</div>
+      <FDropdown
+        className={styles['field-value']}
+        value={cryptocurrency.value}
+        onChange={value => cryptocurrency.setValue(value)}
+        options={cryptocurrencyListQuery.data?.list ?? []}
+        getOptionLabel={item => item.name}
+        getOptionValue={item => item.id.toString()}
+        loading={cryptocurrencyListQuery.isFetching}
+        placeholder="Select cryptocurrency"
+      />
       <div className={styles['field-label']}>Domain name</div>
       <FTextInput className={styles['field-value']} value={domain.value} onChange={domain.setValue} placeholder="Example: 2miner.com" />
       <div className={styles['field-label']}>Port</div>

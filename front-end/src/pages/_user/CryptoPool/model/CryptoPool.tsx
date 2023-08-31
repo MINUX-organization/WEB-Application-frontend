@@ -6,10 +6,9 @@ import styles from './CtyptoPool.module.scss'
 
 export const CryptoPool = (props: HTMLProps<HTMLDivElement>) => {
   return (
-    <div {...props} className={(props.className ?? '') + ' ' + styles['wrapper']}>
-      <div className={styles['label']}>Add cryptocurrency</div>
-      <CreateCryptocurrency />
-      <div className={styles['label']}>Add pool</div>
+    <div {...props} className={(props.className ?? '') + ' ' + styles['wrapper']}>  
+      <CreateCryptocurrency /> 
+      
       <CreatePool />
     </div>
   )
