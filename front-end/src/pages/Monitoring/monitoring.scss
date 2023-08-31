@@ -3,25 +3,30 @@
 .monitoring { 
     display: flex;
     flex-direction: column; 
-    min-width: 0; 
+    justify-content: space-between;
 
-    .flex-conteiner-monitoring { 
+    height: 100%;
 
-        padding: 0 $padding-30 0 $padding-30;
-
-        padding-top: $padding-30;
+    .monitoring-main-content {
+        display: flex;
+        flex-direction: column; 
     
-        justify-content: center;
-
-        gap: $padding-30;
+        .flex-conteiner-monitoring { 
     
-        display: flex; 
-
-        flex-wrap: wrap;
-    } 
-
-    .flex-conteiner-monitoring-footer { 
+            padding: 0 $padding-30 0 $padding-30; 
+            padding-top: $padding-30;
         
-        padding-top: $padding-30;
+            justify-content: center;
+    
+            gap: $padding-30;
+        
+            display: flex; 
+            flex-wrap: wrap;
+        } 
+    
     }
+    
+    .flex-conteiner-monitoring-footer {   
+        padding-top: $padding-30;
+    } 
 }

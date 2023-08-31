@@ -74,3 +74,25 @@ input:-webkit-autofill:active{
   font-size: 28px;
   color: white !important;
 } 
+
+// < -- Toastify css -- > //
+.Toastify__toast-container {
+  min-width: fit-content !important;
+  max-width: 400px !important;
+}
+
+.Toastify__toast { 
+  color: white;
+  background-color: rgba(0, 0, 0, 0.35);
+  min-height: 60px;
+  padding: 15px;
+}
+
+.Toastify__toast-body {
+  font-size: 24px;
+  padding: 15px;  
+} 
+
+.Toastify__close-button {
+  color: #ffffff !important;
+} 

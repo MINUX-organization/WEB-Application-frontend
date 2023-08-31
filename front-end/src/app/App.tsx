@@ -7,6 +7,7 @@ import { AuthProvider } from './AuthProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { IconContext } from "react-icons";
 import './index.scss';
+import { ToastContainer } from 'react-toastify';
 
 const color = {
   primary: '#3C9EA5'
@@ -42,6 +43,7 @@ export function App() {
             <Provider store={store}>
               <ConfigProvider theme={ftheme}>
                 <FRoutes /> 
+                <ToastContainer />
               </ConfigProvider>
             </Provider>
           </AuthProvider>

@@ -1,0 +1,9 @@
+@use 'app/values.scss';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
+    height: 100%;
+}

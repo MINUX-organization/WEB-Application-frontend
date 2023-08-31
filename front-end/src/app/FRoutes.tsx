@@ -40,7 +40,7 @@ export const FRoutes = () => {
         </Route>
         <Route path='logout' element={<pages.Logout />} />
         <Route path='*' element={<Navigate to='/monitoring'/>}/>
-      </Route>  
+      </Route> 
     </Routes>
   )
 }
