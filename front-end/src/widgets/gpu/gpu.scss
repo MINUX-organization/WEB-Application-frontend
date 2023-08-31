@@ -24,7 +24,9 @@
     }
 
     .gpus-scroll-conteiner {
-        display: grid;
+        display: flex;
+
+        flex-direction: column;
 
         user-select: none; 
 
@@ -34,9 +36,7 @@
         border-left: $line-size-3 solid $line-color;
         border-right: $line-size-3 solid $line-color;
 
-        min-height: 310px;
-        
-        grid-template-rows: repeat(auto-fit, 70px);
+        min-height: 310px; 
 
         gap: 10px; 
     }

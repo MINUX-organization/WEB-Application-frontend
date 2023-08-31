@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify'; 
 
 interface RequestParams {
   url: string,
@@ -16,7 +15,7 @@ export async function sendRequestApi({ url,
     data, 
     params, 
     headers, 
-    successMsg = 'Операция успешно выполнена!'}: RequestParams): Promise<any> {
+    successMsg = 'Operation successfully completed!'}: RequestParams): Promise<any> {
   const config: AxiosRequestConfig = {
     url,
     method,
@@ -44,12 +43,12 @@ export async function sendRequestApi({ url,
             position: toast.POSITION.BOTTOM_LEFT,
         });
     } else { 
-        toast.error(`Код: ${response.status}\nОшибка: ${response.statusText}`, {
+        toast.error(`Code: ${response.status}\nError: ${response.statusText}`, {
             position: toast.POSITION.BOTTOM_LEFT,
         });
     }
   } catch (error: any) { 
-        toast.error(`Ошибка: ${error.message}`, { 
+        toast.error(`Error: ${error.message}`, { 
           position: toast.POSITION.BOTTOM_LEFT, 
         });
   }

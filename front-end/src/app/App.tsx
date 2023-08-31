@@ -7,6 +7,7 @@ import { AuthProvider } from './AuthProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { IconContext } from "react-icons";
 import './index.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 const color = {
