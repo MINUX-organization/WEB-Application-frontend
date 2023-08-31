@@ -1,4 +1,5 @@
 type TRequest = {
+  cryptocurrency: number,
   domain: string
   port: number
 }

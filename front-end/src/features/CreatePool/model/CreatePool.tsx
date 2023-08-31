@@ -31,12 +31,14 @@ export const CreatePool = (props: CreatePoolProps) => {
       port.setValue('');
     },
     add: () => {
+      if (cryptocurrency.value === null) {showNotifyInfo('Cryptocurrency must be selected'); return;}
       if (domain.value === '') {showNotifyInfo('Domain must be entered'); return;}
       if (port.value === '') {showNotifyInfo('Port must be entered'); return;}
       const numPort = Number.parseInt(port.value);
       if (Number.isNaN(numPort)) {showNotifyInfo('Port must be a number'); return;}
       isAdding.setTrue();
       createPool({
+        cryptocurrency: cryptocurrency.value.id,
         domain: domain.value,
         port: numPort
       }).then(res => {

@@ -5,6 +5,7 @@ import { updatePassword } from "../api"
 import { useBoolean } from "usehooks-ts"
 import styles from './UpdatePassword.module.scss'
 import _ from 'lodash'
+import { showNotifyInfo } from "@shared/utils"
 
 const omittedProps = [
   'onUpdate'
@@ -26,8 +27,8 @@ export const UpdatePassword = (props: UpdatePasswordProps) => {
       newPassword.setValue('');
     },
     update: () => {
-      if (oldPassword.value === '') {alert('old password should be entered'); return}
-      if (newPassword.value === '') {alert('new password should be entered'); return}
+      if (oldPassword.value === '') {showNotifyInfo('Old password should be entered'); return}
+      if (newPassword.value === '') {showNotifyInfo('New password should be entered'); return}
       isUpdating.setTrue();
       updatePassword({
         oldPassword: oldPassword.value,

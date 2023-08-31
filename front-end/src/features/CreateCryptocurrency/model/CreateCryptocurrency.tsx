@@ -7,6 +7,7 @@ import { createCryptocurrency, getAlgorithmList } from "../api";
 import { useBoolean } from "usehooks-ts";
 import styles from './CreateCryptocurrency.module.scss'
 import _ from 'lodash'
+import { showNotifyInfo } from "@shared/utils";
 
 const omittedProps = [
   'onAdd'
@@ -30,9 +31,9 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
       algorithm.setValue(null);
     },
     add: () => {
-      if (shortName.value === '') {alert('short name must be entered'); return}
-      if (fullName.value === '') {alert('full name must be entered'); return}
-      if (algorithm.value === null) {alert('algorithm must be selected'); return}
+      if (shortName.value === '') {showNotifyInfo('Short name must be entered'); return}
+      if (fullName.value === '') {showNotifyInfo('Full name must be entered'); return}
+      if (algorithm.value === null) {showNotifyInfo('Algorithm must be selected'); return}
       isAdding.setTrue();
       createCryptocurrency({
         shortName: shortName.value,

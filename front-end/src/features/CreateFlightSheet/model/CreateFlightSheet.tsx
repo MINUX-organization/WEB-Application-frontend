@@ -12,6 +12,7 @@ import { CreatePool } from "@features/CreatePool";
 import { CreateMiner } from "@features/CreateMiner";
 import styles from './CreateFlightSheet.module.scss'
 import _ from 'lodash'
+import { showNotifyInfo } from "@shared/utils";
 
 const useAddModal = (title: string, booleanUrlKey: string, ModalBody: (props: HTMLProps<HTMLDivElement> & { onAdd?: () => void }) => JSX.Element) => {
   return {
@@ -62,11 +63,11 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
       name.setValue('');
     },
     createFlightSheet: () => {
-      if (cryptocurrency.value === null) {alert('cryptocurrency must be selected'); return}
-      if (wallet.value === null) {alert('wallet must be selected'); return}
-      if (pool.value === null) {alert('pool must be selected'); return}
-      if (miner.value === null) {alert('miner must be selected'); return}
-      if (name.value === '') {alert('name must be entered'); return}
+      if (cryptocurrency.value === null) {showNotifyInfo('Cryptocurrency must be selected'); return}
+      if (wallet.value === null) {showNotifyInfo('Wallet must be selected'); return}
+      if (pool.value === null) {showNotifyInfo('Pool must be selected'); return}
+      if (miner.value === null) {showNotifyInfo('Miner must be selected'); return}
+      if (name.value === '') {showNotifyInfo('Name must be entered'); return}
       isAdding.setTrue();
       createFlightSheet({
         cryptocurrency: cryptocurrency.value,

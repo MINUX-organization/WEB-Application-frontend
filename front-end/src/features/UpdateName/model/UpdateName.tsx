@@ -5,6 +5,7 @@ import { useBoolean } from "usehooks-ts"
 import { updateName } from "../api"
 import styles from './UpdateName.module.scss'
 import _ from 'lodash'
+import { showNotifyInfo } from "@shared/utils"
 
 const omittedProps = [
   'onUpdate'
@@ -23,7 +24,7 @@ export const UpdateName = (props: UpdateNameProps) => {
       name.setValue('');
     },
     update: () => {
-      if (name.value === '') { alert('new name must be entered'); return }
+      if (name.value === '') { showNotifyInfo('New name must be entered'); return }
       isUpdating.setTrue();
       updateName({
         name: name.value
