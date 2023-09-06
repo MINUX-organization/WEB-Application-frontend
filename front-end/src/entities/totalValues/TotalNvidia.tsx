@@ -1,11 +1,12 @@
-import { RootState } from 'app/store' 
-import { useSelector } from 'react-redux'
 import './boxComponent.scss' 
 import BoxComponent from './BoxComponent' 
+import { useQuery } from 'react-query'
+import { getCalculationsData } from '@shared/api/getCalculationsData'
+import { valueOrZero } from '@shared/utils'
 
 export default function TotalNvidia() {
-    const totalNvidia = useSelector((state: RootState) => state.staticData.data?.calculations.gpusNvidia)
+  const { data } = useQuery(['load calculations data'], getCalculationsData)
   return (
-    <BoxComponent name='Nvidia' count={totalNvidia} color='#43C09B'/>
+    <BoxComponent name='Nvidia' count={valueOrZero(data?.gpusNvidia)} color='#43C09B'/>
   )
 }

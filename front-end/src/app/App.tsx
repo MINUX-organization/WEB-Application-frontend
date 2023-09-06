@@ -1,6 +1,4 @@
-import { store } from '@app';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom'
+ import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider, theme, ThemeConfig } from 'antd';
 import { FRoutes } from './FRoutes';
 import { AuthProvider } from './AuthProvider';
@@ -39,13 +37,11 @@ export function App() {
     <BrowserRouter>
       <IconContext.Provider value={{ className: 'react-icon' }}>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <Provider store={store}>
+          <AuthProvider> 
               <ConfigProvider theme={ftheme}>
                 <FRoutes /> 
                 <ToastContainer />
-              </ConfigProvider>
-            </Provider>
+              </ConfigProvider> 
           </AuthProvider>
         </QueryClientProvider>
       </IconContext.Provider>

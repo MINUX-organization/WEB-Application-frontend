@@ -10,7 +10,7 @@
 }
 
 .data {
-  width: fit-content;
+  min-width: 600px;
 }
 
 .data-topic {
@@ -29,13 +29,13 @@
 .fields {
   margin-top: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
 }
 
 .field-item {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 50px;
 
   &>*{
     white-space: nowrap;
@@ -59,4 +59,13 @@
   .image {
     display: block;
   }
+}
+
+.field-data {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 50px; 
+  padding-right: 2px;
+  padding-left: 2px;
 }

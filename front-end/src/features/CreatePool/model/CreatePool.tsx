@@ -38,7 +38,7 @@ export const CreatePool = (props: CreatePoolProps) => {
       if (Number.isNaN(numPort)) {showNotifyInfo('Port must be a number'); return;}
       isAdding.setTrue();
       createPool({
-        cryptocurrency: cryptocurrency.value.id,
+        cryptocurrencyId: cryptocurrency.value.id,
         domain: domain.value,
         port: numPort
       }).then(res => {

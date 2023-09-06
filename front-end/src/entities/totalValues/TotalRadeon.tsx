@@ -1,11 +1,12 @@
-import { RootState } from 'app/store' 
-import { useSelector } from 'react-redux'
-import './boxComponent.scss' 
+ import './boxComponent.scss' 
 import BoxComponent from './BoxComponent' 
+import { useQuery } from 'react-query'
+import { getCalculationsData } from '@shared/api/getCalculationsData'
+import { valueOrZero } from '@shared/utils'
 
 export default function TotalRadeon() {
-    const totalRadeon = useSelector((state: RootState) => state.staticData.data?.calculations.gpusRadeon)
+    const { data } = useQuery(['load calculations data'], getCalculationsData)
   return (
-    <BoxComponent name='AMD' count={totalRadeon} color='#FC4E4E'/>
+    <BoxComponent name='AMD' count={valueOrZero(data?.gpusRadeon)} color='#FC4E4E'/>
   )
 }

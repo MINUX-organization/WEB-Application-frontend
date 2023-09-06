@@ -1,0 +1,25 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    @mixin flex-col {
+        display: flex;
+        flex-direction: column; 
+    }
+    .label-data {
+        @include flex-col();
+        text-align: right;
+        opacity: 65%; 
+    }
+
+    .value-data {
+        @include flex-col();
+
+        min-width: 50px;
+
+        display: flex;
+        flex-direction: column;
+        text-align: left; 
+    }
+}

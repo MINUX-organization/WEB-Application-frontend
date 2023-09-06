@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux'
-import './gpuitems.scss'
-import { RootState } from 'app/store'
+import './gpuitems.scss' 
 import GpuItem from './GpuItem'
 import NaImage from 'shared/components/NaImage' 
+import { useDynamicDataStore } from '@shared/stores'
 
 export default function GpuItems() { 
-    const gpuDynamicData = useSelector((state: RootState) => state.dynamicData.data?.gpu) 
-    if (gpuDynamicData) {
+    const gpuDynamicData = useDynamicDataStore((state) => state.data.gpus)
+    if (gpuDynamicData.length !== 0) {
         return (
             <>
                 {gpuDynamicData.map((item, index) => (

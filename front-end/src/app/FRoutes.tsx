@@ -2,22 +2,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '@widgets/Layout';
 import { UserLayout } from '@widgets/UserLayout';
 import * as pages from '@pages'
-import { useDispatch } from 'react-redux'
-import { dynamicDataAction } from 'shared/store/storeData'
-import { staticDataAction } from 'shared/store/storeData'
-import { testDynamicData } from 'shared/hook'
-import { testStaticData } from 'shared/hook/useTestStatic'
 import 'react-toastify/dist/ReactToastify.css';
 
-export const FRoutes = () => {
-
-  //TODO: ws provider
-  const dispatch = useDispatch();
-
-  //Test Data
-  dispatch(dynamicDataAction.updateDynamicData(testDynamicData))
-  dispatch(staticDataAction.updateStaticData(testStaticData))
-  //Test Data
+export const FRoutes = () => { 
 
   return (
     <Routes> 

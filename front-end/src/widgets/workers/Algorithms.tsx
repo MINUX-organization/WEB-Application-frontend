@@ -1,15 +1,13 @@
-import React from 'react' 
-import { RootState } from 'app/store';
-import { useSelector } from 'react-redux'; 
+import { useDynamicDataStore } from '@shared/stores';
 import BoxWithBorder from 'shared/components/BoxWithBorder'; 
 import 'shared/styles/widgets-first-level.scss' 
 
 const name: string = 'Working algorithms'; 
 
 export default function Algorithms() { 
-  const totalAlgorithms = useSelector((state: RootState) => state.dynamicData.data?.calculations.gpusAlgorithms); 
+  const workingAlgorithms = useDynamicDataStore((state) => state.data.calculations.workingAlgorithms)
 
   return (
-    <BoxWithBorder name={name} count={totalAlgorithms}/>
+    <BoxWithBorder name={name} count={workingAlgorithms}/>
   )
 }

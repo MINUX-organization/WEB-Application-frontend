@@ -1,71 +1,36 @@
-import React from 'react' 
-import './cpu.scss'
-import { useSelector } from 'react-redux';
-import { RootState } from 'app/store'; 
+import React from 'react';
+import './cpu.scss';
 import { valueOrNA } from 'shared/utils';
-
-const getFullName = (cpuManufacturer: any, cpuModelName: any) => {
-  if ((typeof(cpuManufacturer) === "string") && (typeof(cpuModelName) === "string")) {
-
-    const cpuFullName: string = cpuManufacturer + ' ' + cpuModelName;
-    
-    return cpuFullName
-  } 
-}
+import { getCpuFullName } from '@shared/api/getCpuFullName';
+import { useQuery } from 'react-query';
+import { useDynamicDataStore } from '@shared/stores';
+import { CpuInfoItem } from './CpuInfoItem';
 
 export default function Cpu() {
-  const cpuManufacturer = useSelector((state: RootState) => state.staticData.data?.cpu.information.manufacturer);
-  const cpuModelName = useSelector((state: RootState) => state.staticData.data?.cpu.information.modelName); 
-  
-  const cpuFullName = getFullName(cpuManufacturer, cpuModelName); 
-
-  const cpuDynamic = useSelector((state: RootState) => state.dynamicData.data?.cpu);
+  const cpuFullName = useQuery((['load cpu full name']), getCpuFullName);
+  const cpuDynamic = useDynamicDataStore((state) => state.data.cpu); 
   return (
-    <div className='border-line'> 
-      <div className='flex-conteiner-cpu'> 
-          <div className='cpu-conteiner'>
-            <span>CPU</span>
-            <span className='text'>{valueOrNA(cpuFullName)}</span>
-          </div> 
-
-          <div className='cpu-info'> 
-            <div className='cpu-info-element'>
-            <div className='flex justify-between'>
-              <span className='text'>Shares accepted:</span>
-              <span>{valueOrNA(cpuDynamic?.shares.accepted)}</span>
-          </div>
-
-          <div className='flex justify-between'>
-              <span className='text'>Shares rejected:</span>
-              <span>{valueOrNA(cpuDynamic?.shares.rejected)}</span>
-          </div> 
-          </div>
-
+    <div className='border-line'>
+      <div className='flex-conteiner-cpu'>
+        <div className='cpu-conteiner'>
+          <span>CPU</span>
+          <span className='text'>{valueOrNA(cpuFullName.data)}</span>
+        </div> 
+        <div className='cpu-info'>
           <div className='cpu-info-element'>
-              <div className='flex justify-between'>
-                <span className='text'>Hashrate:</span>
-                <span>{valueOrNA(cpuDynamic?.hashrateMg)} H/s</span>
-              </div> 
-
-              <div className='flex justify-between'>
-                <span className='text'>Power:</span>
-                <span>{valueOrNA(cpuDynamic?.powerUsage)} Watt</span>
-              </div> 
+            <CpuInfoItem label="Shares accepted:" value={valueOrNA(cpuDynamic.shares.accepted)} />
+            <CpuInfoItem label="Shares rejected:" value={valueOrNA(cpuDynamic.shares.rejected)} />
           </div>
-
           <div className='cpu-info-element'>
-              <div className='flex justify-between'>
-                <span className='text'>Clock Speed:</span>
-                <span>{valueOrNA(cpuDynamic?.clockSpeed)} Mhz</span>
-              </div>
-              
-              <div className='flex justify-between'>
-                <span className='text'>Temperature:</span>
-                <span>{valueOrNA(cpuDynamic?.temperatureCelcius)} °C</span>
-              </div> 
+            <CpuInfoItem label="Hashrate:" value={`${valueOrNA(cpuDynamic.hashrate.value)} ${cpuDynamic.hashrate.measurement ?? "H/s"}`} />
+            <CpuInfoItem label="Power:" value={`${valueOrNA(cpuDynamic.powerUsage)} Watt`} />
+          </div>
+          <div className='cpu-info-element'>
+            <CpuInfoItem label="Clock Speed:" value={`${valueOrNA(cpuDynamic.clockSpeed)} Mhz`} />
+            <CpuInfoItem label="Temperature:" value={`${valueOrNA(cpuDynamic.temperature)} °C`} />
           </div>
         </div>
-      </div> 
+      </div>
     </div>
-  )
+  );
 }

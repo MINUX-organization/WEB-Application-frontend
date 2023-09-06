@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 const lineHeight = 30;
 const px = 10;
-const py = 8;
+const py = 15;
 
 type FTextInputProps = Omit<HTMLProps<HTMLDivElement>, 'value' | 'onChange' | 'rows'> & {
   value?: string

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GpuDynamic } from 'shared/store/gpu/dynamic/types'
+import { GpuDynamic } from '@shared/stores/types/gpuDynamic'
 
 type Props = {
     item: GpuDynamic
@@ -11,9 +11,9 @@ interface gpuTicket {
     name: string | null
     accepted: number | null
     rejected: number | null
-    hashrateMg: number | null
-    temperatureCelcius: number | null
-    fanSpeedPercentage: number | null
+    hashrate: object
+    temperature: number | null
+    fanSpeed: number | null
     powerUsage: number | null
 }
 
@@ -26,9 +26,9 @@ export default function GpuItem({item, index}: Props) {
         name: item.fullName,
         accepted: item.shares.accepted,
         rejected: item.shares.rejected,
-        hashrateMg: item.hashrateMg,
-        temperatureCelcius: item.temperatureCelcius,
-        fanSpeedPercentage: item.fanSpeedPercentage,
+        hashrate: {value: item.hashrate.value, measurement: item.hashrate.measurement},
+        temperature: item.temperature,
+        fanSpeed: item.temperature,
         powerUsage: item.powerUsage
     }
 

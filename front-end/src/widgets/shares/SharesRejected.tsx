@@ -1,14 +1,12 @@
-import React from 'react'
-import { RootState } from 'app/store';
-import { useSelector } from 'react-redux';
+import { useDynamicDataStore } from '@shared/stores'
 import BoxWithBorder from 'shared/components/BoxWithBorder' 
 
 const name: string = 'Total Shares Rejected'
 
 export default function SharesRejected() { 
-  const totalRejected = useSelector((state: RootState) => state.dynamicData.data?.calculations.gpusRejected); 
+  const totalSharesRejected = useDynamicDataStore((state) => state.data.calculations.totalSharesRejected) 
 
   return ( 
-    <BoxWithBorder name={name} count={totalRejected} color1='red'/> 
+    <BoxWithBorder name={name} count={totalSharesRejected} color1='red'/> 
   )
 }

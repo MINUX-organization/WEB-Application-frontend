@@ -1,12 +1,11 @@
-import { RootState } from 'app/store';
-import { useSelector } from 'react-redux'; 
+import { useDynamicDataStore } from '@shared/stores'; 
 import BoxWithBorder from 'shared/components/BoxWithBorder'
 
 const name: string = 'Total Power Usage' 
 
 export default function TotalPower() {
-  const totalPower = useSelector((state: RootState) => state.dynamicData.data?.calculations.totalPower); 
-
+  const totalPower = useDynamicDataStore((state) => state.data.calculations.totalPower) 
+  
   return (
     <BoxWithBorder name={name} count={totalPower} value='Watt' color2='value'/> 
   )

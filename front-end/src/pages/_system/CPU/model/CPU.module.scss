@@ -10,7 +10,7 @@
 }
 
 .data {
-  width: 500px;
+  width: 600px;
 }
 
 .data-topic {
@@ -79,4 +79,13 @@
     display: block;
     width: 440px;
   }
+}
+
+.field-data {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 50px; 
+  padding-right: 2px;
+  padding-left: 2px;
 }

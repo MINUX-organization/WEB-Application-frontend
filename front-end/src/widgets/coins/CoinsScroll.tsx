@@ -1,11 +1,10 @@
-import { RootState } from '@app/store'; 
-import { useId } from 'react' 
-import { useSelector } from 'react-redux';
+import { useDynamicDataStore } from '@shared/stores';
+import { useId } from 'react'
 import NaImage from 'shared/components/NaImage'; 
 
 export default function CoinsScroll() { 
     const id = useId(); 
-    const coinsValue = useSelector((state: RootState) => state.dynamicData.data?.calculations.coinsValue); 
+    const coinsValue = useDynamicDataStore((state) => state.data.calculations.coinsValue); 
 
     const coinsArray = coinsValue?.map((item, index) => (
         <div className='grid grid-cols-3 text-center' key={index + id}>
@@ -24,7 +23,7 @@ export default function CoinsScroll() {
     return ( 
         <div className='border-line'>
             <div className='coin-scroll'>
-                {coinsArray ? coinsArray : naImage("90px")}
+                {coinsArray.length !== 0 ? coinsArray : naImage("90px")}
             </div>
         </div>
     )

@@ -17,7 +17,7 @@ $title-scale: 0.6;
 
 .wrapper {
   position: relative;
-  display: flex;
+  display: flex; 
   border: 1px solid values.$line-color;
   border-top-color: transparent;
   background: #ffffff0c;
@@ -128,7 +128,7 @@ $title-scale: 0.6;
 
 .input {
   position: absolute;
-  left: 0;
+  left: 0; 
   background: transparent !important;
   margin: 0;
   padding: $py $px;
