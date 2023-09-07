@@ -12,18 +12,18 @@ type CPUProps = HTMLProps<HTMLDivElement>
 export const CPU = (props: CPUProps) => {
   const { isFetching, data } = useQuery(['load cpu data'], getCpuData)
 
-  const fields: Array<{ label: string, value: string | number }> = [
-    { label: 'Manufacturer', value: valueOrNA(data?.information.manufacturer) },
-    { label: 'Model', value: valueOrNA(data?.information.modelName) },
-    { label: 'Architecture', value: valueOrNA(data?.information.architecture) },
-    { label: 'Operation', value: valueOrNA(data?.information.opModes) },
-    { label: 'CPUs', value: valueOrNA(data?.information.cores.cpus) },
-    { label: 'Threads per Core', value: valueOrNA(data?.information.cores.threadsPerCore) },
-    { label: 'Cores per Socket', value: valueOrNA(data?.information.cores.threadsPerSocket) },
-    { label: 'Max Clock', value: valueOrNA(data?.clocksMhz.max) },
-    { label: 'Min Clock', value: valueOrNA(data?.clocksMhz.min) },
-    { label: 'Cache L2', value: valueOrNA(data?.information.cacheL2 + ' MB') },
-    { label: 'Cache L3', value: valueOrNA(data?.information.cacheL3 + ' MB') }
+  const fields: Array<{ label: string, value: any }> = [
+    { label: 'Manufacturer', value: (data?.information.manufacturer) },
+    { label: 'Model', value: (data?.information.modelName) },
+    { label: 'Architecture', value: (data?.information.architecture) },
+    { label: 'Operation', value: (data?.information.opModes) },
+    { label: 'CPUs', value: (data?.information.cores.cpus) },
+    { label: 'Threads per Core', value: (data?.information.cores.threadsPerCore) },
+    { label: 'Cores per Socket', value: (data?.information.cores.threadsPerSocket) },
+    { label: 'Max Clock', value: (data?.clocksMhz.max) },
+    { label: 'Min Clock', value: (data?.clocksMhz.min) },
+    { label: 'Cache L2', value: (data?.information.cacheL2 + ' MB') },
+    { label: 'Cache L3', value: (data?.information.cacheL3 + ' MB') }
   ]
 
   if (isFetching) { 
@@ -40,7 +40,7 @@ export const CPU = (props: CPUProps) => {
           {fields.map(field => (
             <div key={field.label} className={styles['field-item']}>
               <label>{field.label}</label>
-              <div className={styles['field-data']}>{isFetching ? <Spin size="default"/> : field.value}</div>
+              <div className={styles['field-data']}>{isFetching ? <Spin size="default"/> : valueOrNA(field.value)}</div>
             </div>
           ))}
         </div>

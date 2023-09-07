@@ -16,7 +16,7 @@ export default function GpuItems() {
     } 
   return ( 
     <div className='flex justify-center mt-10'>
-       <NaImage width='300px' alt={true}/> 
+       <NaImage width='200px' alt={true}/> 
     </div>
   )
 }

@@ -1,9 +1,11 @@
 @use '@app/values.scss';
 
-.wrapper {
+.wrapper { 
   display: flex;
   flex-direction: column;
   gap: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   cursor: pointer;
 
   &:hover {
@@ -17,8 +19,7 @@
 
 }
 
-.icon {
-  border: 1px solid values.$line-color;
+.icon { 
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,0 +1,46 @@
+@use 'app/values.scss';
+
+.wrapper {
+    position: relative;
+    width: 220px; 
+    left: 80px;
+    top: -50%;
+    z-index: 40;
+    background-color: values.$bg-color;
+    border: 1px solid values.$line-color; 
+
+    &.right {
+        transform: scaleX(1);
+    }
+
+    &.left {
+        transform: scaleX(-1);
+    }
+
+    .field-data {
+
+        text-align: start;
+        font-size: 18px;
+
+        display: flex;
+        flex-direction: column; 
+
+        .data { 
+            padding-left: 10px; 
+            display: flex;
+            align-items: center;
+            height: 40px;
+            border-bottom: 1px solid values.$line-color;
+
+            cursor: pointer;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background: #ffffff27;
+            }
+        }
+    }
+}

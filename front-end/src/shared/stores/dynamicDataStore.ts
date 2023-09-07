@@ -1,59 +1,65 @@
-import { DynamicData } from './types'; 
-import { create } from 'zustand'; 
+import { DynamicData } from './types';
+import { create } from 'zustand';
+import { produce } from 'immer';
 
 type DynamicActions = {
-    updateDynamicData: (data: DynamicData) => void
-}
+  updateDynamicData: (data: Partial<DynamicData>) => void;
+};
 
 type DynamicDataStore = {
-    data: DynamicData
-}
+  data: DynamicData;
+};
 
-type DynamicStore = DynamicDataStore & DynamicActions
+type DynamicStore = DynamicDataStore & DynamicActions;
 
-export const useDynamicDataStore = create<DynamicStore>((set) => ({ 
-    data: {
-        state: {
-            mining: false,
-          },
-        gpus: [],
-        cpu: {
-          temperature: 0,
-          clockSpeed: 0,
-          fanSpeed: 0,
-          hashrate: {
-            value: 0,
-            measurement: '',
-          },
-          powerUsage: 0,
-          algorithm: '',
-          cryptocurrency: '',
-          miner: {
-            id: 0,
-            fullName: '',
-          },
-          minerUpTime: '',
-          shares: {
-            accepted: 0,
-            rejected: 0,
-          },
-        },
-        harddrive: {
-            uuid: '',
-            temperature: 0,
-            capacity: 0,
-            free: 0,
-        },
-        rams: [],
-        calculations: {
-          coinsValue: [],
-          totalSharesAccepted: 0,
-          totalSharesRejected: 0,
-          workingAlgorithms: 0,
-          workingMiners: 0,
-          totalPower: 0,
-          totalRam: 0,
-        },
+export const useDynamicDataStore = create<DynamicStore>((set) => ({
+  data: {
+    state: {
+      mining: false,
     },
-    updateDynamicData: <T>(item: T) => set((state) => ({data: {...state.data, ...item}}))
+    gpus: [],
+    cpu: {
+      temperature: 0,
+      clockSpeed: 0,
+      fanSpeed: 0,
+      hashrate: {
+        value: 0,
+        measurement: '',
+      },
+      powerUsage: 0,
+      algorithm: '',
+      cryptocurrency: '',
+      miner: {
+        id: 0,
+        fullName: '',
+      },
+      minerUpTime: '',
+      shares: {
+        accepted: 0,
+        rejected: 0,
+      },
+    },
+    harddrive: {
+      uuid: '',
+      temperature: 0,
+      capacity: 0,
+      free: 0,
+    },
+    rams: [],
+    calculations: {
+      coinsValue: [],
+      totalSharesAccepted: 0,
+      totalSharesRejected: 0,
+      workingAlgorithms: 0,
+      workingMiners: 0,
+      totalPower: 0,
+      totalRam: 0,
+    },
+  },
+  updateDynamicData: (data: Partial<DynamicData>) =>
+    set((state) =>
+      produce(state, (draft) => {
+        draft.data = { ...draft.data, ...data };
+      })
+    ),
 }));

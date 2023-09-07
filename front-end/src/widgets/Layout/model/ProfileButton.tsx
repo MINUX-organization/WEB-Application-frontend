@@ -2,10 +2,9 @@ import { FQuadContainer } from "@shared/ui"
 import { HTMLProps, useRef } from "react"
 import { NavLink, useLocation } from "react-router-dom"
 import { useAccessToken } from "@app/AuthProvider"
-import { useBoolean, useDebounce, useEventListener, useHover } from "usehooks-ts"
+import { useBoolean, useEventListener } from "usehooks-ts"
 import profile from '@shared/images/profile.png'
 import styles from './ProfileButton.module.scss'
-import _ from 'lodash'
 
 const links = [
   { url: '/user/profile', title: 'Profile' },

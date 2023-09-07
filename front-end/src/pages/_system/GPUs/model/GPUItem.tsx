@@ -18,19 +18,19 @@ export const GPUItem = (props: GPUItemProps) => {
   const above1500px = useMediaQuery('(min-width: 1600px)');
   const above1300px = useMediaQuery('(min-width: 1300px)');
 
-  const fields: Array<{ label: string, value: string | number }> = [
-    { label: 'uuid', value: valueOrNA(props.item.uuid) },
-    { label: 'Manufacturer', value: valueOrNA(props.item.information.manufacturer) },
-    { label: 'Periphery', value: valueOrNA(props.item.information.periphery) },
-    { label: 'Driver Ver.', value: valueOrNA(props.item.information.driverVersion) },
-    { label: 'CUDA Ver.', value: valueOrNA(props.item.information.cudaVersion)},
-    { label: 'Architecture', value: valueOrNA(props.item.information.architecture) },
-    { label: 'Serial Number', value: valueOrNA(props.item.information.serialNumber) },
-    { label: 'PCI bus', value: valueOrNA(props.item.information.pci.pciBusId) },
-    { label: 'Memory', value: valueOrNA(props.item.memory.total + " GB")  },
-    { label: 'Power', value: valueOrNA(props.item.power.minimal + " Watt")  },
-    { label: 'Core Clocks Mhz', value: valueOrNA(props.item.clocks.maximumCore + ' Mhz') },
-    { label: 'Memory Clocks Mhz', value: valueOrNA(props.item.clocks.maximumMemory + ' Mhz') }
+  const fields: Array<{ label: string, value: any }> = [
+    { label: 'uuid', value: (props.item.uuid) },
+    { label: 'Manufacturer', value: (props.item.information.manufacturer) },
+    { label: 'Periphery', value: (props.item.information.periphery) },
+    { label: 'Driver Ver.', value: (props.item.information.driverVersion) },
+    { label: 'CUDA Ver.', value: (props.item.information.cudaVersion)},
+    { label: 'Architecture', value: (props.item.information.architecture) },
+    { label: 'Serial Number', value: (props.item.information.serialNumber) },
+    { label: 'PCI bus', value: (props.item.information.pci.pciBusId) },
+    { label: 'Memory', value: (props.item.memory.total + " GB")  },
+    { label: 'Power', value: (props.item.power.minimal + " Watt")  },
+    { label: 'Core Clocks Mhz', value: (props.item.clocks.maximumCore + ' Mhz') },
+    { label: 'Memory Clocks Mhz', value: (props.item.clocks.maximumMemory + ' Mhz') }
   ]
   const lastField = { label: 'GPU uuid', value: 'GPU-87111c58-594e-494c-a574-6c9b130a6170' }
 
@@ -42,14 +42,14 @@ export const GPUItem = (props: GPUItemProps) => {
             {_.map(chunk, item => (
               <div key={item.label} className={styles['field']}>
                 <span className={styles['label']}>{item.label}</span>
-                <span className={styles['value']}>{item.value}</span>
+                <span className={styles['value']}>{valueOrNA(item.value)}</span>
               </div>
             ))}
           </div>
         ))}
         <div className={styles['last-field']}>
           <span className={styles['label']}>{lastField.label}</span>
-          <span className={styles['value']}>{' '}{lastField.value}</span>
+          <span className={styles['value']}>{' '}{valueOrNA(lastField.value)}</span>
         </div>
       </FContainer>
       {above1500px &&

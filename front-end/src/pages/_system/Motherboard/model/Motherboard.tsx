@@ -13,15 +13,14 @@ export const Motherboard = (props: MotherboardProps) => {
   const {isFetching, data} = useQuery(['load motherboard data'], getMotherboardData); 
 
   const fields: Array<{ label: string, value: any }> = [
-    { label: 'Manufacturer', value: valueOrNA(data?.information.manufacturer) },
-    { label: 'Product Name', value: valueOrNA(data?.information.productName) },
-    { label: 'Serial Number', value: valueOrNA(data?.information.serialNumber) },
-    { label: 'uuid', value: valueOrNA(data?.uuid) },
-    { label: 'SATA ports', value: valueOrNA(data?.sataSlots) },
-    { label: 'RAM Type', value: valueOrNA(data?.ramSlots.type) },
-    { label: 'Maximum RAM Speed', value: valueOrNA(data?.ramSlots.maxSpeed + " Mhz")  },
-    { label: 'Maximum RAM Capacity', value: valueOrNA(data?.ramSlots.maxCapacity + " GB")  },
-    { label: 'PCIe', value: valueOrNA(data?.pciSlots) },
+    { label: 'Manufacturer', value: (data?.information.manufacturer) },
+    { label: 'Product Name', value: (data?.information.productName) },
+    { label: 'Serial Number', value: (data?.information.serialNumber) },
+    { label: 'uuid', value: (data?.uuid) },
+    { label: 'SATA ports', value: (data?.sataSlots) },
+    { label: 'RAM Type', value: (data?.ramSlots.maxSpeed + " Mhz")  },
+    { label: 'Maximum RAM Capacity', value: (data?.ramSlots.maxCapacity + " GB")  },
+    { label: 'PCIe', value: (data?.pciSlots) },
   ]
 
   return (
@@ -33,7 +32,7 @@ export const Motherboard = (props: MotherboardProps) => {
             <div key={field.label} className={styles['field-item']}>
               <label>{field.label}</label>
               <div className={styles['field-data']}>{
-                (isFetching ? <Spin size="default" /> : field.value)
+                (isFetching ? <Spin size="default" /> : valueOrNA(field.value))
               }</div>
             </div>
           ))}

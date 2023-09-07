@@ -14,11 +14,11 @@ export const Storage = (props: StorageProps) => {
   const {isFetching, data} = useQuery(['load hardrive data'], getHarddriveData); 
 
   const fields: Array<{ label: string, value: any }> = [
-    { label: 'uuid', value: valueOrNA(data?.uuid) }, 
-    { label: 'Serial Number', value: valueOrNA(data?.information.serialNumber) },
-    { label: 'Device Model', value: valueOrNA(data?.information.deviceModel) },
-    { label: 'Capacity', value: valueOrNA(data?.information.capacity + " Gb")},
-    { label: 'SATA ports', value: valueOrNA(data?.information.sataPorts) },
+    { label: 'uuid', value: (data?.uuid) }, 
+    { label: 'Serial Number', value: (data?.information.serialNumber) },
+    { label: 'Device Model', value: (data?.information.deviceModel) },
+    { label: 'Capacity', value: (data?.information.capacity + " Gb")},
+    { label: 'SATA ports', value: (data?.information.sataPorts) },
   ] 
 
   return (
@@ -30,7 +30,7 @@ export const Storage = (props: StorageProps) => {
             <div key={field.label} className={styles['field-item']}>
               <label>{field.label}</label>
               <div className={styles['field-data']}>{
-                (isFetching ? <Spin size="default" /> : field.value)
+                (isFetching ? <Spin size="default" /> : valueOrNA(field.value))
               }</div>
             </div>
           ))}
