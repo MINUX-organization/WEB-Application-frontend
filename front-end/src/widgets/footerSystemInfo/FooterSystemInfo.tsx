@@ -18,8 +18,8 @@ export default function FooterSystemInfo() {
     return (
     <div className={styles['footer-system-info']}>
       <div className={styles['footer-grid']}> 
-        {_.map(fields, (item) => (
-            <InfoBlock key={id} labels={item.labels} values={item.values} isFetching={isFetching}/>
+        {_.map(fields, (item, index) => (
+            <InfoBlock key={id + index} labels={item.labels} values={item.values} isFetching={isFetching}/>
           ))}
       </div>
     </div>
