@@ -15,7 +15,7 @@ export const Hashrate = rt.Record({
 export type Hashrate = rt.Static<typeof Hashrate>
 
 export const Miner = rt.Record({
-    id: rt.Union(rt.Number, rt.Null),
+    uuid: rt.Union(rt.String, rt.Null),
     fullName: rt.Union(rt.String, rt.Null),
 }) 
 export type Miner = rt.Static<typeof Hashrate> 

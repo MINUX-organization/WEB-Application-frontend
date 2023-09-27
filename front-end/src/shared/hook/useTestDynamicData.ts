@@ -16,7 +16,7 @@ export const testDynamicData: DynamicData = {
         powerUsage: 1.5,
         algorithm: 'Random X',
         cryptocurrency: 'XMR',
-        miner: {id: 1, fullName: 'lolminer'}, 
+        miner: {uuid: "13124", fullName: 'lolminer'}, 
         minerUpTime: '2:33:22',
         shares: {
             accepted: 12,
@@ -35,7 +35,7 @@ export const testDynamicData: DynamicData = {
                 powerUsage: 170,
                 algorithm: 'Random X',
                 cryptocurrency: 'XMR',
-                miner: 'lolminer',
+                miner: {uuid: '312', fullName: 'lolminer'},
                 minerUpTime: '2:30:00',
                 shares: {
                     accepted: 100,
@@ -63,7 +63,7 @@ export const testDynamicData: DynamicData = {
                 powerUsage: 170,
                 algorithm: 'Random X',
                 cryptocurrency: 'XMR',
-                miner: 'lolminer',
+                miner: {uuid: '312', fullName: 'eeeee'},
                 minerUpTime: '2:30:00',
                 shares: {
                     accepted: 100,

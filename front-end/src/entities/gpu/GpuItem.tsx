@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { GpuDynamic } from '@shared/stores/types/gpuDynamic'
 
 type Props = {
@@ -7,43 +7,37 @@ type Props = {
 }
 
 interface gpuTicket {
-    index: number
+    index: number 
     name: string | null
     accepted: number | null
     rejected: number | null
-    hashrate: object
+    hashrate: string
     temperature: number | null
     fanSpeed: number | null
     powerUsage: number | null
 }
 
 export default function GpuItem({item, index}: Props) {
+    const id = useId();
 
     const [isClose, setIsClose] = useState(true); 
-
-    const gpuCard: gpuTicket = {
-        index: index,
-        name: item.fullName,
-        accepted: item.shares.accepted,
-        rejected: item.shares.rejected,
-        hashrate: {value: item.hashrate.value, measurement: item.hashrate.measurement},
-        temperature: item.temperature,
-        fanSpeed: item.temperature,
-        powerUsage: item.powerUsage
-    }
 
     const clickHandler = () => {
         setIsClose(!isClose);
     }
 
-    const values = Object.values(gpuCard)
   return ( 
     <>
         <div className='wrapper' onClick={clickHandler}> 
             <div className='grid-row-value'> 
-                {values.map((item, index) => (  
-                    <span key={item} className={'span-' + (index + 1)}>{item}</span> 
-                ))} 
+                <span className={'span-1'}>{index}</span> 
+                <span className={'span-2'}>{item.fullName}</span> 
+                <span className={'span-3'}>{item.shares.accepted}</span> 
+                <span className={'span-4'}>{item.shares.accepted}</span> 
+                <span className={'span-5'}>{`${item.hashrate.value} ${item.hashrate.measurement}`}</span> 
+                <span className={'span-6'}>{item.temperature + ' °C'}</span> 
+                <span className={'span-7'}>{item.fanSpeed + ' %'}</span> 
+                <span className={'span-8'}>{item.powerUsage}</span> 
             </div>
             <div className={`overflow ${isClose ? '' : 'active'}`} >
                 <div className='gpu-popup'>
@@ -55,7 +49,7 @@ export default function GpuItem({item, index}: Props) {
             
                         <div className='flex w-52 justify-between'>
                             <p className='opacity-[65%]'>Miner</p>
-                            <p>{item.miner}</p> 
+                            <p>{item.miner.fullName}</p> 
                         </div>
                     </div>
             

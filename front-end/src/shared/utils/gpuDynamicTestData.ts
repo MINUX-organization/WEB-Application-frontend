@@ -11,7 +11,10 @@ export const gpuDynamicTestData: GpuDynamic[] = [
         powerUsage: 170,
         algorithm: "Random X",
         cryptocurrency: "XMR",
-        miner: "lolminer",
+        miner: {
+            uuid: '123',
+            fullName: 'lolminer'
+        },
         minerUpTime: "2:00:00",
         shares: {
             accepted: 100,
@@ -36,7 +39,10 @@ export const gpuDynamicTestData: GpuDynamic[] = [
         powerUsage: 170,
         algorithm: "Random X",
         cryptocurrency: "XMR",
-        miner: "lolminer",
+        miner: {
+            uuid: '12312',
+            fullName: 'lolminer'
+        },
         minerUpTime: "2:00:00",
         shares: {
             accepted: 100,

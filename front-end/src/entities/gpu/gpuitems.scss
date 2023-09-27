@@ -18,6 +18,14 @@
         grid-column: span 2;
     }
 
+    .span-3 {
+        color: $text-color-green;
+    }
+
+    .span-4 {
+        color: $text-color-red;
+    }
+
 }
 
 .overflow { 

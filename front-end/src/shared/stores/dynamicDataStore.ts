@@ -30,7 +30,7 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
       algorithm: '',
       cryptocurrency: '',
       miner: {
-        id: 0,
+        uuid: '',
         fullName: '',
       },
       minerUpTime: '',
@@ -59,6 +59,7 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
   updateDynamicData: (data: Partial<DynamicData>) =>
     set((state) =>
       produce(state, (draft) => {
+        console.log(data)
         draft.data = { ...draft.data, ...data };
       })
     ),
