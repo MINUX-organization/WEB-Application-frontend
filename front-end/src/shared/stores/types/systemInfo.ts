@@ -3,7 +3,7 @@ import * as rt from 'runtypes'
 
 
 export const SystemInfo = rt.Record({
-    motherBoard: rt.String,
+    motherboard: rt.String,
     cpu: rt.String,
     hd: rt.String,
     system: rt.String,

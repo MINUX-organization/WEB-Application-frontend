@@ -10,7 +10,7 @@ export default function FooterSystemInfo() {
     const {isFetching, data } = useQuery(['load system info data'], getSystemInfo) 
 
     const fields = [
-        {labels: ["MB", "CPU", "Disk", "System"], values: [data?.cpu, data?.cpu, data?.hd, data?.system]},
+        {labels: ["MB", "CPU", "Disk", "System"], values: [data?.motherboard, data?.cpu, data?.hd, data?.system]},
         {labels: ["OpenCL", "CUDA", "Driver", "Minux Ver."], values: [data?.openCl, data?.cuda, data?.driver, data?.minuxVer]},
         {labels: ["Local IP", "Global IP", "MAC-adress"], values: [data?.localIp, data?.globalIp, data?.macAdress]}
     ] 
