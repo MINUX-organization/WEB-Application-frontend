@@ -12,7 +12,7 @@ export const StaticData = rt.Record({
     gpu: rt.Array(GpuStatic),
     cpu: CpuStatic, 
     ram: rt.Array(RamStatic),
-    _motherboard: MotherboardStatic,
+    motherboard: MotherboardStatic,
     hd: HdStatic,
     systemInfo: SystemInfo,
     calculations: CalculationsStatic

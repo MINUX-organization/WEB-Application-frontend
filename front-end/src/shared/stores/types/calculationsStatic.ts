@@ -4,7 +4,7 @@ import * as rt from 'runtypes'
 export const CalculationsStatic = rt.Record({
     gpusCount: rt.Number,
     gpusNvidia: rt.Number,
-    gpusRadeon: rt.Number
+    gpusAmd: rt.Number
 })
 
 export type CalculationsStatic = rt.Static<typeof CalculationsStatic>
