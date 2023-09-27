@@ -21,7 +21,7 @@ export const InfoBlock = ({ labels, values, isFetching }: Props) => {
         </div>
         <div className={styles['value-data']}>
           {values.map((value, idx) => (
-            <p key={idx + id}>{isFetching ? <Spin size="default"/> : valueOrNA(value)}</p>
+            <div key={idx + id}>{isFetching ? <Spin size="default"/> : valueOrNA(value)}</div>
           ))}
         </div>
       </div>

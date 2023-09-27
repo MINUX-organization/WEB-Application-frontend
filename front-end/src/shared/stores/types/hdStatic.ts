@@ -10,7 +10,9 @@ export const Information = rt.Record({
 export type Information = rt.Static<typeof Information>
 
 export const HdStatic = rt.Record({
-    uuid: rt.Union(rt.String, rt.Null),
-    information: Information
+    harddrives: rt.Array(rt.Record({
+        uuid: rt.Union(rt.String, rt.Null),
+        information: Information 
+    }))
 })
 export type HdStatic = rt.Static<typeof HdStatic>;

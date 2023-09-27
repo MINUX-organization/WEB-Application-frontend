@@ -13,12 +13,11 @@ type StorageProps = HTMLProps<HTMLDivElement>
 export const Storage = (props: StorageProps) => {
   const {isFetching, data} = useQuery(['load hardrive data'], getHarddriveData); 
 
-  const fields: Array<{ label: string, value: any }> = [
-    { label: 'uuid', value: (data?.uuid) }, 
-    { label: 'Serial Number', value: (data?.information.serialNumber) },
-    { label: 'Device Model', value: (data?.information.deviceModel) },
-    { label: 'Capacity', value: (data?.information.capacity + " Gb")},
-    { label: 'SATA ports', value: (data?.information.sataPorts) },
+  const fields: Array<{ label: string, value: any }> = [ 
+    { label: 'Serial Number', value: (data?.harddrives[0].information.serialNumber) },
+    { label: 'Device Model', value: (data?.harddrives[0].information.deviceModel) },
+    { label: 'Capacity', value: (data?.harddrives[0].information.capacity + " Gb")},
+    { label: 'SATA ports', value: (data?.harddrives[0].information.sataPorts) },
   ] 
 
   return (
