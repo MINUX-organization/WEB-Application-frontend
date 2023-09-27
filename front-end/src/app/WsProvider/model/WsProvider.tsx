@@ -9,11 +9,11 @@ const WsProvider = ({ children } : { children: React.ReactNode }) => {
             webSocketClient.onMessage((message) => {
               console.log('WebSocket message received:', message);
             });
+            webSocketClient.sendMessage('Front') 
           } catch (error) {
             console.error('WebSocket connection failed:', error);
           }
         };
-    
         connectWebSocket();
     
         return () => {

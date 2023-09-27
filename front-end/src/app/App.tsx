@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { IconContext } from "react-icons";
 import './index.scss'; 
 import { ToastContainer } from 'react-toastify';
+import WsProvider from './WsProvider/model/WsProvider';
 
 const color = {
   primary: '#3C9EA5'
@@ -39,7 +40,9 @@ export function App() {
         <QueryClientProvider client={queryClient}>
           <AuthProvider> 
               <ConfigProvider theme={ftheme}>
-                <FRoutes /> 
+                <WsProvider>
+                  <FRoutes /> 
+                </WsProvider>
                 <ToastContainer />
               </ConfigProvider> 
           </AuthProvider>
