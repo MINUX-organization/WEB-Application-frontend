@@ -47,11 +47,13 @@ export const Clocks = rt.Record({
 export type Clocks = rt.Static<typeof Clocks>
 
 export const GpuStatic = rt.Record({
-    uuid: rt.Union(rt.String, rt.Null),
-    information: Informations,
-    temperatureCelsius: TemperatureCelsius,
-    memory: Memory,
-    power: Power,
-    clocks: Clocks
+    gpus: rt.Array(rt.Record({
+        uuid: rt.Union(rt.String, rt.Null),
+        information: Informations,
+        temperatureCelsius: TemperatureCelsius,
+        memory: Memory,
+        power: Power,
+        clocks: Clocks 
+    }))
 })
 export type GpuStatic = rt.Static<typeof GpuStatic>

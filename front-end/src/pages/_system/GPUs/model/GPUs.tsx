@@ -10,20 +10,18 @@ type GPUsProps = HTMLProps<HTMLDivElement>
 
 export const GPUs = (props: GPUsProps) => {
   const { isFetching, data } = useQuery(['load gpus data'], getGpusData) 
-  
   return (
     <div {...props} className={(props.className ?? '') + ' ' + styles['wrapper']}>
       <FTopic text="GPUs" className={styles['topic']} /> 
 
       {(isFetching) ? 
       <div className="w-full h-full flex justify-center"><Spin size="large" /></div> : 
-      <div className="w-full text-center opacity-20">No GPUs...</div>}
 
       <div className={styles['gpu-list']}>
-        {data && data.map(gpu => (
+        {data && data.gpus.map(gpu => (
           <GPUItem key={gpu.uuid} item={gpu} />
-        ))}
-      </div>
+          ))}
+      </div>}
     </div>
   )
 }

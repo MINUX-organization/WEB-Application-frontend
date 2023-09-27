@@ -12,18 +12,23 @@ export const Information = rt.Record({
         threadsPerSocket: rt.Union(rt.Number, rt.Null), 
         sockets: rt.Union(rt.Number, rt.Null) 
     }),
-    cacheL2: rt.Number,
-    cacheL3: rt.Number
+    cache: rt.Record({
+        L1: rt.Number,
+        L2: rt.Number,
+        L3: rt.Number
+    })
 })
 
-export const ClocksMhz = rt.Record({
-    min: rt.Union(rt.Number, rt.Null),
-    max: rt.Union(rt.Number, rt.Null),
+export const Clocks = rt.Record({
+    minimum: rt.Union(rt.Number, rt.Null),
+    maximum: rt.Union(rt.Number, rt.Null),
 })
-export type ClocksMhz = rt.Static<typeof ClocksMhz>
+export type ClocksMhz = rt.Static<typeof Clocks>
 
 export const CpuStatic = rt.Record({
-    information: Information,
-    clocksMhz: ClocksMhz
+    cpu: rt.Record({
+        information: Information,
+        clocks: Clocks 
+    })
 })
 export type CpuStatic = rt.Static<typeof CpuStatic>

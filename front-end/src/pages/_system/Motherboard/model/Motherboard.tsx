@@ -13,14 +13,13 @@ export const Motherboard = (props: MotherboardProps) => {
   const {isFetching, data} = useQuery(['load motherboard data'], getMotherboardData); 
 
   const fields: Array<{ label: string, value: any }> = [
-    { label: 'Manufacturer', value: (data?.information.manufacturer) },
-    { label: 'Product Name', value: (data?.information.productName) },
-    { label: 'Serial Number', value: (data?.information.serialNumber) },
-    { label: 'uuid', value: (data?.uuid) },
-    { label: 'SATA ports', value: (data?.sataSlots) },
-    { label: 'RAM Type', value: (data?.ramSlots.maxSpeed + " Mhz")  },
-    { label: 'Maximum RAM Capacity', value: (data?.ramSlots.maxCapacity + " GB")  },
-    { label: 'PCIe', value: (data?.pciSlots) },
+    { label: 'Manufacturer', value: (data?.motherboard.information.manufacturer) },
+    { label: 'Product Name', value: (data?.motherboard.information.productName) },
+    { label: 'Serial Number', value: (data?.motherboard.information.serialNumber) }, 
+    { label: 'SATA ports', value: (data?.motherboard.slots.sata) },
+    { label: 'RAM Type', value: (data?.motherboard.slots.ram.type)  },
+    { label: 'Maximum RAM Capacity', value: (data?.motherboard.slots.ram.maximumCapacity + " GB")  },
+    { label: 'PCIe', value: (data?.motherboard.slots.pci) },
   ]
 
   return (

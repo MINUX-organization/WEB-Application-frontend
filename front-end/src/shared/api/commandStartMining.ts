@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios"; 
 import { showNotificationError, showNotificationSuccess } from "./lib"; 
 
-export const commandSystemReboot = async () => { 
-    await axios.post("http://localhost:8200/api/commands/reboot", 0)
-    .then(() => showNotificationSuccess('The system is rebooting...'))
+export const commandStartMining = async () => { 
+    await axios.post("http://localhost:8200/api/commands/start-mining")
+    .then(() => showNotificationSuccess('The mining starting...'))
     .catch((error: AxiosError) => {
         showNotificationError(error ?? "No connection to server")
     }) 

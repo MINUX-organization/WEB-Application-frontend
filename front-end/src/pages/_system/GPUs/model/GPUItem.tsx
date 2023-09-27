@@ -5,11 +5,10 @@ import { valueOrNA } from "@shared/utils"
 import gpuOneVentImage from '@shared/images/gpu-one-vent-image.png'
 import gpuTwoVentImage from '@shared/images/gpu-two-vent-image.png'
 import styles from './GPUItem.module.scss'
-import _ from 'lodash'
-import { GpuStatic } from "@shared/stores/types/gpuStatic"
+import _ from 'lodash' 
 
 type GPUItemProps = HTMLProps<HTMLDivElement> & {
-  item: GpuStatic,
+  item: any,
   narrow?: boolean,
   imageType?: 'one-vent' | 'two-vent'
 }
@@ -18,8 +17,7 @@ export const GPUItem = (props: GPUItemProps) => {
   const above1500px = useMediaQuery('(min-width: 1600px)');
   const above1300px = useMediaQuery('(min-width: 1300px)');
 
-  const fields: Array<{ label: string, value: any }> = [
-    { label: 'uuid', value: (props.item.uuid) },
+  const fields: Array<{ label: string, value: any }> = [ 
     { label: 'Manufacturer', value: (props.item.information.manufacturer) },
     { label: 'Periphery', value: (props.item.information.periphery) },
     { label: 'Driver Ver.', value: (props.item.information.driverVersion) },
@@ -32,7 +30,7 @@ export const GPUItem = (props: GPUItemProps) => {
     { label: 'Core Clocks Mhz', value: (props.item.clocks.maximumCore + ' Mhz') },
     { label: 'Memory Clocks Mhz', value: (props.item.clocks.maximumMemory + ' Mhz') }
   ]
-  const lastField = { label: 'GPU uuid', value: 'GPU-87111c58-594e-494c-a574-6c9b130a6170' }
+  const lastField = { label: 'GPU uuid', value: props.item.uuid }
 
   return (
     <div {..._.omit(props, 'item', 'narrow', 'imageType')} className={(props.className ?? '') + ' ' + styles['wrapper']}>

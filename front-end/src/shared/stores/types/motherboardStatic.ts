@@ -8,19 +8,21 @@ export const Information = rt.Record({
 })
 export type Information = rt.Static<typeof Information>
 
-export const RamSlots = rt.Record({
-    type: rt.Union(rt.String, rt.Null),
-    count: rt.Union(rt.Number, rt.Null),
-    maxSpeed: rt.Union(rt.Number, rt.Null),
-    maxCapacity: rt.Union(rt.Number, rt.Null), 
+export const Slots = rt.Record({
+    sata: rt.Union(rt.String, rt.Null),
+    pci: rt.Union(rt.Number, rt.Null),
+    ram: rt.Record({
+        type: rt.Union(rt.String, rt.Null),
+        maximumSpeed: rt.Union(rt.Number, rt.Null),
+        maximumCapacity: rt.Union(rt.Number, rt.Null), 
+    })
 })
-export type RamSlots = rt.Static<typeof RamSlots>
+export type RamSlots = rt.Static<typeof Slots>
 
 export const MotherboardStatic = rt.Record({
-    uuid: rt.Union(rt.String, rt.Null),
-    information: Information,
-    ramSlots: RamSlots, 
-    sataSlots: rt.Union(rt.Number, rt.Null),
-    pciSlots: rt.Union(rt.Number, rt.Null), 
+    motherboard: rt.Record({
+        information: Information,
+        slots: Slots, 
+    }) 
 })
 export type MotherboardStatic = rt.Static<typeof MotherboardStatic>;

@@ -7,6 +7,6 @@ import { valueOrZero } from '@shared/utils'
 export default function TotalGpus() { 
   const { data } = useQuery(['load calculations data'], getCalculationsData)
   return (
-    <BoxComponent name='GPUs' count={valueOrZero(data?.gpusCount)} color='#D9D9D9'/>
+    <BoxComponent name='GPUs' count={valueOrZero(data?.calculations.gpusCount)} color='#D9D9D9'/>
   )
 }
