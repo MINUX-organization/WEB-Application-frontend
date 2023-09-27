@@ -109,6 +109,6 @@ export const testDynamicData: DynamicData = {
         workingMiners: 2,
         workingAlgorithms: 2,
         totalPower: 123,
-        totalRam: 8000
+        totalRam: 8200
     }
 }
