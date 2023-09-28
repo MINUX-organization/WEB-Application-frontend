@@ -1,25 +1,23 @@
 .wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     gap: 20px;
-
-    @mixin flex-col {
+    align-items: center;
+    
+    .item {
         display: flex;
-        flex-direction: column; 
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    
+        .label-data {
+            text-align: right;
+            opacity: 65%;
+        }
+    
+        .value-data {
+            min-width: 50px;
+            text-align: left;
+        }
     }
-    .label-data {
-        @include flex-col();
-        text-align: right;
-        opacity: 65%; 
     }
-
-    .value-data {
-        @include flex-col();
-
-        min-width: 50px;
-
-        display: flex;
-        flex-direction: column;
-        text-align: left; 
-    }
-}

@@ -9,6 +9,8 @@ import { FDropAside } from '@widgets/Layout/model/FDropAside'
 import { commandPowerOff } from '@shared/api/commandPowerOff'
 import { commandSystemReboot } from '@shared/api/commandSystemReboot'
 import { commandSystemRebootWithDelay } from '@shared/api/commandSystemRebootWithDelay'
+import { commandStartMining } from '@shared/api/commandStartMining'
+import { commandStopMining } from '@shared/api/commandStopMining'
 
 export const Aside = () => {
   const asideRef = useRef<HTMLDivElement>(null)
@@ -53,11 +55,11 @@ export const Aside = () => {
     <div className={styles['wrapper']}> 
       <div onClick={toggleMiningState}>
         {isMining ? 
-        <AsideItem text="Stop Mining">
+        <AsideItem text="Stop Mining" onClick={commandStopMining}>
           <img src={picMine} alt="Stop mining" />
         </AsideItem> :
         <AsideItem text="Start Mining">
-          <img src={picMine} alt="Start mining" />
+          <img src={picMine} alt="Start mining" onClick={commandStartMining}/>
         </AsideItem>
         } 
       </div>
