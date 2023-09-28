@@ -12,7 +12,7 @@ export default function FooterSystemInfo() {
     const fields = [
         {labels: ["MB", "CPU", "Disk", "Linux"], 
         values: [data?.systemInfo.motherboard, data?.systemInfo.cpu, data?.systemInfo.harddrive, data?.systemInfo.linux]},
-        {labels: ["OpenCL", "CUDA", "Driver AMD", "Driver Nvidia"], 
+        {labels: ["OpenCL", "CUDA", "Driver Nvidia", "Driver AMD"], 
         values: [data?.systemInfo.technologies.versions.opencl, data?.systemInfo.technologies.versions.cuda, data?.systemInfo.drivers.versions.nvidia, data?.systemInfo.drivers.versions.amd]},
         {labels: ["Local IP", "MAC-adress", "Minux Version"], 
         values: [data?.systemInfo.localIp, data?.systemInfo.macAddress, data?.systemInfo.minuxVersion]}
