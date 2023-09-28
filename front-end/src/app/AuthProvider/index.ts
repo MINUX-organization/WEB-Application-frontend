@@ -1,1 +1,8 @@
-export { AuthProvider, useAuthContext, useAccessToken, getAccessToken } from './model'
+export {
+  AuthProvider,
+  useAuthContext,
+  getSessionId,
+  setSessionId
+} from './model'
+
+export { useSessionId } from './hooks'

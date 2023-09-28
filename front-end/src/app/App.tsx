@@ -1,12 +1,17 @@
- import { BrowserRouter } from 'react-router-dom'
-import { ConfigProvider, theme, ThemeConfig } from 'antd';
+import { store } from '@app/store';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom'
+import { ConfigProvider as AntDConfigProvider, theme, ThemeConfig } from 'antd';
 import { FRoutes } from './FRoutes';
 import { AuthProvider } from './AuthProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { IconContext } from "react-icons";
-import './index.scss'; 
 import { ToastContainer } from 'react-toastify';
 import WsProvider from './WsProvider/model/WsProvider';
+import { CookiesProvider } from 'react-cookie';
+import { SnackbarKey, SnackbarProvider, useSnackbar } from 'notistack'
+import { AiOutlineClose } from 'react-icons/ai';
+import './index.scss';
 
 const color = {
   primary: '#3C9EA5'
@@ -33,21 +38,31 @@ const queryClient = new QueryClient({
   }
 })
 
+const CloseSnackbarButton = (props: { snackbarKey: SnackbarKey }) => {
+  const snackbar = useSnackbar()
+  return (
+    <AiOutlineClose className="icon-clickable" onClick={() => snackbar.closeSnackbar(props.snackbarKey)} />
+  )
+}
+
 export function App() {
   return (
     <BrowserRouter>
-      <IconContext.Provider value={{ className: 'react-icon' }}>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider> 
-              <ConfigProvider theme={ftheme}>
-                <WsProvider>
-                  <FRoutes /> 
-                </WsProvider>
-                <ToastContainer />
-              </ConfigProvider> 
-          </AuthProvider>
-        </QueryClientProvider>
-      </IconContext.Provider>
+      <CookiesProvider>
+        <IconContext.Provider value={{ className: 'react-icon' }}>
+          <SnackbarProvider action={snackbarKey => <CloseSnackbarButton snackbarKey={snackbarKey} /> }>
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <Provider store={store}>
+                  <AntDConfigProvider theme={ftheme}>
+                    <FRoutes /> 
+                  </AntDConfigProvider>
+                </Provider>
+              </AuthProvider>
+            </QueryClientProvider>
+          </SnackbarProvider>
+        </IconContext.Provider>
+      </CookiesProvider>
     </BrowserRouter>
   );
 }

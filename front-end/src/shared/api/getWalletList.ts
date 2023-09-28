@@ -36,7 +36,7 @@ export const getWalletList = async (request: TRequest): Promise<TResponse> => {
           cryptocurrency: { id: 2, name: 'OXZ', fullName: 'Oxford Crypto', algorithmId: 0},
           name: 'SImple name',
           source: 'Bybit MIble bimble kimple',
-          address: '0x32424k32425324325324243242678987654678xc'
+          address: '0x32424k3242532432532424324267334678'
         }
       ] })
     }, 1000)

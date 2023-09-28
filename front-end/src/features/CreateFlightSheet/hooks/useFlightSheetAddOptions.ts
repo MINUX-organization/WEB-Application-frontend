@@ -1,13 +1,11 @@
 import { useQuery } from "react-query"
 import { TCryptocurrency, TMiner, TPool, TWallet } from "@shared/types"
-import { getFlightSheetAddOptions } from "../api"
+import { getCreateFlightSheetOptions } from "../api"
 import { useCallback } from "react"
 
 
 export const useFlightSheetAddOptions = () => {
-  const queryFn = async () => {
-    return await getFlightSheetAddOptions({})
-  }
+  const queryFn = () => getCreateFlightSheetOptions({})
   const flightSheetAddOptionsQuery = useQuery(['load flight sheet add options'], queryFn)
 
   const calculateOptions = useCallback((arg: { cryptocurrency: TCryptocurrency | null, wallet: TWallet | null, pool: TPool | null, miner: TMiner | null }): { minerOptions: TMiner[], cryptocurrencyOptions: TCryptocurrency[], walletOptions: TWallet[], poolOptions: TPool[] } => {

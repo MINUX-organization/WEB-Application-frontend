@@ -15,11 +15,11 @@ type TResponse = {
 /**
  * this method will return tables of cryptocurrencies, algorithms, miners and algorithm_miner
  */
-export const getFlightSheetAddOptions = async (request: TRequest): Promise<TResponse> => {
+export const getCreateFlightSheetOptions = async (request: TRequest): Promise<TResponse> => {
   // this is only for test, must be replaced with actual request function
   return await new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ 
+      resolve({
         cryptocurrencies: [
           { id: 0, name: 'Shit Coin', fullName: 'Shit Coint Russia', algorithmId: 0 },
           { id: 1, name: 'Gold Coin', fullName: 'Gold Coin Simple', algorithmId: 1 },

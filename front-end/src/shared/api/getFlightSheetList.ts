@@ -1,4 +1,4 @@
-import { getAccessToken } from "@app/AuthProvider"
+import { getSessionId } from "@app/AuthProvider"
 import { TFlightSheetFilled } from "@shared/types"
 
 type TRequest = {}
@@ -10,7 +10,7 @@ type TResponse = {
 export const getFlightSheetList = async (request: TRequest): Promise<TResponse> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (getAccessToken() === 'dummyAccessToken') {
+      if (getSessionId() === 'dummySessionId') {
         resolve({
           list: [
             {

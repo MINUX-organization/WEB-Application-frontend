@@ -3,12 +3,14 @@ import { FButton, FTextInput } from "@shared/ui"
 import { HTMLProps } from "react"
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { useBoolean } from "usehooks-ts"
-import { authenticate } from "../api"
-import { useAccessToken } from "@app/AuthProvider"
+import { login } from "../api"
+import { useSessionId } from "@app/AuthProvider"
+import { useSnackbar } from "notistack"
 import styles from './AuthForm.module.scss'
 
 export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
-  const accessToken = useAccessToken();
+  const sessionId = useSessionId();
+  const snackbar = useSnackbar();
   const state = {
     isAuthenticating: useBoolean(false),
     username: useStateObj(''),
@@ -16,25 +18,24 @@ export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
     showPassword: useBoolean(false)
   }
   const action = {
-    authenticate: (e: React.FormEvent<HTMLFormElement>) => {
+    login: (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (state.username.value === '') {
-        alert('fill username field')
+        alert('username must be entered')
         return
       }
       if (state.password.value === '') {
-        alert('fill password field')
+        alert('password must be entered')
         return
       }
       state.isAuthenticating.setTrue()
-      authenticate({ username: state.username.value, password: state.password.value }).then(res => {
-        if (res.accessToken === null) {
-          alert('wrong credentials')
-        }
-        accessToken.setValue(res.accessToken)
+      login({ name: state.username.value, password: state.password.value }).then(res => {
+        sessionId.setValue(res.data.sessionId)
       }).catch(e => {
-        alert(e.message)
-        accessToken.setValue(null)
+        if (e.statusCode === '401') {
+          sessionId.setValue(null);
+        }
+        snackbar.enqueueSnackbar({ message: e.error, variant: "error" })
       }).finally(() => {
         state.isAuthenticating.setFalse()
       })
@@ -42,7 +43,7 @@ export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
   }
 
   return (
-    <form {...props} className={(props.className ?? '') + ' ' + styles['wrapper']} onSubmit={e => action.authenticate(e)}>
+    <form {...props} className={(props.className ?? '') + ' ' + styles['wrapper']} onSubmit={action.login}>
       <div>
         <label>Login</label>
         <FTextInput value={state.username.value} onChange={state.username.setValue} inputProps={{ required: true }} />

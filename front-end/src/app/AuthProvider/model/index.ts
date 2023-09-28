@@ -1,1 +1,6 @@
-export { AuthProvider, useAuthContext, useAccessToken, getAccessToken } from './AuthProvider'
+export {
+  AuthProvider,
+  useAuthContext,
+  getSessionId,
+  setSessionId
+} from './AuthProvider'

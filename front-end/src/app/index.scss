@@ -65,6 +65,13 @@ html *::-webkit-scrollbar-thumb {
 .react-icon {
   font-size: 28px;
   padding: 0;
+
+  &.icon-clickable {
+    cursor: pointer;
+    &:hover {
+      background: #ffffff1f;
+    }
+  }
 }
 
 input:-webkit-autofill,

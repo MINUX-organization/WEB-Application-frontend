@@ -3,7 +3,6 @@ import { persist } from 'zustand/middleware'
 
 type State = {
   counter: number
-  accessToken: null | string
 }
 
 /**
@@ -11,7 +10,6 @@ type State = {
  */
 export const useJunkStoreSaved = create<State>()(persist<State>(() => ({
     counter: 0,
-    accessToken: null
   }),
   {
     name: 'junk-store-saved',

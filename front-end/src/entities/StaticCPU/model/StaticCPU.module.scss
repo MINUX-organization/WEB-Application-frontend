@@ -10,7 +10,7 @@
 }
 
 .data {
-  width: 600px;
+  width: 500px;
 }
 
 .data-topic {
@@ -50,7 +50,7 @@
 
 .cpu-image-wrapper {
   position: relative;
-  width: 500x;
+  width: 300px;
   display: none;
 }
 
@@ -74,36 +74,9 @@
   font-size: 30px;
 }
 
-.image {
-  width: 500px;
-  height: 500px;
-  display: block;
-  --main-color: white;
-
-  &.cpu-intel {
-    --main-color: rgb(20, 166, 192);
-  }
-
-  &.cpu-amd {
-    --main-color: #FC4E4E;
-  }
-
-  &.cpu-unknown {
-    --main-color: #999999;
-  }
-}
-
 @media screen and (min-width: 1260px) {
   .cpu-image-wrapper {
     display: block;
+    width: 440px;
   }
-}
-
-.field-data {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 50px; 
-  padding-right: 2px;
-  padding-left: 2px;
 }

@@ -1,19 +1,25 @@
 import { HTMLProps } from "react" 
 import { FContainer } from "@shared/ui"
-import { useMediaQuery } from 'usehooks-ts' 
+import { useMediaQuery } from 'usehooks-ts'
 import { valueOrNA } from "@shared/utils"
+import { TStaticGPU } from "@shared/types"
 import gpuOneVentImage from '@shared/images/gpu-one-vent-image.png'
 import gpuTwoVentImage from '@shared/images/gpu-two-vent-image.png'
-import styles from './GPUItem.module.scss'
-import _ from 'lodash' 
+import styles from './StaticGPU.module.scss'
+import _ from 'lodash'
+import { GpuStatic } from "@shared/stores/types/gpuStatic"
 
-type GPUItemProps = HTMLProps<HTMLDivElement> & {
-  item: any,
-  narrow?: boolean,
+const omittedProps = [
+  'item',
+  'imageType'
+] as const
+
+type StaticGPUProps = Omit<HTMLProps<HTMLDivElement>, typeof omittedProps[number]> & {
+  item: TStaticGPU,
   imageType?: 'one-vent' | 'two-vent'
 }
 
-export const GPUItem = (props: GPUItemProps) => {
+export const StaticGPU = (props: StaticGPUProps) => {
   const above1500px = useMediaQuery('(min-width: 1600px)');
   const above1300px = useMediaQuery('(min-width: 1300px)');
 
@@ -24,17 +30,21 @@ export const GPUItem = (props: GPUItemProps) => {
     { label: 'CUDA Ver.', value: (props.item.information.cudaVersion)},
     { label: 'Architecture', value: (props.item.information.architecture) },
     { label: 'Serial Number', value: (props.item.information.serialNumber) },
-    { label: 'PCI bus', value: (props.item.information.pci.pciBusId) },
-    { label: 'Memory', value: (props.item.memory.total + " GB")  },
-    { label: 'Power', value: (props.item.power.minimal + " Watt")  },
-    { label: 'Core Clocks Mhz', value: (props.item.clocks.maximumCore + ' Mhz') },
-    { label: 'Memory Clocks Mhz', value: (props.item.clocks.maximumMemory + ' Mhz') }
+    { label: 'PCI bus', value: (props.item.information.pci.busId) },
+    { label: 'Memory', value: (props.item.memoryMb.total + " GB")  },
+    { label: 'Power', value: (props.item.powerWatt.minimal + " Watt")  },
+    { label: 'Core Clocks Mhz', value: (props.item.clocksMhz.coreMax + ' Mhz') },
+    { label: 'Memory Clocks Mhz', value: (props.item.clocksMhz.memMax + ' Mhz') }
   ]
   const lastField = { label: 'GPU uuid', value: props.item.uuid }
 
   return (
-    <div {..._.omit(props, 'item', 'narrow', 'imageType')} className={(props.className ?? '') + ' ' + styles['wrapper']}>
-      <FContainer visibility={{ r: !above1500px, rc: false, tc: false, bc: false, lc: false }} className={styles['fields-grid-wrapper']} bodyProps={{ className: styles['fields-grid']}}>
+    <div {..._.omit(props, omittedProps)} className={(props.className ?? '') + ' ' + styles['wrapper']}>
+      <FContainer
+        bodyProps={{ className: styles['fields-grid']}}
+        visibility={{ r: !above1500px, rc: false, tc: false, bc: false, lc: false }}
+        className={styles['fields-grid-wrapper']}
+      >
         {_.map(_.chunk(fields, above1300px ? 5 : 6), (chunk, index) => (
           <div key={'chunk-' + index} className={styles['fields-chunk']}>
             {_.map(chunk, item => (

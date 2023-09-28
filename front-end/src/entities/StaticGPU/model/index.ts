@@ -1,0 +1,1 @@
+export { StaticGPU } from './StaticGPU'

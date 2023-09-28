@@ -10,7 +10,8 @@ import styles from './WalletList.module.scss'
 import _ from 'lodash'
 
 const omittedProps = [
-  'item'
+  'item',
+  'onUpdate'
 ] as const
 
 type WalletListItemProps = Omit<HTMLProps<HTMLTableRowElement>, typeof omittedProps[number]> & {

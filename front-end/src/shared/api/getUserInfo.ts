@@ -1,16 +1,30 @@
-import { getAccessToken } from "@app/AuthProvider"
+import * as rt from 'runtypes'
+import { _makeApiFunc } from "./_makeApiFunc"
+import { getSessionId } from '@app/AuthProvider'
 
 type TRequest = {}
 
-type TResponse = { username: string }
+const TResponseRuntype = rt.Record({
+  username: rt.String
+})
 
-export const getUserInfo = async (request: TRequest): Promise<TResponse> => {
-  return new Promise((resolve, reject) => {
+export const getUserInfo = async (arg: TRequest): Promise<{data: rt.Static<typeof TResponseRuntype>}> => {
+  return await new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (getAccessToken() === 'dummyAccessToken') {
-        resolve({ username: 'admin' })
+      if (getSessionId() === 'dummySessionId') {
+        resolve({
+          data: {
+            username: 'minux'
+          }
+        })
+      } else {
+        reject({
+          statusCode: '401',
+          error: 'unauthorized access'
+        })
       }
-      reject("get user info error")
-    }, 200)
+    }, 1000)
   })
 }
+
+// export const getUserInfo = _makeApiFunc<TRequest, typeof TResponseRuntype>('GET', 'user/get-user-info', TResponseRuntype)

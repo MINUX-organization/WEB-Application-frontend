@@ -1,7 +1,8 @@
-import { useJunkStoreSavedStateObj } from "@shared/lib"
 import { PropsWithChildren, createContext, useContext, useMemo } from "react"
-import { useGetUserInfoQuery } from "../hooks"
-import { useJunkStoreSaved } from "@shared/stores"
+import { useQuery } from "react-query"
+import { getUserInfo } from "../api"
+import { useSessionId } from "../hooks"
+import { enqueueSnackbar } from "notistack"
 
 type TContext = {
   isAuthenticated: boolean | undefined,
@@ -12,17 +13,34 @@ type TContext = {
 
 const context = createContext<TContext>(null as any)
 export const useAuthContext = () => useContext(context)
-export const useAccessToken = () => useJunkStoreSavedStateObj('accessToken')
-export const getAccessToken = () => useJunkStoreSaved.getState().accessToken
+export const getSessionId = () => {
+  const sessionId = window.localStorage.getItem('sessionId');
+  if (sessionId === null || sessionId === '') return null
+  return sessionId.replace(/"(.*)"/, '$1')
+}
+export const setSessionId = (sessionId: string | null) => window.localStorage.setItem('sessionId', sessionId ?? '')
 
 export const AuthProvider = (props: PropsWithChildren) => {
-  const userInfoQuery = useGetUserInfoQuery()
+  const sessionId = useSessionId()
+
+  const userInfoQuery = useQuery(
+    ['get info query', sessionId.value, sessionId.count],
+    async () => {
+      if (sessionId.value === null) throw { error: null }
+      return (await getUserInfo({})).data
+    },
+    { onError: (e: any) => {
+      if (e.error !== null) {
+        enqueueSnackbar({ message: e.error, variant: 'error' })
+      }
+    }}
+  )
   const username = useMemo(() => userInfoQuery.data?.username ?? '', [userInfoQuery.data])
   const isAuthenticated = useMemo(() => {
     if (userInfoQuery.isFetching) return undefined;
-    if (userInfoQuery.error !== null) return false
+    if (userInfoQuery.isError) return false
     return true
-  }, [userInfoQuery.error, userInfoQuery.isFetching])
+  }, [userInfoQuery.isError, userInfoQuery.isFetching])
 
   return (
     <context.Provider value={{ isAuthenticated, credentials: { username: username }}}>

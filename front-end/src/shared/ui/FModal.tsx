@@ -13,7 +13,7 @@ type FModaProps = PropsWithChildren & {
 export const FModal = (props: FModaProps) => {
 
   return createPortal((
-    <div className={styles['wrapper'] + ' ' + (props.open ? styles['open'] : '')} onClick={e => e.target === e.currentTarget ? props.onClose() : null}>
+    <div className={styles['wrapper'] + ' ' + (props.open ? styles['open'] : '')} onMouseDown={e => e.target === e.currentTarget ? props.onClose() : null}>
       <div className={styles['inner']}>
         <div className={styles['header']}>
           <div className={styles['side-lines']} />

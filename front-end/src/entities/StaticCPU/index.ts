@@ -1,0 +1,1 @@
+export { StaticCPU } from './model'

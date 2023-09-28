@@ -1,1 +1,1 @@
-export { useGetUserInfoQuery } from './useGetUserInfoQuery'
+export { useSessionId } from './useSessionId'

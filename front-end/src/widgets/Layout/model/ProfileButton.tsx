@@ -1,7 +1,7 @@
 import { FQuadContainer } from "@shared/ui"
 import { HTMLProps, useRef } from "react"
 import { NavLink, useLocation } from "react-router-dom"
-import { useAccessToken } from "@app/AuthProvider"
+import { useSessionId } from "@app/AuthProvider"
 import { useBoolean, useEventListener } from "usehooks-ts"
 import profile from '@shared/images/profile.png'
 import styles from './ProfileButton.module.scss'
@@ -19,10 +19,9 @@ type ProfileButtonProps = HTMLProps<HTMLDivElement>
 
 export const ProfileButton = (props: ProfileButtonProps) => {
   const location = useLocation()
-  const accessToken = useAccessToken()
+  const sessionId = useSessionId()
   const isOpen = useBoolean(false)
   const ref = useRef<HTMLDivElement>(null)
-
 
   useEventListener('click', isOpen.setFalse)
 
@@ -52,7 +51,7 @@ export const ProfileButton = (props: ProfileButtonProps) => {
           {links.map(link => (
               <NavLink key={link.url} to={link.url} onClick={isOpen.setFalse} className={styles['dropdown-item']}><span className={styles['text']}>{link.title}</span></NavLink> 
           ))}
-          <div onClick={() => accessToken.setValue(null)} className={styles['dropdown-item']}><span className={styles['text']}>Logout</span></div>
+          <div onClick={() => sessionId.setValue(null)} className={styles['dropdown-item']}><span className={styles['text']}>Logout</span></div>
         </div>
       </div>
     </div>
