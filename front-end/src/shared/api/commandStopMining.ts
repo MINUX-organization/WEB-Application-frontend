@@ -5,4 +5,4 @@ type Request = {}
 
 const ResponseRuntype = rt.String
 
-export const commandStopMining = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'stop-mining', ResponseRuntype)
+export const commandStopMining = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'commands/stop-mining', ResponseRuntype)

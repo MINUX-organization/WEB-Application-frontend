@@ -3,12 +3,12 @@ import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { useStateObj } from "@/shared/lib";
 import { useBoolean } from "usehooks-ts";
 import { createPool } from "../api";
-import styles from './CreatePool.module.scss'
-import _ from 'lodash'
 import { showNotifyInfo } from "@/shared/utils";
 import { TCryptocurrency } from "@/shared/types";
 import { useQuery } from "react-query";
 import { getCryptocurrencyList } from "@/shared/api";
+import styles from './CreatePool.module.scss'
+import _ from 'lodash'
 
 const omittedProps = [
   'onAdd'
@@ -39,7 +39,7 @@ export const CreatePool = (props: CreatePoolProps) => {
       isAdding.setTrue();
       createPool({
         cryptocurrencyId: cryptocurrency.value.id,
-        domain: domain.value,
+        host: domain.value,
         port: numPort
       }).then(res => {
         if (props.onAdd !== undefined) props.onAdd();

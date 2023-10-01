@@ -36,7 +36,6 @@ export const CreateMiner = (props: CreateMinerProps) => {
       createMiner({
         name: name.value,
         fullName: fullName.value,
-        algorithmIdList: algorithms.value.map(v => v.id)
       }).then(res => {
         if (props.onAdd !== undefined) props.onAdd();
       }).catch(e => {

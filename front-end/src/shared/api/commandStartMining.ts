@@ -5,4 +5,4 @@ type Request = {}
 
 const ResponseRuntype = rt.String
 
-export const commandStartMining = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'start-mining', ResponseRuntype)
+export const commandStartMining = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'commands/start-mining', ResponseRuntype)

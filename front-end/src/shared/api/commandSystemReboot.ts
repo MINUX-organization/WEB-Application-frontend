@@ -5,4 +5,4 @@ type Request = {}
 
 const ResponseRuntype = rt.String
 
-export const commandSystemReboot = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'reboot', ResponseRuntype)
+export const commandSystemReboot = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'commands/reboot', ResponseRuntype)
