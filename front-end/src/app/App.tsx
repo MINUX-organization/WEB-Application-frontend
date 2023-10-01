@@ -7,7 +7,7 @@ import { AuthProvider } from '../providers/AuthProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { IconContext } from "react-icons";
 import { ToastContainer } from 'react-toastify';
-import { WsProvider } from '../providers/WsProvider';
+import { WebSocketProvider } from '../providers/WebSocketProvider';
 import { CookiesProvider } from 'react-cookie';
 import './index.scss';
 
@@ -45,9 +45,9 @@ export function App() {
             <AuthProvider>
               <Provider store={store}>
                 <AntDConfigProvider theme={ftheme}>
-                  <WsProvider>
+                  <WebSocketProvider>
                     <FRoutes /> 
-                  </WsProvider>
+                  </WebSocketProvider>
                   <ToastContainer />
                 </AntDConfigProvider>
               </Provider>
