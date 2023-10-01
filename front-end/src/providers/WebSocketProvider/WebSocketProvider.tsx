@@ -2,6 +2,7 @@ import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { useDynamicDataStore } from "@/shared/stores"; 
 import { backendUrlWs } from "@/shared/constants";
 import { useEffectOnce } from "usehooks-ts";
+import { toast } from "react-toastify";
 
 type WebSocketProviderContextType = {
   ws: WebSocket
@@ -24,6 +25,7 @@ export const WebSocketProvider = ({ children } : PropsWithChildren) => {
   useEffectOnce(() => {
     const lws = new WebSocket(backendUrlWs)
     lws.onerror = error => {
+      toast.error('Cannot connect to backend', { position: toast.POSITION.BOTTOM_LEFT})
       console.error('WebSocket error:', error);
     }
     lws.onopen = event => {

@@ -11,8 +11,8 @@ export default function Cpu() {
   const cpuDynamic = useDynamicDataStore((state) => state.data.cpu); 
   return (
     <div className='border-line'>
-      <div className='flex-conteiner-cpu'>
-        <div className='cpu-conteiner'>
+      <div className='flex-container-cpu'>
+        <div className='cpu-container'>
           <span>CPU</span>
           <span className='text'>{valueOrNA((data?.data.cpu.information.manufacturer ?? '') + 
           ' ' + 

@@ -53,7 +53,7 @@ export default function NavBar() {
 
   return (
     <div className='border-line-flex'>
-      <div className='flex-conteiner-horizontal'> 
+      <div className='flex-container-horizontal'> 
 
       <div onClick={handlerClickMonitoring} onMouseLeave={() => setShowOptionsMonitoring(false)}>
         <HoverList options={monitoringOptions} >

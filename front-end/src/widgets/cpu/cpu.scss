@@ -1,13 +1,13 @@
 @import '@/app/values.scss';
 
-.flex-conteiner-cpu { 
+.flex-container-cpu { 
     display: flex;
     flex-direction: column; 
 
     width: $widget-cpu-width; 
     background-color: $color-primary; 
 
-    .cpu-conteiner {
+    .cpu-container {
         padding: $text-padding-tb $text-padding-lr;
         font-size: $text-size24; 
         border-bottom: $line-size-smaller solid $line-color;

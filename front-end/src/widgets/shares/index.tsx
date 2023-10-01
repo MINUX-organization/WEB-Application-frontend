@@ -5,7 +5,7 @@ import './index.scss'
 
 export default function SharesWidget() {
   return (
-    <div className='flex-conteiner-shares'> 
+    <div className='flex-container-shares'> 
             <SharesAccepted/> 
             <SharesRejected/> 
     </div>

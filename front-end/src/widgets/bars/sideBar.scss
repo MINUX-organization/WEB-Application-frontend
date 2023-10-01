@@ -1,6 +1,6 @@
 @import '@/app/values.scss';
 
-.flex-conteiner-vertical { 
+.flex-container-vertical { 
     flex-shrink: 0;
     user-select: none;
 
@@ -26,12 +26,12 @@
         border-bottom: $line-color solid 1px ;
     }
 
-    .flex-conteiner-vertical-cont {
+    .flex-container-vertical-cont {
         display: flex;
         flex-direction: column; 
         gap: 100px;
         
-        .flex-conteiner-vertical_element { 
+        .flex-container-vertical_element { 
             font-weight: $text-weight-light;
     
         }

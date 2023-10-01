@@ -7,27 +7,18 @@ import { commandPowerOff } from '@/shared/api/commandPowerOff'
 import { commandSystemReboot } from '@/shared/api/commandSystemReboot'
 import { commandSystemReboot60Seconds } from '@/shared/api/commandSystemReboot60Seconds'
 import { useEventListener } from 'usehooks-ts'
-import styles from './Aside.module.scss'
-import picMine from '@/shared/images/stop-mining.png'
-import powerOff from '@/shared/images/power-off.svg'
 import { commandStopMining } from '@/shared/api/commandStopMining'
 import { toast } from 'react-toastify'
 import { commandStartMining } from '@/shared/api/commandStartMining'
+import styles from './Aside.module.scss'
+import picMine from '@/shared/images/stop-mining.png'
+import powerOff from '@/shared/images/power-off.svg'
 
 export const Aside = () => {
   const asideRef = useRef<HTMLDivElement>(null)
   const isDropAsideOpen = useStateObj<boolean>(false);
   const isMining = useDynamicDataStore((state) => state.data.state.mining )
   const updateDynamicData = useDynamicDataStore((state) => state.updateDynamicData); 
-
-  const toggleMiningState = () => { 
-    const newState = {
-      state: {
-        mining: !isMining,
-      },
-    };
-    updateDynamicData(newState);
-  }
   
   const fields = [
     {label: 'Power off', onSelect: () => errorHandlerToaster(commandPowerOff({}))},
@@ -47,17 +38,23 @@ export const Aside = () => {
   
   const handleStopMining = () => {
     commandStopMining({}).then(res => {
-        toast.info('mining stopped', { position: toast.POSITION.BOTTOM_LEFT})
+      if (res.status === 200) {
+        updateDynamicData({ state: { mining: false }})
+      }
+      toast.info('mining stopped', { position: toast.POSITION.BOTTOM_LEFT})
     }).catch(e => {
-      toast.error(e, { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error(JSON.stringify(e.message), { position: toast.POSITION.BOTTOM_LEFT})
     })
   }
 
   const handleStartMining = () => {
     commandStartMining({}).then(res => {
-        toast.info('mining started', { position: toast.POSITION.BOTTOM_LEFT})
+      if (res.status === 200) {
+        updateDynamicData({ state: { mining: true }})
+      }
+      toast.info('mining started', { position: toast.POSITION.BOTTOM_LEFT})
     }).catch(e => {
-      toast.error(e, { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error(JSON.stringify(e.message), { position: toast.POSITION.BOTTOM_LEFT})
     })
   }
 
@@ -66,7 +63,7 @@ export const Aside = () => {
   
   return (
     <div className={styles['wrapper']}> 
-      <div onClick={toggleMiningState}>
+      <div>
         {isMining ? 
         <AsideItem text="Stop Mining" onClick={handleStopMining}>
           <img src={picMine} alt="Stop mining" />

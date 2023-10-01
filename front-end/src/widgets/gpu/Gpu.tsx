@@ -7,7 +7,7 @@ import { GpuItems } from '@/entities/gpu/index'
 export default function Gpu() {
   return (
     <div className='gpus-table'> 
-      <div className='grid-gpus-conteiner'>
+      <div className='grid-gpus-container'>
         <TotalGpus/>
 
         <TotalNvidia/>
@@ -29,7 +29,7 @@ export default function Gpu() {
         </div>
       </div> 
 
-      <div className='gpus-scroll-conteiner'> 
+      <div className='gpus-scroll-container'> 
           <GpuItems/>
       </div>
     </div>

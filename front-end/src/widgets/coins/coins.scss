@@ -1,12 +1,12 @@
 @import '@/app/values.scss';
 
-.flex-conteiner-coin { 
+.flex-container-coin { 
     display: flex;
     flex-direction: column;
     width: $widget-coin-width; 
     font-size: $text-size24;
     
-    .coin-conteiner {
+    .coin-container {
         padding: $text-padding-tb $text-padding-lr;
         display: grid; 
         grid-template-columns: repeat(3, 1fr);
