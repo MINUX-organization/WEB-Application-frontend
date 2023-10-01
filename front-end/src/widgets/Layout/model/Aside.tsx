@@ -10,6 +10,9 @@ import { useEventListener } from 'usehooks-ts'
 import styles from './Aside.module.scss'
 import picMine from '@/shared/images/stop-mining.png'
 import powerOff from '@/shared/images/power-off.svg'
+import { commandStopMining } from '@/shared/api/commandStopMining'
+import { toast } from 'react-toastify'
+import { commandStartMining } from '@/shared/api/commandStartMining'
 
 export const Aside = () => {
   const asideRef = useRef<HTMLDivElement>(null)
@@ -41,6 +44,22 @@ export const Aside = () => {
       isDropAsideOpen.setValue(false);
     }
   };
+  
+  const handleStopMining = () => {
+    commandStopMining({}).then(res => {
+        toast.info('mining stopped', { position: toast.POSITION.BOTTOM_LEFT})
+    }).catch(e => {
+      toast.error(e, { position: toast.POSITION.BOTTOM_LEFT})
+    })
+  }
+
+  const handleStartMining = () => {
+    commandStartMining({}).then(res => {
+        toast.info('mining started', { position: toast.POSITION.BOTTOM_LEFT})
+    }).catch(e => {
+      toast.error(e, { position: toast.POSITION.BOTTOM_LEFT})
+    })
+  }
 
   const documentRef = useRef<Document>(document)
   useEventListener('click', handleClickOutsideAside, documentRef)
@@ -49,11 +68,11 @@ export const Aside = () => {
     <div className={styles['wrapper']}> 
       <div onClick={toggleMiningState}>
         {isMining ? 
-        <AsideItem text="Stop Mining" onClick={commandStopMining}>
+        <AsideItem text="Stop Mining" onClick={handleStopMining}>
           <img src={picMine} alt="Stop mining" />
         </AsideItem> :
         <AsideItem text="Start Mining">
-          <img src={picMine} alt="Start mining" onClick={commandStartMining}/>
+          <img src={picMine} alt="Start mining" onClick={handleStartMining}/>
         </AsideItem>
         } 
       </div>
