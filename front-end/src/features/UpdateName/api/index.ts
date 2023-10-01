@@ -1,1 +1,1 @@
-export { updateName } from '@shared/api'
+export { updateName } from '@/shared/api'

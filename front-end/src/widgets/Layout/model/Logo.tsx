@@ -1,5 +1,5 @@
 import { HTMLProps } from "react";
-import logo from '@shared/images/logo.svg'
+import logo from '@/shared/images/logo.svg'
 
 export const Logo = (props: HTMLProps<HTMLImageElement>) => {
   return (

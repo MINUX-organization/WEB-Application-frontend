@@ -1,16 +1,14 @@
-import { useStateObj } from "@shared/lib"
-import { FButton, FTextInput } from "@shared/ui"
+import { useStateObj } from "@/shared/lib"
+import { FButton, FTextInput } from "@/shared/ui"
 import { HTMLProps } from "react"
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { useBoolean } from "usehooks-ts"
 import { login } from "../api"
-import { useSessionId } from "@app/AuthProvider"
-import { useSnackbar } from "notistack"
+import { setSessionId } from "providers/AuthProvider"
+import { toast } from 'react-toastify'; 
 import styles from './AuthForm.module.scss'
 
 export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
-  const sessionId = useSessionId();
-  const snackbar = useSnackbar();
   const state = {
     isAuthenticating: useBoolean(false),
     username: useStateObj(''),
@@ -30,12 +28,12 @@ export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
       }
       state.isAuthenticating.setTrue()
       login({ name: state.username.value, password: state.password.value }).then(res => {
-        sessionId.setValue(res.data.sessionId)
+        setSessionId(res.data.sessionId)
       }).catch(e => {
         if (e.statusCode === '401') {
-          sessionId.setValue(null);
+          setSessionId(null)
         }
-        snackbar.enqueueSnackbar({ message: e.error, variant: "error" })
+        toast.error(e.error, { position: toast.POSITION.BOTTOM_LEFT })
       }).finally(() => {
         state.isAuthenticating.setFalse()
       })

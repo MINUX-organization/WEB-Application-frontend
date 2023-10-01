@@ -1,6 +1,6 @@
 import * as rt from 'runtypes'
-import { _makeApiFunc } from "./_makeApiFunc"
-import { getSessionId } from '@app/AuthProvider'
+import { makeApiFunc } from "./_makeApiFunc"
+import { getSessionId } from 'providers/AuthProvider'
 
 type TRequest = {}
 

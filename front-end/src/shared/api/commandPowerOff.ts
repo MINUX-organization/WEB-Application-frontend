@@ -1,10 +1,8 @@
-import axios, { AxiosError } from "axios"; 
-import { showNotificationError, showNotificationSuccess } from "./lib"; 
+import * as rt from 'runtypes'
+import { makeApiFunc } from "./_makeApiFunc";
 
-export const commandPowerOff = async () => { 
-    await axios.post("http://localhost:8200/api/commands/power-off", {})
-    .then(() => showNotificationSuccess('The system has been shut down successfully!'))
-    .catch((error: AxiosError) => {
-        showNotificationError(error)
-    }) 
-} 
+type Request = {}
+
+const ResponseRuntype = rt.String // empty string
+
+export const commandPowerOff = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'power-off', ResponseRuntype)

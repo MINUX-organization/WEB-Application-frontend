@@ -1,6 +1,6 @@
-import na from 'shared/images/na.svg'
-import naAlt from 'shared/images/naAlt.svg'
-import '@app/values.scss'
+import na from '@/shared/images/na.svg'
+import naAlt from '@/shared/images/naAlt.svg'
+import '@/app/values.scss'
 
 type Props = {
     width: string, 

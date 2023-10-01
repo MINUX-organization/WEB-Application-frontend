@@ -1,1 +1,1 @@
-export { deleteWallet, updateWallet } from '@shared/api'
+export { deleteWallet, updateWallet } from '@/shared/api'

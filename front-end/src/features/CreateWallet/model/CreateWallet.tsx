@@ -1,9 +1,9 @@
 import { HTMLProps } from "react";
 import { useQuery } from "react-query";
 import { createWallet, getCryptocurrencyList } from "../api";
-import { useStateObj } from "@shared/lib";
-import { FButton, FDropdown, FTextInput } from "@shared/ui";
-import { TCryptocurrency } from "@shared/types";
+import { useStateObj } from "@/shared/lib";
+import { FButton, FDropdown, FTextInput } from "@/shared/ui";
+import { TCryptocurrency } from "@/shared/types";
 import { useBoolean } from "usehooks-ts";
 import styles from './CreateWallet.module.scss'
 import _ from 'lodash'

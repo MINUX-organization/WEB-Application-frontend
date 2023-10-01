@@ -1,5 +1,5 @@
-import { getSessionId } from "@app/AuthProvider"
-import { TFlightSheetFilled } from "@shared/types"
+import { getSessionId } from "providers/AuthProvider"
+import { TFlightSheetFilled } from "@/shared/types"
 
 type TRequest = {}
 

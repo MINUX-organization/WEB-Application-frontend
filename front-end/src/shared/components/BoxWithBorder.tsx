@@ -1,5 +1,5 @@
 import React from 'react' 
-import valueOrZero from 'shared/utils/valueOrZero'
+import valueOrZero from '@/shared/utils/valueOrZero'
 
 type Props = {
   name: string,

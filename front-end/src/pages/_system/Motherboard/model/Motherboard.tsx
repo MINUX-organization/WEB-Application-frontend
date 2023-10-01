@@ -1,10 +1,10 @@
-import { FContainer, FTopic } from "@shared/ui"
+import { FContainer, FTopic } from "@/shared/ui"
 import { HTMLProps } from "react"
-import motherboardImage from '@shared/images/motherboard-image.svg'
+import motherboardImage from '@/shared/images/motherboard-image.svg'
 import styles from './Motherboard.module.scss' 
-import { valueOrNA } from "@shared/utils"
+import { valueOrNA } from "@/shared/utils"
 import { Spin } from "antd" 
-import { getMotherboardData } from "@shared/api/getMotherboardData"
+import { getMotherboardData } from "@/shared/api/getMotherboardData"
 import { useQuery } from "react-query"
 
 type MotherboardProps = HTMLProps<HTMLDivElement>

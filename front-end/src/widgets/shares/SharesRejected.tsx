@@ -1,5 +1,5 @@
-import { useDynamicDataStore } from '@shared/stores'
-import BoxWithBorder from 'shared/components/BoxWithBorder' 
+import { useDynamicDataStore } from '@/shared/stores'
+import BoxWithBorder from '@/shared/components/BoxWithBorder' 
 
 const name: string = 'Total Shares Rejected'
 

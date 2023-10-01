@@ -1,5 +1,5 @@
 import { CSSProperties, HTMLProps, SetStateAction, useEffect, useRef } from "react"
-import { useFInterval, useStateObj } from "@shared/lib"
+import { useFInterval, useStateObj } from "@/shared/lib"
 import { AiOutlineClose, AiOutlineDown } from "react-icons/ai"
 import { useBoolean, useElementSize, useEventListener, useScreen } from "usehooks-ts"
 import { Scrollbars } from 'react-custom-scrollbars-2';

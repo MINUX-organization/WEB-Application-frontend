@@ -1,5 +1,5 @@
 import { CSSProperties, HTMLProps, SetStateAction, useEffect, useRef, useState } from "react"
-import { useStateObj } from "@shared/lib"
+import { useStateObj } from "@/shared/lib"
 import { useElementSize } from "usehooks-ts";
 import styles from './FTextInput.module.scss'
 import _ from 'lodash'

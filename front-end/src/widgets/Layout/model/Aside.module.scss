@@ -1,5 +1,5 @@
 @use '../lib/shared.scss';
-@use '@app/values.scss';
+@use '@/app/values.scss';
 
 .wrapper {
   width: shared.$layout-size;

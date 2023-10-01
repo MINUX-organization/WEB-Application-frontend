@@ -1,6 +1,6 @@
-import { useDynamicDataStore } from '@shared/stores';
+import { useDynamicDataStore } from '@/shared/stores';
 import { useId } from 'react'
-import NaImage from 'shared/components/NaImage'; 
+import NaImage from '@/shared/components/NaImage'; 
 
 export default function CoinsScroll() { 
     const id = useId(); 

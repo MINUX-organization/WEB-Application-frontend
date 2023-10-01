@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import { TCryptocurrency, TMiner, TPool, TWallet } from "@shared/types"
+import { TCryptocurrency, TMiner, TPool, TWallet } from "@/shared/types"
 import { getCreateFlightSheetOptions } from "../api"
 import { useCallback } from "react"
 

@@ -1,10 +1,8 @@
-import axios, { AxiosError } from "axios"; 
-import { showNotificationError, showNotificationSuccess } from "./lib"; 
+import * as rt from 'runtypes'
+import { makeApiFunc } from "./_makeApiFunc";
 
-export const commandStartMining = async () => { 
-    await axios.post("http://localhost:8200/api/commands/start-mining")
-    .then(() => showNotificationSuccess('The mining starting...'))
-    .catch((error: AxiosError) => {
-        showNotificationError(error ?? "No connection to server")
-    }) 
-} 
+type Request = {}
+
+const ResponseRuntype = rt.String
+
+export const commandStartMining = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'start-mining', ResponseRuntype)

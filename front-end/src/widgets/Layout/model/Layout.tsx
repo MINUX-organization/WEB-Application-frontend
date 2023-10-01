@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom'
 import { Header } from './Header'
 import { Logo } from './Logo'
-import { FQuadContainer } from '@shared/ui'
+import { FQuadContainer } from '@/shared/ui'
 import { Aside } from './Aside'
-import { useAuthContext } from '@app/AuthProvider'
-import { AuthForm } from 'features/AuthForm'
+import { useAuthContext } from 'providers/AuthProvider'
+import { AuthForm } from '@/features/AuthForm'
 import { Spin } from 'antd'
-import bgLogo from '@shared/images/bg-logo.svg'
+import bgLogo from '@/shared/images/bg-logo.svg'
 import styles from './Layout.module.scss'
-import authPageBg from '@shared/images/auth-page-bg.png'
-import logo from '@shared/images/minux-logo.svg'
+import authPageBg from '@/shared/images/auth-page-bg.png'
+import logo from '@/shared/images/minux-logo.svg'
 
 export const Layout = () => {
   const authContext = useAuthContext()

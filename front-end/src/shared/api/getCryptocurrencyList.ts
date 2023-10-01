@@ -1,4 +1,4 @@
-import { TCryptocurrency } from "@shared/types"
+import { TCryptocurrency } from "@/shared/types"
 
 type TRequest = {}
 

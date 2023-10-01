@@ -1,5 +1,5 @@
 import React, { useId, useState } from 'react'
-import { GpuDynamic } from '@shared/stores/types/gpuDynamic'
+import { GpuDynamic } from '@/shared/stores/types/gpuDynamic'
 
 type Props = {
     item: GpuDynamic

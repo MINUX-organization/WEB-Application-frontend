@@ -1,10 +1,10 @@
-import { FTopic } from "@shared/ui"
+import { FTopic } from "@/shared/ui"
 import { HTMLProps } from 'react' 
 // import { useSelector } from "react-redux"
-// import { RootState } from "@app/store"
-import { StaticGPU } from "@entities/StaticGPU"
+// import { RootState } from "@/app/store"
+import { StaticGPU } from "@/entities/StaticGPU"
 import { useQuery } from "react-query"
-import { getStaticGPUList } from "@shared/api"
+import { getStaticGPUList } from "@/shared/api"
 import { Spin } from 'antd'
 import styles from './GPUs.module.scss'
 

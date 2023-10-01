@@ -1,1 +1,1 @@
-export { getGPUListForFlightSheet, updateFlightSheetGPUList } from '@shared/api'
+export { getGPUListForFlightSheet, updateFlightSheetGPUList } from '@/shared/api'

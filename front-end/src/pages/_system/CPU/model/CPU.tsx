@@ -1,11 +1,11 @@
 import { HTMLProps, useMemo } from "react"
-// import { RootState } from "@app/store" 
-import { valueOrNA } from "@shared/utils"
+// import { RootState } from "@/app/store" 
+import { valueOrNA } from "@/shared/utils"
 import { useQuery } from "react-query"
-import { getStaticCPU } from "@shared/api"
-import { StaticCPU } from "@entities/StaticCPU/model/StaticCPU"
+import { getStaticCPU } from "@/shared/api"
+import { StaticCPU } from "@/entities/StaticCPU/model/StaticCPU"
 import { Spin } from "antd"
-import { CPUImage } from "@shared/images/CPUImage"
+import { CPUImage } from "@/shared/images/CPUImage"
 import styles from './CPU.module.scss' 
 
 type CPUProps = HTMLProps<HTMLDivElement>

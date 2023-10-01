@@ -1,6 +1,6 @@
-import { useDynamicDataStore } from '@shared/stores';
-import BoxWithBorder from 'shared/components/BoxWithBorder'; 
-import 'shared/styles/widgets-first-level.scss' 
+import { useDynamicDataStore } from '@/shared/stores';
+import BoxWithBorder from '@/shared/components/BoxWithBorder'; 
+import '@/shared/styles/widgets-first-level.scss' 
 
 const name: string = 'Working algorithms'; 
 

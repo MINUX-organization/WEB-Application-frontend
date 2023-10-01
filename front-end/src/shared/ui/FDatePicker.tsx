@@ -1,6 +1,6 @@
 import { HTMLProps } from "react"
 import { DatePicker } from 'antd';
-import { useStateObj } from "@shared/lib";
+import { useStateObj } from "@/shared/lib";
 import styles from './FDatePicker.module.scss'
 import dayjs from "dayjs";
 import _ from 'lodash'

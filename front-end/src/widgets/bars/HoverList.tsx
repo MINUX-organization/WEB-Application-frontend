@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import './hoverList.scss';
-import { NavigateLink } from 'shared/components';
+import { NavigateLink } from '@/shared/components';
 
 interface Option {
   id: number;

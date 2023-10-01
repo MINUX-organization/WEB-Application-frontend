@@ -1,11 +1,11 @@
-import { TWalletFilled } from "@shared/types"
+import { TWalletFilled } from "@/shared/types"
 import { HTMLProps } from "react"
 import { deleteWallet } from "../api"
 import { useBoolean } from "usehooks-ts"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
-import { useBooleanUrl } from "@shared/lib/useBooleanUrl"
-import { FContainer, FModal } from "@shared/ui"
-import { UpdateWallet } from "@features/UpdateWallet"
+import { useBooleanUrl } from "@/shared/lib/useBooleanUrl"
+import { FContainer, FModal } from "@/shared/ui"
+import { UpdateWallet } from "@/features/UpdateWallet"
 import styles from './WalletList.module.scss'
 import _ from 'lodash'
 

@@ -1,1 +1,1 @@
-export { createMiner, getAlgorithmList } from '@shared/api'
+export { createMiner, getAlgorithmList } from '@/shared/api'

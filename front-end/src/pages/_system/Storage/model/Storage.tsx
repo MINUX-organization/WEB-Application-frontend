@@ -1,10 +1,10 @@
-import { FContainer, FTopic } from "@shared/ui"
+import { FContainer, FTopic } from "@/shared/ui"
 import { HTMLProps } from "react"
 import styles from './Storage.module.scss'
-import hddImage from '@shared/images/hdd-image.svg' 
-import { valueOrNA } from "@shared/utils" 
+import hddImage from '@/shared/images/hdd-image.svg' 
+import { valueOrNA } from "@/shared/utils" 
 import { useQuery } from "react-query"
-import { getHarddriveData } from "@shared/api/getHarddriveData" 
+import { getHarddriveData } from "@/shared/api/getHarddriveData" 
 import { Spin } from "antd"
 
 

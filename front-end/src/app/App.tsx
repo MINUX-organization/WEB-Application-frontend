@@ -1,16 +1,14 @@
-import { store } from '@app/store';
+import { store } from '@/app/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider as AntDConfigProvider, theme, ThemeConfig } from 'antd';
 import { FRoutes } from './FRoutes';
-import { AuthProvider } from './AuthProvider';
+import { AuthProvider } from '../providers/AuthProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { IconContext } from "react-icons";
 import { ToastContainer } from 'react-toastify';
-import WsProvider from './WsProvider/model/WsProvider';
+import { WsProvider } from '../providers/WsProvider';
 import { CookiesProvider } from 'react-cookie';
-import { SnackbarKey, SnackbarProvider, useSnackbar } from 'notistack'
-import { AiOutlineClose } from 'react-icons/ai';
 import './index.scss';
 
 const color = {
@@ -38,29 +36,23 @@ const queryClient = new QueryClient({
   }
 })
 
-const CloseSnackbarButton = (props: { snackbarKey: SnackbarKey }) => {
-  const snackbar = useSnackbar()
-  return (
-    <AiOutlineClose className="icon-clickable" onClick={() => snackbar.closeSnackbar(props.snackbarKey)} />
-  )
-}
-
 export function App() {
   return (
     <BrowserRouter>
       <CookiesProvider>
         <IconContext.Provider value={{ className: 'react-icon' }}>
-          <SnackbarProvider action={snackbarKey => <CloseSnackbarButton snackbarKey={snackbarKey} /> }>
-            <QueryClientProvider client={queryClient}>
-              <AuthProvider>
-                <Provider store={store}>
-                  <AntDConfigProvider theme={ftheme}>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <Provider store={store}>
+                <AntDConfigProvider theme={ftheme}>
+                  <WsProvider>
                     <FRoutes /> 
-                  </AntDConfigProvider>
-                </Provider>
-              </AuthProvider>
-            </QueryClientProvider>
-          </SnackbarProvider>
+                  </WsProvider>
+                  <ToastContainer />
+                </AntDConfigProvider>
+              </Provider>
+            </AuthProvider>
+          </QueryClientProvider>
         </IconContext.Provider>
       </CookiesProvider>
     </BrowserRouter>

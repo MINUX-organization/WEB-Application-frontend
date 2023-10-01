@@ -1,1 +1,1 @@
-export { createPool } from '@shared/api'
+export { createPool } from '@/shared/api'

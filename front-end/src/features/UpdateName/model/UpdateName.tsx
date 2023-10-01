@@ -1,11 +1,11 @@
 import { HTMLProps } from "react"
-import { FButton, FTextInput } from "@shared/ui"
-import { useStateObj } from "@shared/lib"
+import { FButton, FTextInput } from "@/shared/ui"
+import { useStateObj } from "@/shared/lib"
 import { useBoolean } from "usehooks-ts"
 import { updateName } from "../api"
 import styles from './UpdateName.module.scss'
 import _ from 'lodash'
-import { showNotifyInfo } from "@shared/utils"
+import { showNotifyInfo } from "@/shared/utils"
 
 const omittedProps = [
   'onUpdate'

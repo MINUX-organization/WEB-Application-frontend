@@ -1,4 +1,4 @@
-import {NavigateLink} from 'shared/components';
+import { NavigateLink } from '@/shared/components';
 import { useState } from 'react';
 import './navBar.scss' 
 import HoverList from './HoverList';

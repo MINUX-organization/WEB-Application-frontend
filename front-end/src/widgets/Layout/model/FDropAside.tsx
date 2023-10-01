@@ -2,7 +2,7 @@ import { useState, useRef, HTMLProps, useEffect } from "react";
 import styles from './FDropAside.module.scss'
 
 type FDropAsideProps = { 
-    fields: {label: string, onSelect: () => void}[]
+    fields: Array<{label: string, onSelect: () => void}>
     position: 'left' | 'right' 
 } & HTMLProps<HTMLDivElement>
 

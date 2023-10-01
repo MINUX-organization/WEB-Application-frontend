@@ -1,7 +1,7 @@
-import { TWalletFilled } from "@shared/types"
+import { TWalletFilled } from "@/shared/types"
 import { HTMLProps } from "react"
 import { WalletListItem } from "./WalletListItem"
-import { FQuadContainer } from "@shared/ui"
+import { FQuadContainer } from "@/shared/ui"
 import styles from './WalletList.module.scss'
 import _ from 'lodash'
 

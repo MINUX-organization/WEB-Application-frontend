@@ -1,1 +1,1 @@
-export {} from 'shared/api/getSystemInfo'
+export {} from '@/shared/api/getSystemInfo'

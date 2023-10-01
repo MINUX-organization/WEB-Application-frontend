@@ -1,5 +1,5 @@
 import { HTMLProps } from "react"
-import { useStateObj } from "@shared/lib"
+import { useStateObj } from "@/shared/lib"
 import styles from './FDatePickerStatic.module.scss'
 import dayjs from 'dayjs'
 import _ from 'lodash'

@@ -1,6 +1,6 @@
 import { HTMLProps } from "react";
-import { CreateFlightSheet } from "@features/CreateFlightSheet";
-import { FlightSheetListItem } from "@entities/FlightSheetListItem";
+import { CreateFlightSheet } from "@/features/CreateFlightSheet";
+import { FlightSheetListItem } from "@/entities/FlightSheetListItem";
 import { useQuery } from "react-query";
 import { getFlightSheetList } from "../api";
 import { Spin } from "antd";

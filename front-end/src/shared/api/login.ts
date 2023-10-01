@@ -1,4 +1,4 @@
-import { _makeApiFunc } from "./_makeApiFunc"
+import { makeApiFunc } from "./_makeApiFunc"
 import * as rt from 'runtypes'
 
 type TRequest = {

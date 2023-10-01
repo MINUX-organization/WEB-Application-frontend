@@ -1,4 +1,4 @@
-import { GpuDynamic } from "@shared/stores/types/gpuDynamic";
+import { GpuDynamic } from "@/shared/stores/types/gpuDynamic";
 
 
 export const gpuDynamicTestData: GpuDynamic[] = [

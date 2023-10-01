@@ -1,11 +1,11 @@
  import './monitoring.scss'
-import WorkerWidget from 'widgets/workers'
-import SharesWidget from 'widgets/shares'
-import PowerRamWidget from 'widgets/power&ram'
-import { Cpu } from 'widgets/cpu'
-import { Coins } from 'widgets/coins'
-import { Gpu } from 'widgets/gpu'
-import { FooterSystemInfo } from 'widgets/footerSystemInfo' 
+import WorkerWidget from '@/widgets/workers'
+import SharesWidget from '@/widgets/shares'
+import PowerRamWidget from '@/widgets/power&ram'
+import { Cpu } from '@/widgets/cpu'
+import { Coins } from '@/widgets/coins'
+import { Gpu } from '@/widgets/gpu'
+import { FooterSystemInfo } from '@/widgets/footerSystemInfo' 
 
 export default function Monitoring() { 
     return (

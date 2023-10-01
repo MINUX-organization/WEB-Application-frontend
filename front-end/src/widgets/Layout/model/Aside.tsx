@@ -1,16 +1,15 @@
-import styles from './Aside.module.scss'
 import { AsideItem } from './AsideItem'
-import picMine from '@shared/images/stop-mining.png'
-import powerOff from '@shared/images/power-off.svg'
-import { useDynamicDataStore } from '@shared/stores'
-import React, { useEffect, useRef } from 'react'
-import { useStateObj } from '@shared/lib'
-import { FDropAside } from '@widgets/Layout/model/FDropAside'
-import { commandPowerOff } from '@shared/api/commandPowerOff'
-import { commandSystemReboot } from '@shared/api/commandSystemReboot'
-import { commandSystemRebootWithDelay } from '@shared/api/commandSystemRebootWithDelay'
-import { commandStartMining } from '@shared/api/commandStartMining'
-import { commandStopMining } from '@shared/api/commandStopMining'
+import { useDynamicDataStore } from '@/shared/stores'
+import { useRef } from 'react'
+import { errorHandlerToaster, useStateObj } from '@/shared/lib'
+import { FDropAside } from '@/widgets/Layout/model/FDropAside'
+import { commandPowerOff } from '@/shared/api/commandPowerOff'
+import { commandSystemReboot } from '@/shared/api/commandSystemReboot'
+import { commandSystemReboot60Seconds } from '@/shared/api/commandSystemReboot60Seconds'
+import { useEventListener } from 'usehooks-ts'
+import styles from './Aside.module.scss'
+import picMine from '@/shared/images/stop-mining.png'
+import powerOff from '@/shared/images/power-off.svg'
 
 export const Aside = () => {
   const asideRef = useRef<HTMLDivElement>(null)
@@ -28,13 +27,13 @@ export const Aside = () => {
   }
   
   const fields = [
-    {label: 'Power off', onSelect: commandPowerOff}, 
-    {label: 'Reboot', onSelect: commandSystemReboot}, 
-    {label: 'Power off and Start in 60s', onSelect: commandSystemRebootWithDelay} 
+    {label: 'Power off', onSelect: () => errorHandlerToaster(commandPowerOff({}))},
+    {label: 'Reboot', onSelect: () => errorHandlerToaster(commandSystemReboot({}))},
+    {label: 'Power off and Start in 60s', onSelect: () => errorHandlerToaster(commandSystemReboot60Seconds({}))}
   ]
 
   const toggleDropAside = () => {
-    isDropAsideOpen.setValue(!isDropAsideOpen.value)
+    isDropAsideOpen.setValue(prev => !prev)
   }
   
   const handleClickOutsideAside = (event: MouseEvent) => {
@@ -43,13 +42,8 @@ export const Aside = () => {
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutsideAside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutsideAside);
-    };
-  }, []);
+  const documentRef = useRef<Document>(document)
+  useEventListener('click', handleClickOutsideAside, documentRef)
   
   return (
     <div className={styles['wrapper']}> 

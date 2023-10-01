@@ -1,4 +1,4 @@
-import { DynamicData } from "@shared/stores/types";
+import { DynamicData } from "@/shared/stores/types";
 
 
 export const testDynamicData: DynamicData = {

@@ -1,4 +1,4 @@
- import valueOrZero from 'shared/utils/valueOrZero'
+ import valueOrZero from '@/shared/utils/valueOrZero'
 import './boxComponent.scss'
 
 type Props = {

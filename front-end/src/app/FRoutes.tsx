@@ -1,14 +1,14 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Layout } from '@widgets/Layout';
-import { UserLayout } from '@widgets/UserLayout';
-import * as pages from '@pages'
+import { Layout } from '@/widgets/Layout';
+import { UserLayout } from '@/widgets/UserLayout';
+import * as pages from '@/pages'
 import 'react-toastify/dist/ReactToastify.css'; 
 
 export const FRoutes = () => { 
   return ( 
       <Routes> 
         <Route path='/' element={<Navigate to='/monitoring'/>}/>
-        <Route path="/" element={<Layout />}>
+        <Route path='/' element={<Layout />}>
           <Route path='monitoring' element={<pages.Monitoring/>}/>
           <Route path='settings-flight-sheet' element={<pages.settings.FlightSheet />} />
           <Route path='settings-gpu' element={<pages.settings.GPU />} />
@@ -25,7 +25,6 @@ export const FRoutes = () => {
             <Route path='vpn-proxy' element={<pages.user.VPNProxy />} />
             <Route path='feedback' element={<pages.Feedback />} />
           </Route>
-          <Route path='logout' element={<pages.Logout />} />
           <Route path='*' element={<Navigate to='/monitoring'/>}/>
         </Route> 
       </Routes> 

@@ -1,10 +1,10 @@
 import { HTMLProps } from "react";
-import { useStateObj } from "@shared/lib";
-import { FButton, FDropdown, FTextInput } from "@shared/ui";
+import { useStateObj } from "@/shared/lib";
+import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { useBoolean } from "usehooks-ts";
 import { createMiner, getAlgorithmList } from "../api";
 import { useQuery } from "react-query";
-import { TAlgorithm } from "@shared/types";
+import { TAlgorithm } from "@/shared/types";
 import styles from './CreateMiner.module.scss'
 import _ from 'lodash'
 

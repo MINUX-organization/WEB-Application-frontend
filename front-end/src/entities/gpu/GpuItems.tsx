@@ -1,7 +1,7 @@
 import './gpuitems.scss' 
 import GpuItem from './GpuItem'
-import NaImage from 'shared/components/NaImage' 
-import { useDynamicDataStore } from '@shared/stores'
+import NaImage from '@/shared/components/NaImage' 
+import { useDynamicDataStore } from '@/shared/stores'
 
 export default function GpuItems() { 
     const gpuDynamicData = useDynamicDataStore((state) => state.data.gpus)

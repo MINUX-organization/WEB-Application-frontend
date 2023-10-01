@@ -20,7 +20,7 @@ export async function sendRequestApi({ url,
     url,
     method,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': '@/application/json',
       ...headers,
     },
   };

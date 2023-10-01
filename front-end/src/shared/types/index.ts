@@ -1,5 +1,5 @@
-import { getStaticCPU, getStaticGPUList } from "@shared/api";
-import { useStateObj } from "@shared/lib";
+import { getStaticCPU, getStaticGPUList } from "@/shared/api";
+import { useStateObj } from "@/shared/lib";
 
 export type TStateObj<T> = ReturnType<typeof useStateObj<T>>
 

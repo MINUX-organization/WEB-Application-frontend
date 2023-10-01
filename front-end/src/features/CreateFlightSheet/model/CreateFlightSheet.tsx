@@ -1,18 +1,18 @@
 import { HTMLProps, useMemo } from "react";
-import { FButton, FContainer, FDropdown, FModal, FQuadCornerContainer, FTextInput } from "@shared/ui"; 
+import { FButton, FContainer, FDropdown, FModal, FQuadCornerContainer, FTextInput } from "@/shared/ui"; 
 import { useFlightSheetAddOptions } from "../hooks";
-import { useStateObj } from "@shared/lib";
-import { TCryptocurrency, TMiner, TPool, TStateObj, TWallet } from "@shared/types";
+import { useStateObj } from "@/shared/lib";
+import { TCryptocurrency, TMiner, TPool, TStateObj, TWallet } from "@/shared/types";
 import { createFlightSheet } from "../api";
 import { useBoolean, useEffectOnce } from "usehooks-ts";
-import { useBooleanUrl } from "@shared/lib/useBooleanUrl";
-import { CreateCryptocurrency } from "@features/CreateCryptocurrency";
-import { CreateWallet } from "@features/CreateWallet";
-import { CreatePool } from "@features/CreatePool";
-import { CreateMiner } from "@features/CreateMiner";
+import { useBooleanUrl } from "@/shared/lib/useBooleanUrl";
+import { CreateCryptocurrency } from "@/features/CreateCryptocurrency";
+import { CreateWallet } from "@/features/CreateWallet";
+import { CreatePool } from "@/features/CreatePool";
+import { CreateMiner } from "@/features/CreateMiner";
+import { showNotifyInfo } from "@/shared/utils";
 import styles from './CreateFlightSheet.module.scss'
 import _ from 'lodash'
-import { showNotifyInfo } from "@shared/utils";
 
 const useAddModal = (title: string, booleanUrlKey: string, ModalBody: (props: HTMLProps<HTMLDivElement> & { onAdd?: () => void }) => JSX.Element) => {
   return {
@@ -70,11 +70,11 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
       if (name.value === '') {showNotifyInfo('Name must be entered'); return}
       isAdding.setTrue();
       createFlightSheet({
-        cryptocurrency: cryptocurrency.value,
-        miner: miner.value,
         name: name.value,
-        pool: pool.value,
-        wallet: wallet.value
+        cryptocurrencyId: cryptocurrency.value.id,
+        minerId: miner.value.id,
+        poolId: pool.value.id,
+        walletId: wallet.value.id
       }).then(res => {
         if (props.onAdd !== undefined) props.onAdd();
       }).catch(e => {

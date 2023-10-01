@@ -1,11 +1,11 @@
-import { FButton, FContainer, FModal } from "@shared/ui";
+import { FButton, FContainer, FModal } from "@/shared/ui";
 import { HTMLProps } from "react";
-import { CreateWallet } from "@features/CreateWallet";
-import { WalletList } from "@widgets/WalletList";
+import { CreateWallet } from "@/features/CreateWallet";
+import { WalletList } from "@/widgets/WalletList";
 import { useQuery } from "react-query";
 import { getWalletList } from "../api";
 import { Spin } from "antd";
-import { useBooleanUrl } from "@shared/lib/useBooleanUrl";
+import { useBooleanUrl } from "@/shared/lib/useBooleanUrl";
 import styles from './Wallets.module.scss'
 
 export const Wallets = (props: HTMLProps<HTMLDivElement>) => {

@@ -1,4 +1,4 @@
-import { TAlgorithm } from "@shared/types"
+import { TAlgorithm } from "@/shared/types"
 
 type TRequest = {}
 
@@ -16,7 +16,7 @@ export const getAlgorithmList = async (request: TRequest): Promise<TResponse> =>
           { id: 2, name: 'Pinnocio' },
           { id: 3, name: 'SImple Dimple' },
           { id: 4, name: 'Shmidttt' },
-          { id: 5, name: 'Applicatiiiiiin' },
+          { id: 5, name: '@/applicatiiiiiin' },
           { id: 6, name: 'Gurren' }
         ]
       })

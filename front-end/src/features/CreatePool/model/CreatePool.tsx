@@ -1,14 +1,14 @@
 import { HTMLProps } from "react";
-import { FButton, FDropdown, FTextInput } from "@shared/ui";
-import { useStateObj } from "@shared/lib";
+import { FButton, FDropdown, FTextInput } from "@/shared/ui";
+import { useStateObj } from "@/shared/lib";
 import { useBoolean } from "usehooks-ts";
 import { createPool } from "../api";
 import styles from './CreatePool.module.scss'
 import _ from 'lodash'
-import { showNotifyInfo } from "@shared/utils";
-import { TCryptocurrency } from "@shared/types";
+import { showNotifyInfo } from "@/shared/utils";
+import { TCryptocurrency } from "@/shared/types";
 import { useQuery } from "react-query";
-import { getCryptocurrencyList } from "@shared/api";
+import { getCryptocurrencyList } from "@/shared/api";
 
 const omittedProps = [
   'onAdd'

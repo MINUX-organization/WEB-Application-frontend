@@ -1,13 +1,13 @@
 import { HTMLProps } from "react";
-import { FButton, FDropdown, FTextInput } from "@shared/ui";
-import { useStateObj } from "@shared/lib";
-import { TAlgorithm } from "@shared/types";
+import { FButton, FDropdown, FTextInput } from "@/shared/ui";
+import { useStateObj } from "@/shared/lib";
+import { TAlgorithm } from "@/shared/types";
 import { useQuery } from "react-query";
 import { createCryptocurrency, getAlgorithmList } from "../api";
 import { useBoolean } from "usehooks-ts";
 import styles from './CreateCryptocurrency.module.scss'
 import _ from 'lodash'
-import { showNotifyInfo } from "@shared/utils";
+import { showNotifyInfo } from "@/shared/utils";
 
 const omittedProps = [
   'onAdd'
@@ -36,7 +36,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
       if (algorithm.value === null) {showNotifyInfo('Algorithm must be selected'); return}
       isAdding.setTrue();
       createCryptocurrency({
-        shortName: shortName.value,
+        name: shortName.value,
         fullName: fullName.value,
         algorithmId: algorithm.value.id
       }).then(res => {

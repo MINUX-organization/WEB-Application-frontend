@@ -1,13 +1,13 @@
 import { HTMLProps } from "react" 
-import { FContainer } from "@shared/ui"
+import { FContainer } from "@/shared/ui"
 import { useMediaQuery } from 'usehooks-ts'
-import { valueOrNA } from "@shared/utils"
-import { TStaticGPU } from "@shared/types"
-import gpuOneVentImage from '@shared/images/gpu-one-vent-image.png'
-import gpuTwoVentImage from '@shared/images/gpu-two-vent-image.png'
+import { valueOrNA } from "@/shared/utils"
+import { TStaticGPU } from "@/shared/types"
+import gpuOneVentImage from '@/shared/images/gpu-one-vent-image.png'
+import gpuTwoVentImage from '@/shared/images/gpu-two-vent-image.png'
 import styles from './StaticGPU.module.scss'
 import _ from 'lodash'
-import { GpuStatic } from "@shared/stores/types/gpuStatic"
+import { GpuStatic } from "@/shared/stores/types/gpuStatic"
 
 const omittedProps = [
   'item',

@@ -1,6 +1,6 @@
 import { HTMLProps } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { FTrisContainer } from "@shared/ui";
+import { FTrisContainer } from "@/shared/ui";
 import { useMediaQuery } from "usehooks-ts";
 import styles from './UserLayout.module.scss'
 

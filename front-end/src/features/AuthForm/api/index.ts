@@ -1,1 +1,1 @@
-export { login } from '@shared/api'
+export { login } from '@/shared/api'

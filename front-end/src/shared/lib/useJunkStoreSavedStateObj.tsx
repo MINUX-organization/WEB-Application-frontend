@@ -1,6 +1,6 @@
-import { useJunkStoreSaved } from "@shared/stores"
+import { useJunkStoreSaved } from "@/shared/stores"
 import { Dispatch, SetStateAction } from "react";
-import { TStateObj } from "@shared/types";
+import { TStateObj } from "@/shared/types";
 import _ from 'lodash';
 
 type TJunkStoreSavedState = ReturnType<typeof useJunkStoreSaved.getState>

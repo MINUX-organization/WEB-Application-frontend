@@ -1,7 +1,7 @@
-import { valueOrNA } from '@shared/utils';
-import { Spin } from 'antd';
-import styles from './InfoBlock.module.scss';
-import { useId } from 'react';
+import { valueOrNA } from "@/shared/utils";
+import { Spin } from "antd";
+import styles from './InfoBlock.module.scss'
+import { useId } from "react";
 
 type Props = {
   labels: string[];

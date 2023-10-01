@@ -1,4 +1,4 @@
-import { TAlgorithm, TCryptocurrency, TMiner, TPool, TWallet } from "@shared/types"
+import { TAlgorithm, TCryptocurrency, TMiner, TPool, TWallet } from "@/shared/types"
 
 type TRequest = {
 }

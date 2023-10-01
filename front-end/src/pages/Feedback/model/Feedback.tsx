@@ -1,7 +1,7 @@
-import { FButton, FDatePicker, FQuadContainer, FTextInput } from "@shared/ui";
+import { FButton, FDatePicker, FQuadContainer, FTextInput } from "@/shared/ui";
 import { HTMLProps } from "react";
 import styles from './Feedback.module.scss'
-import { useStateObj } from "@shared/lib";
+import { useStateObj } from "@/shared/lib";
 import dayjs from "dayjs";
 
 export const Feedback = (props: HTMLProps<HTMLDivElement>) => {

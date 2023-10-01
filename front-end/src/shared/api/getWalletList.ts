@@ -1,4 +1,4 @@
-import { TWalletFilled } from "@shared/types"
+import { TWalletFilled } from "@/shared/types"
 
 type TRequest = {}
 

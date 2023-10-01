@@ -1,12 +1,12 @@
-import { TFlightSheetFilled } from "@shared/types"
+import { TFlightSheetFilled } from "@/shared/types"
 import { CSSProperties, HTMLProps, useEffect } from "react"
-import { FButton, FCheckbox, FContainer, FModal } from "@shared/ui"
+import { FButton, FCheckbox, FContainer, FModal } from "@/shared/ui"
 import { AiOutlineDown } from "react-icons/ai"
-import { useBooleanUrl } from "@shared/lib/useBooleanUrl"
+import { useBooleanUrl } from "@/shared/lib/useBooleanUrl"
 import { useBoolean, useElementSize } from "usehooks-ts"
 import { useQuery } from "react-query"
 import { getGPUListForFlightSheet, updateFlightSheetGPUList } from "../api"
-import { useStateObj } from "@shared/lib"
+import { useStateObj } from "@/shared/lib"
 import Scrollbars from "react-custom-scrollbars-2"
 import styles from './FlightSheetListItem.module.scss'
 import _ from 'lodash'

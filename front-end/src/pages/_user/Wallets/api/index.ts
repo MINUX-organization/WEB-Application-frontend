@@ -1,1 +1,1 @@
-export { getWalletList } from '@shared/api'
+export { getWalletList } from '@/shared/api'

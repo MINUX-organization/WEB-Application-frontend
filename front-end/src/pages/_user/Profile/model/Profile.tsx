@@ -1,7 +1,7 @@
 import { HTMLProps } from "react";
-import { FQuadContainer } from "@shared/ui";
-import { UpdatePassword } from "@features/UpdatePassword";
-import { UpdateName } from "@features/UpdateName";
+import { FQuadContainer } from "@/shared/ui";
+import { UpdatePassword } from "@/features/UpdatePassword";
+import { UpdateName } from "@/features/UpdateName";
 import styles from './Profile.module.scss'
 
 export const Profile = (props: HTMLProps<HTMLDivElement>) => {

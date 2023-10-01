@@ -1,5 +1,5 @@
 import React from 'react';
-import { valueOrNA } from 'shared/utils';
+import { valueOrNA } from '@/shared/utils';
 
 type Props = {
     label: string,

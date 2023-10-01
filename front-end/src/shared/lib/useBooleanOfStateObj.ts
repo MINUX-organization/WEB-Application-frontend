@@ -1,4 +1,4 @@
-import { TStateObj } from "@shared/types";
+import { TStateObj } from "@/shared/types";
 
 export const useBooleanOfStateObj = (stateObj: TStateObj<boolean>) => {
   return {

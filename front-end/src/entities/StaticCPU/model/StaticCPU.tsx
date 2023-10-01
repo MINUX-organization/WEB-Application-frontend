@@ -1,7 +1,7 @@
-import { FContainer, FTopic } from "@shared/ui"
+import { FContainer, FTopic } from "@/shared/ui"
 import { HTMLProps } from "react"
-import { valueOrNA } from "@shared/utils"
-import { TStaticCPU } from "@shared/types"
+import { valueOrNA } from "@/shared/utils"
+import { TStaticCPU } from "@/shared/types"
 import styles from './StaticCPU.module.scss'
 
 type StaticCPUProps = HTMLProps<HTMLDivElement> & {
