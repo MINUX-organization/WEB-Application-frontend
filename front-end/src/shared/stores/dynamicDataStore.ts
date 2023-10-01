@@ -59,7 +59,7 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
   updateDynamicData: (data: Partial<DynamicData>) =>
     set((state) =>
       produce(state, (draft) => {
-        console.log(data)
+        // console.log(data)
         draft.data = { ...draft.data, ...data };
       })
     ),

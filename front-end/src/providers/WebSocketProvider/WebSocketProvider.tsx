@@ -30,13 +30,14 @@ export const WebSocketProvider = ({ children } : PropsWithChildren) => {
     }
     lws.onopen = event => {
       console.log('WebSocket connection opened:', event);
-      lws.send("Front")
+      lws.send(JSON.stringify("Front"))
     }
     lws.onclose = event => {
       console.log('WebSocket connection closed:', event);
     }
     lws.onmessage = event => {
       // TODO validate event.data
+      // console.log(event)
       updateDynamicData(JSON.parse(event.data))
     }
     setWs(lws)
