@@ -40,12 +40,15 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
         rejected: 0,
       },
     },
-    harddrive: {
+    harddrive: [{
       uuid: '',
       temperature: 0,
       capacity: 0,
-      free: 0,
-    },
+      free: {
+        value: 324,
+        measurement: 'MeAsurementUnit'
+      }
+    }],
     rams: [],
     calculations: {
       coinsValue: [],

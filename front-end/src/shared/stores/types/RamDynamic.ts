@@ -12,6 +12,10 @@ export const RamDynamic = rt.Record({
 	free: rt.Record({
 		value: rt.Number,
 		measurement: rt.String
+	}),
+	usage: rt.Record({
+		value: rt.Number,
+		measurement: rt.String
 	})
 })
 export type RamDynamic = rt.Static<typeof RamDynamic>;

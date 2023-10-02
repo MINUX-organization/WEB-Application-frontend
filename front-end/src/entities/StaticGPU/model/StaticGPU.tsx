@@ -7,7 +7,7 @@ import gpuOneVentImage from '@/shared/images/gpu-one-vent-image.png'
 import gpuTwoVentImage from '@/shared/images/gpu-two-vent-image.png'
 import styles from './StaticGPU.module.scss'
 import _ from 'lodash'
-import { GpuStatic } from "@/shared/stores/types/gpuStatic"
+import { GpuStaticRunType } from "@/shared/stores/types/gpuStatic"
 
 const omittedProps = [
   'item',

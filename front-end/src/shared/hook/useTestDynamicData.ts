@@ -84,15 +84,22 @@ export const testDynamicData: DynamicData = {
       free: {
         value: 1234,
         measurement: "Mb"
+      },
+      usage: {
+        value: 1234,
+        measurement: "Mb"
       }
     },
   ],
-  harddrive: { 
-    uuid: 'rwerkj432',
-    temperature: 25,
-    capacity: 256, 
-    free: 256 
-  }, 
+  harddrive: [{
+    uuid: 'hfeiaophgea',
+    capacity: 53,
+    free: {
+      value: 324,
+      measurement: 'feag'
+    },
+    temperature: 32
+  }], 
   calculations: {
     coinsValue: [
       { coin: "Raven", algorithm: "Kawpow", value: 120 },
