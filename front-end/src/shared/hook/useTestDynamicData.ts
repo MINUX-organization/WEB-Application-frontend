@@ -76,7 +76,7 @@ export const testDynamicData: DynamicData = {
       clocks: { 
         memory: 405,
         core: 555,
-      }, 
+      },
   }],
   rams: [ 
     {
@@ -91,7 +91,7 @@ export const testDynamicData: DynamicData = {
       }
     },
   ],
-  harddrive: [{
+  harddrives: [{
     uuid: 'hfeiaophgea',
     capacity: 53,
     free: {

@@ -10,7 +10,7 @@ export const DynamicDataRunType = rt.Record({
   state: rt.Record({ mining: rt.Boolean }),
   gpus: rt.Array(GpuDynamic),
   cpu: CpuDynamicRunType, 
-  harddrive: rt.Array(HarddriveDynamicRunType), 
+  harddrives: rt.Array(HarddriveDynamicRunType), 
   rams: rt.Array(RamDynamic),
   calculations: CalculationsDynamicRunType 
 })
