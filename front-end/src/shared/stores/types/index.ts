@@ -1,1 +1,1 @@
-export {DynamicData} from './dynamicData'
+export { DynamicDataRunType, type DynamicData } from './dynamicData'

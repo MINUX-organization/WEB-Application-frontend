@@ -1,6 +1,7 @@
-import { DynamicData } from './types';
+import { DynamicData, DynamicDataRunType } from './types';
 import { create } from 'zustand';
 import { produce } from 'immer';
+import { toast } from 'react-toastify';
 
 type DynamicActions = {
   updateDynamicData: (data: Partial<DynamicData>) => void;
@@ -57,10 +58,16 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
     },
   },
   updateDynamicData: (data: Partial<DynamicData>) =>
-    set((state) =>
-      produce(state, (draft) => {
-        // console.log(data)
-        draft.data = { ...draft.data, ...data };
-      })
-    ),
+    set((state) => {
+      try {
+        DynamicDataRunType.check(data)
+        return produce(state, (draft) => {
+          draft.data = { ...draft.data, ...data };
+        })
+      } catch (e: any) {
+        toast.error((e.message ?? JSON.stringify(e)).slice(0, 100) + '... for more info see console', { position: toast.POSITION.BOTTOM_LEFT })
+        console.log(e.message ?? JSON.stringify(e))
+      }
+      return state
+    }),
 }));

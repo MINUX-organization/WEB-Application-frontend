@@ -7,7 +7,7 @@ import { RamDynamic } from './ramDynamic';
 import { CalculationsDynamic } from './calculationsDynamic';
 
 
-export const DynamicData = rt.Record({
+export const DynamicDataRunType = rt.Record({
     state: rt.Record({mining: rt.Boolean}),
     gpus: rt.Array(GpuDynamic),
     cpu: CpuDynamic, 
@@ -15,4 +15,5 @@ export const DynamicData = rt.Record({
     rams: rt.Array(RamDynamic),
     calculations: CalculationsDynamic 
 })
-export type DynamicData = rt.Static<typeof DynamicData>;
+
+export type DynamicData = rt.Static<typeof DynamicDataRunType>;
