@@ -100,7 +100,7 @@ const ResponseRuntype = rt.Record({
   })),
   algorithms: rt.Array(rt.Record({
     id: rt.Number,
-    name: rt.Number
+    name: rt.String
   })),
 
   miners: rt.Array(rt.Record({
