@@ -40,7 +40,7 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
         rejected: 0,
       },
     },
-    harddrive: [{
+    harddrives: [{
       uuid: '',
       temperature: 0,
       capacity: 0,
