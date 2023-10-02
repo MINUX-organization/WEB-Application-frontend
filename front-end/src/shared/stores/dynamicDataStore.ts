@@ -63,7 +63,7 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
   updateDynamicData: (data: Partial<DynamicData>) =>
     set((state) => {
       try {
-        DynamicDataRunType.check(data)
+        DynamicDataRunType.asPartial().check(data)
         return produce(state, (draft) => {
           draft.data = { ...draft.data, ...data };
         })
