@@ -34,4 +34,4 @@ type Request = {
 
 const ResponseRuntype = rt.String
 
-export const createFlightSheet = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'template', ResponseRuntype)
+export const createFlightSheet = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'create/flight-sheet', ResponseRuntype)

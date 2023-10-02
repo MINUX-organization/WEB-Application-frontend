@@ -9,7 +9,7 @@ export const useFlightSheetAddOptions = () => {
   const flightSheetAddOptionsQuery = useQuery(['load flight sheet add options'], queryFn)
 
   const calculateOptions = useCallback((arg: { cryptocurrency: TCryptocurrency | null, wallet: TWallet | null, pool: TPool | null, miner: TMiner | null }): { minerOptions: TMiner[], cryptocurrencyOptions: TCryptocurrency[], walletOptions: TWallet[], poolOptions: TPool[] } => {
-    const data = flightSheetAddOptionsQuery.data
+    const data = flightSheetAddOptionsQuery.data?.data ?? undefined
     if (data !== undefined) {
       return {
         minerOptions: (() => {
