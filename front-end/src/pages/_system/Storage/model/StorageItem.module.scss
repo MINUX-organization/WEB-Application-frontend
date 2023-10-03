@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  // min-width: 100px;
+}
+
+.data {
+  min-width: 600px;
+}
+
+.data-topic {
+  font-size: 25px;
+  letter-spacing: 13px;
+}
+
+.data-body {
+  padding: 20px;
+}
+
+.fields {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+
+  &>*{
+    white-space: nowrap;
+    display: inline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  label {
+    color: rgb(255, 255, 255, 65%);
+  }
+}
