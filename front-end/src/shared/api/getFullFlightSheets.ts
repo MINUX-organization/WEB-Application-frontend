@@ -7,7 +7,7 @@
 //   list: TFlightSheetFilled[]
 // }
 
-// export const getFlightSheetList = async (request: TRequest): Promise<TResponse> => {
+// export const getFullFlightSheets = async (request: TRequest): Promise<TResponse> => {
 //   return new Promise((resolve, reject) => {
 //     setTimeout(() => {
 //       if (getSessionId() === 'dummySessionId') {

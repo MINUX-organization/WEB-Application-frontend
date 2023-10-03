@@ -2,7 +2,7 @@ import { HTMLProps } from "react";
 import { useStateObj } from "@/shared/lib";
 import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { useBoolean } from "usehooks-ts";
-import { createMiner, getAlgorithmList } from "../api";
+import { createMiner, getFullAlgorithms } from "../api";
 import { useQuery } from "react-query";
 import { TAlgorithm } from "@/shared/types";
 import styles from './CreateMiner.module.scss'
@@ -17,7 +17,7 @@ type CreateMinerProps = Omit<HTMLProps<HTMLDivElement>, typeof omittedProps[numb
   onAdd?: () => void
 }
 export const CreateMiner = (props: CreateMinerProps) => {
-  const algorithmListQuery = useQuery(['load algorithm list'], () => getAlgorithmList({}))
+  const algorithmListQuery = useQuery(['load algorithm list'], () => getFullAlgorithms({}))
   const name = useStateObj('');
   const fullName = useStateObj('');
   const isAdding = useBoolean(false);
@@ -58,7 +58,7 @@ export const CreateMiner = (props: CreateMinerProps) => {
         multiple
         value={algorithms.value}
         onChange={value => algorithms.setValue(value)}
-        options={algorithmListQuery.data?.list ?? []}
+        options={algorithmListQuery.data?.data.algorithms ?? []}
         getOptionLabel={item => item.name}
         getOptionValue={item => item.id.toString()}
         loading={algorithmListQuery.isFetching}

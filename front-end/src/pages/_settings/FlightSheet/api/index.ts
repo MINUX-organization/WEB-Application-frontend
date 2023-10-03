@@ -1,1 +1,1 @@
-export { getFlightSheetList } from '@/shared/api'
+export { getFullFilledFlightSheets } from '@/shared/api'

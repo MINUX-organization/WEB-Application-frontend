@@ -1,6 +1,6 @@
 import { HTMLProps } from "react";
 import { useQuery } from "react-query";
-import { createWallet, getCryptocurrencyList } from "../api";
+import { createWallet, getFullCryptocurrencies } from "../api";
 import { useStateObj } from "@/shared/lib";
 import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { TCryptocurrency } from "@/shared/types";
@@ -17,7 +17,7 @@ type CreateWalletProps = Omit<HTMLProps<HTMLDivElement>, typeof omittedProps[num
 }
 
 export const CreateWallet = (props: CreateWalletProps) => {
-  const cryptocurrencyList = useQuery(['load cryptocurrency list'], () => getCryptocurrencyList({}))
+  const cryptocurrencyList = useQuery(['load cryptocurrency list'], () => getFullCryptocurrencies({}))
   const cryptocurrency = useStateObj<TCryptocurrency | null>(null)
   const name = useStateObj('');
   const source = useStateObj('');
@@ -61,7 +61,7 @@ export const CreateWallet = (props: CreateWalletProps) => {
           className={styles['field-value']}
           value={cryptocurrency.value}
           onChange={value => cryptocurrency.setValue(value)}
-          options={cryptocurrencyList.data?.list ?? []}
+          options={cryptocurrencyList.data?.data.cryptocurrencies ?? []}
           getOptionLabel={item => item.name}
           getOptionValue={item => item.id.toString()}
           loading={cryptocurrencyList.isFetching}

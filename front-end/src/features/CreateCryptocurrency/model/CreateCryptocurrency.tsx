@@ -3,11 +3,12 @@ import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { useStateObj } from "@/shared/lib";
 import { TAlgorithm } from "@/shared/types";
 import { useQuery } from "react-query";
-import { createCryptocurrency, getAlgorithmList } from "../api";
+import { createCryptocurrency, getFullAlgorithms } from "../api";
 import { useBoolean } from "usehooks-ts";
+import { showNotifyInfo } from "@/shared/utils";
+import { toast } from "react-toastify";
 import styles from './CreateCryptocurrency.module.scss'
 import _ from 'lodash'
-import { showNotifyInfo } from "@/shared/utils";
 
 const omittedProps = [
   'onAdd'
@@ -18,7 +19,7 @@ type CreateCryptocurrencyProps = Omit<HTMLProps<HTMLDivElement>, typeof omittedP
 }
 
 export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
-  const algorithmListQuery = useQuery(['load algorithm list'], () => getAlgorithmList({}))
+  const algorithmListQuery = useQuery(['load algorithm list'], () => getFullAlgorithms({}))
   const shortName = useStateObj('');
   const fullName = useStateObj('');
   const algorithm = useStateObj<TAlgorithm | null>(null)
@@ -43,7 +44,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {
-        alert(e.message);
+        toast.error(e.message, { position: toast.POSITION.BOTTOM_LEFT })
       }).finally(() => {
         isAdding.setFalse();
       })
@@ -62,7 +63,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
         className={styles['field-value']}
         value={algorithm.value}
         onChange={value => algorithm.setValue(value)}
-        options={algorithmListQuery.data?.list ?? []}
+        options={algorithmListQuery.data?.data.algorithms ?? []}
         getOptionLabel={item => item.name}
         getOptionValue={item => item.id.toString()}
         loading={algorithmListQuery.isFetching}

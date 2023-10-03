@@ -6,7 +6,7 @@
 //   list: TAlgorithm[]
 // }
 
-// export const getAlgorithmList = async (request: TRequest): Promise<TResponse> => {
+// export const getFullAlgorithms = async (request: TRequest): Promise<TResponse> => {
 //   return new Promise((resolve, reject) => {
 //     setTimeout(() => {
 //       resolve({

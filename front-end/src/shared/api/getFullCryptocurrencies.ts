@@ -6,7 +6,7 @@
 //   list: TCryptocurrency[]
 // }
 
-// export const getCryptocurrencyList = async (request: TRequest): Promise<TResponse> => {
+// export const getFullCryptocurrencies = async (request: TRequest): Promise<TResponse> => {
 //   return new Promise((resolve, reject) => {
 //     setTimeout(() => {
 //       resolve({

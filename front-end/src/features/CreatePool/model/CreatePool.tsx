@@ -6,7 +6,7 @@ import { createPool } from "../api";
 import { showNotifyInfo } from "@/shared/utils";
 import { TCryptocurrency } from "@/shared/types";
 import { useQuery } from "react-query";
-import { getCryptocurrencyList } from "@/shared/api";
+import { getFullCryptocurrencies } from "@/shared/api";
 import styles from './CreatePool.module.scss'
 import _ from 'lodash'
 
@@ -22,7 +22,7 @@ export const CreatePool = (props: CreatePoolProps) => {
   const domain = useStateObj('');
   const port = useStateObj('');
   const isAdding = useBoolean(false);
-  const cryptocurrencyListQuery = useQuery(['load cryptocurrency list'], () => getCryptocurrencyList({}))
+  const cryptocurrencyListQuery = useQuery(['load cryptocurrency list'], () => getFullCryptocurrencies({}))
   const cryptocurrency = useStateObj<TCryptocurrency | null>(null)
 
   const action = {
@@ -60,7 +60,7 @@ export const CreatePool = (props: CreatePoolProps) => {
         className={styles['field-value']}
         value={cryptocurrency.value}
         onChange={value => cryptocurrency.setValue(value)}
-        options={cryptocurrencyListQuery.data?.list ?? []}
+        options={cryptocurrencyListQuery.data?.data.cryptocurrencies ?? []}
         getOptionLabel={item => item.name}
         getOptionValue={item => item.id.toString()}
         loading={cryptocurrencyListQuery.isFetching}
