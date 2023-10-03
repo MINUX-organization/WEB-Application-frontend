@@ -11,9 +11,8 @@ export const ResponseRuntype = rt.Record({
         driverVersion: rt.Union(rt.String, rt.Null),
         manufacturer: rt.Union(rt.String, rt.Null),
         pci: rt.Record({ 
-          bus: rt.Union(rt.String, rt.Null), 
-          deviceId: rt.Union(rt.String, rt.Null), 
-          busId: rt.Union(rt.String, rt.Null) 
+          busId: rt.Union(rt.String, rt.Null),
+          pciBusId: rt.Number 
         }),
         periphery: rt.Union(rt.String, rt.Null),
         serialNumber: rt.Union(rt.String, rt.Null),
@@ -46,8 +45,6 @@ export const ResponseRuntype = rt.Record({
     })
   )
 })
-
-type TResponse = rt.Static<typeof ResponseRuntype>
 
 // export const getStaticGPUList = async (request: TRequest): Promise<TResponse> => {
 //   return new Promise((resolve, reject) => {
