@@ -1,23 +1,22 @@
 import { FContainer, FTopic } from "@/shared/ui"
 import { HTMLProps } from "react"
-import styles from './Storage.module.scss'
-import hddImage from '@/shared/images/hdd-image.svg' 
 import { valueOrNA } from "@/shared/utils" 
 import { useQuery } from "react-query"
-import { getHarddriveData } from "@/shared/api/getHarddriveData" 
+import { getStaticHarddrives } from "@/shared/api" 
 import { Spin } from "antd"
-
+import styles from './Storage.module.scss'
+import hddImage from '@/shared/images/hdd-image.svg' 
 
 type StorageProps = HTMLProps<HTMLDivElement>
 
 export const Storage = (props: StorageProps) => {
-  const {isFetching, data} = useQuery(['load hardrive data'], getHarddriveData); 
+  const {isFetching, data} = useQuery(['load hardrive data'], getStaticHarddrives); 
 
   const fields: Array<{ label: string, value: any }> = [ 
-    { label: 'Serial Number', value: (data?.harddrives[0].information.serialNumber) },
-    { label: 'Device Model', value: (data?.harddrives[0].information.deviceModel) },
-    { label: 'Capacity', value: (data?.harddrives[0].information.capacity + " Gb")},
-    { label: 'SATA ports', value: (data?.harddrives[0].information.sataPorts) },
+    { label: 'Serial Number', value: (data?.data.harddrives[0].information.serialNumber) },
+    { label: 'Device Model', value: (data?.data.harddrives[0].information.deviceModel) },
+    { label: 'Capacity', value: (data?.data.harddrives[0].information.capacity + " Gb")},
+    { label: 'SATA ports', value: (data?.data.harddrives[0].information.sataPorts) },
   ] 
 
   return (
