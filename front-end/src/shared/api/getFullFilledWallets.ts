@@ -63,4 +63,4 @@ const ResponseRuntype = rt.Record({
   }))
 })
 
-export const getFullFilledWallets = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'other-data/get-full-wallets', ResponseRuntype)
+export const getFullFilledWallets = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'other-data/get-full-filled-wallets', ResponseRuntype)
