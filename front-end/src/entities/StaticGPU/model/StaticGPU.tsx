@@ -7,7 +7,7 @@ import gpuOneVentImage from '@/shared/images/gpu-one-vent-image.png'
 import gpuTwoVentImage from '@/shared/images/gpu-two-vent-image.png'
 import styles from './StaticGPU.module.scss'
 import _ from 'lodash'
-import { GpuStaticRunType } from "@/shared/stores/types/gpuStatic"
+// import { GpuStaticRunType } from "@/shared/stores/types/gpuStatic"
 
 const omittedProps = [
   'item',
@@ -27,14 +27,14 @@ export const StaticGPU = (props: StaticGPUProps) => {
     { label: 'Manufacturer', value: (props.item.information.manufacturer) },
     { label: 'Periphery', value: (props.item.information.periphery) },
     { label: 'Driver Ver.', value: (props.item.information.driverVersion) },
-    { label: 'CUDA Ver.', value: (props.item.information.cudaVersion)},
-    { label: 'Architecture', value: (props.item.information.architecture) },
+    // { label: 'CUDA Ver.', value: (props.item.information.cudaVersion)},
+    // { label: 'Architecture', value: (props.item.information.architecture) },
     { label: 'Serial Number', value: (props.item.information.serialNumber) },
     { label: 'PCI bus', value: (props.item.information.pci.busId) },
-    { label: 'Memory', value: (props.item.memoryMb.total + " GB")  },
-    { label: 'Power', value: (props.item.powerWatt.minimal + " Watt")  },
-    { label: 'Core Clocks Mhz', value: (props.item.clocksMhz.coreMax + ' Mhz') },
-    { label: 'Memory Clocks Mhz', value: (props.item.clocksMhz.memMax + ' Mhz') }
+    { label: 'Memory', value: (props.item.memory.total + " GB")  },
+    { label: 'Power', value: (props.item.power.minimal + " Watt")  },
+    { label: 'Core Clocks Mhz', value: (props.item.clocks.maximumCore + ' Mhz') },
+    { label: 'Memory Clocks Mhz', value: (props.item.clocks.maximumMemory + ' Mhz') }
   ]
   const lastField = { label: 'GPU uuid', value: props.item.uuid }
 

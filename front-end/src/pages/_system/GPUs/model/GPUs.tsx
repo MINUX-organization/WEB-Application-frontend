@@ -19,7 +19,7 @@ export const GPUs = (props: GPUsProps) => {
       <FTopic text="GPUs" className={styles['topic']} /> 
       <div className={styles['gpu-list']}>
         {gpuListQuery.isFetching && <Spin />}
-        {!gpuListQuery.isFetching && gpuListQuery.data !== undefined && gpuListQuery.data.list.map(gpu => (
+        {!gpuListQuery.isFetching && gpuListQuery.data !== undefined && gpuListQuery.data.data.gpus.map(gpu => (
             <StaticGPU key={gpu.uuid} item={gpu} />
           ))
         }
