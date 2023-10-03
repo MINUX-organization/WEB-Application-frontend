@@ -27,4 +27,4 @@ type Request = {
 
 const ResponseRuntype = rt.String
 
-export const createMiner = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'create/miner', ResponseRuntype)
+export const createMiner = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'create/miner', ResponseRuntype)

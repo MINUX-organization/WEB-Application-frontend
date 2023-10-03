@@ -30,4 +30,4 @@ type Request = {
 
 const ResponseRuntype = rt.String
 
-export const createWallet = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'create/wallet', ResponseRuntype)
+export const createWallet = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'create/wallet', ResponseRuntype)

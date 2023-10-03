@@ -28,4 +28,4 @@ type Request = {
 
 const ResponseRuntype = rt.String
 
-export const createPool = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'create/pool', ResponseRuntype)
+export const createPool = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'create/pool', ResponseRuntype)
