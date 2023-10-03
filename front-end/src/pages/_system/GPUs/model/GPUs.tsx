@@ -4,7 +4,7 @@ import { HTMLProps } from 'react'
 // import { RootState } from "@/app/store"
 import { StaticGPU } from "@/entities/StaticGPU"
 import { useQuery } from "react-query"
-import { getStaticGPUList } from "@/shared/api"
+import { getStaticGpus } from "@/shared/api"
 import { Spin } from 'antd'
 import styles from './GPUs.module.scss'
 
@@ -12,7 +12,7 @@ type GPUsProps = HTMLProps<HTMLDivElement>
 
 export const GPUs = (props: GPUsProps) => {
   // const data = useSelector((state: RootState) => state.staticData.data?.gpu);
-  const gpuListQuery = useQuery(['load static gpu list'], () => getStaticGPUList({}))
+  const gpuListQuery = useQuery(['load static gpu list'], () => getStaticGpus({}))
 
   return (
     <div {...props} className={(props.className ?? '') + ' ' + styles['wrapper']}>

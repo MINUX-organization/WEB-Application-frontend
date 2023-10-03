@@ -129,4 +129,4 @@ export const ResponseRuntype = rt.Record({
 //   })
 // }
 
-export const getStaticGPUList = makeApiFunc<Request, typeof ResponseRuntype>('GET', 'static-data/get-gpus-data', ResponseRuntype)
+export const getStaticGpus = makeApiFunc<Request, typeof ResponseRuntype>('GET', 'static-data/get-gpus-data', ResponseRuntype)

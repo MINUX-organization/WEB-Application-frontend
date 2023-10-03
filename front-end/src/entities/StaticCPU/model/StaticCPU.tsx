@@ -18,10 +18,10 @@ export const StaticCPU = (props: StaticCPUProps) => {
     { label: 'CPUs', value: valueOrNA(props.item.information.cores.cpus) },
     { label: 'Threads per Core', value: valueOrNA(props.item.information.cores.threadsPerCore) },
     { label: 'Cores per Socket', value: valueOrNA(props.item.information.cores.threadsPerSocket) },
-    { label: 'Max Clock', value: valueOrNA(props.item.clocksMhz.max) },
-    { label: 'Min Clock', value: valueOrNA(props.item.clocksMhz.min) },
-    { label: 'Cache L2', value: valueOrNA(props.item.information.cacheL2) + 'Mb' },
-    { label: 'Cache L3', value: valueOrNA(props.item.information.cacheL3) + 'Mb' }
+    { label: 'Max Clock', value: valueOrNA(props.item.clocks.maximum) },
+    { label: 'Min Clock', value: valueOrNA(props.item.clocks.minimum) },
+    { label: 'Cache L2', value: valueOrNA(props.item.information.cache.L2) + 'Mb' },
+    { label: 'Cache L3', value: valueOrNA(props.item.information.cache.L3) + 'Mb' }
   ]
 
   return (
