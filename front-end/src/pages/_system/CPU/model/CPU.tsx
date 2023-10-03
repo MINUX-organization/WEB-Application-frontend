@@ -13,9 +13,9 @@ type CPUProps = HTMLProps<HTMLDivElement>
 export const CPU = (props: CPUProps) => {
   const staticCPUQuery = useQuery(['load static CPU'], () => getStaticCpu({}))
   const cpuType: 'intel' | 'amd' | 'unknown' = useMemo(() => {
-    if (staticCPUQuery.data === undefined || staticCPUQuery.data.data.information.manufacturer === null) return 'unknown'
-    if (staticCPUQuery.data.data.information.manufacturer.search(/intel/i) !== -1) return 'intel'
-    if (staticCPUQuery.data.data.information.manufacturer.search(/amd/i) !== -1) return 'amd'
+    if (staticCPUQuery.data === undefined || staticCPUQuery.data.data.cpu.information.manufacturer === null) return 'unknown'
+    if (staticCPUQuery.data.data.cpu.information.manufacturer.search(/intel/i) !== -1) return 'intel'
+    if (staticCPUQuery.data.data.cpu.information.manufacturer.search(/amd/i) !== -1) return 'amd'
     return 'unknown' 
   }, [staticCPUQuery.data])
 
@@ -34,9 +34,9 @@ export const CPU = (props: CPUProps) => {
           <div className={styles['cpu-image-wrapper']}>
             <CPUImage className={styles['image'] + ' ' + (cpuType === 'intel' ? styles['cpu-intel'] : cpuType === 'amd' ? styles['cpu-amd'] : styles['cpu-unknown'])} />
             <div className={styles['cpu-image-text']}>
-              {valueOrNA(staticCPUQuery.data?.data.information.manufacturer)}
+              {valueOrNA(staticCPUQuery.data?.data.cpu.information.manufacturer)}
               <br />{
-              staticCPUQuery.data?.data.information.modelName}
+              staticCPUQuery.data?.data.cpu.information.modelName}
             </div>
           </div>
         </>

@@ -4,27 +4,29 @@ import { makeApiFunc } from './_makeApiFunc'
 type Request = {}
 
 const ResponseRuntype = rt.Record({
-  clocks: rt.Record({
-    minimum: rt.Union(rt.Number, rt.Null),
-    maximum: rt.Union(rt.Number, rt.Null),
-  }),
-  information: rt.Record({
-    architecture: rt.Union(rt.String, rt.Null),
-    cache: rt.Record({
-      L1: rt.Union(rt.Null, rt.Number),
-      L2: rt.Union(rt.Null, rt.Number),
-      L3: rt.Union(rt.Null, rt.Number),
+  cpu: rt.Record({
+    clocks: rt.Record({
+      minimum: rt.Union(rt.Number, rt.Null),
+      maximum: rt.Union(rt.Number, rt.Null),
     }),
-    cores: rt.Record({
-      cpus: rt.Union(rt.Number, rt.Null),
-      sockets: rt.Union(rt.Number, rt.Null),
-      threadsPerCore: rt.Union(rt.Number, rt.Null),
-      threadsPerSocket: rt.Union(rt.Number, rt.Null),
+    information: rt.Record({
+      architecture: rt.Union(rt.String, rt.Null),
+      cache: rt.Record({
+        L1: rt.Union(rt.Null, rt.Number),
+        L2: rt.Union(rt.Null, rt.Number),
+        L3: rt.Union(rt.Null, rt.Number),
+      }),
+      cores: rt.Record({
+        cpus: rt.Union(rt.Number, rt.Null),
+        sockets: rt.Union(rt.Number, rt.Null),
+        threadsPerCore: rt.Union(rt.Number, rt.Null),
+        threadsPerSocket: rt.Union(rt.Number, rt.Null),
+      }),
+      manufacturer: rt.Union(rt.String, rt.Null), 
+      modelName: rt.Union(rt.String, rt.Null),
+      opModes: rt.Union(rt.String, rt.Null),
     }),
-    manufacturer: rt.Union(rt.String, rt.Null), 
-    modelName: rt.Union(rt.String, rt.Null),
-    opModes: rt.Union(rt.String, rt.Null),
-  }),
+  })
 })
 
 // type Response = rt.Static<typeof ResponseRuntype>
