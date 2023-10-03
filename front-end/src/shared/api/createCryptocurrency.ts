@@ -9,4 +9,4 @@ type Request = {
 
 const ResponseRuntype = rt.String
 
-export const createCryptocurrency = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'create-cryptocurrency', ResponseRuntype)
+export const createCryptocurrency = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'create/cryptocurrency', ResponseRuntype)
