@@ -20,7 +20,7 @@ axiosInstance.interceptors.response.use(response => {
   return response
 })
 
-export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown>, Response = rt.Static<ResponseRuntype>>(method: 'GET' | 'POST', url: string, responseRuntype: ResponseRuntype ) => {
+export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown>, Response = rt.Static<ResponseRuntype>>(method: 'GET' | 'POST' | 'DELETE', url: string, responseRuntype: ResponseRuntype ) => {
   return async (data: Request) => {
     try {
       const response =  await axiosInstance.request<Response, AxiosResponse<Response>, Request>({ method, url, data })

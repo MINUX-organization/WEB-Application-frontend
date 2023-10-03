@@ -28,7 +28,7 @@ export const WalletListItem = (props: WalletListItemProps) => {
       // eslint-disable-next-line no-restricted-globals
       if (confirm('are you sure you want to delete wallet?')) {
         isDeleting.setTrue();
-        deleteWallet({ walletId: props.item.id }).then(res => {
+        deleteWallet({ id: props.item.id }).then(res => {
           if (props.onUpdate !== undefined) props.onUpdate();
         }).catch(e => {
           alert(e.message)
@@ -38,6 +38,7 @@ export const WalletListItem = (props: WalletListItemProps) => {
       }
     },
     update: () => {
+      console.log("hey")
       isEditModalOpen.setFalse();
       if (props.onUpdate !== undefined) props.onUpdate();
     }

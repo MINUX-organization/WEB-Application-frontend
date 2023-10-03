@@ -1,6 +1,6 @@
 import { HTMLProps } from "react";
 import { useQuery } from "react-query";
-import { updateWallet, getFullCryptocurrencies } from "../api";
+import { editWallet, getFullCryptocurrencies } from "../api";
 import { useStateObj } from "@/shared/lib";
 import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { TCryptocurrency, TWalletFilled } from "@/shared/types";
@@ -39,12 +39,12 @@ export const UpdateWallet = (props: UpdateWalletProps) => {
       if (source.value === '') { alert('wallet\'s source must be entered'); return }
       if (address.value === '') { alert('wallet\'s address must be entered'); return }
       isAdding.setTrue();
-      updateWallet({
+      editWallet({
         id: props.item.id,
-        cryptocurrencyId: cryptocurrency.value.id,
-        address: address.value,
-        name: name.value,
-        source: source.value
+        newCryptocurrencyId: cryptocurrency.value.id,
+        newAddress: address.value,
+        newName: name.value,
+        newSource: source.value
       }).then(res => {
         if (props.onUpdate !== undefined) props.onUpdate();
         action.reset();

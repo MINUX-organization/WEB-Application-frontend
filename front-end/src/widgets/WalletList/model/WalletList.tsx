@@ -29,7 +29,7 @@ export const WalletList = (props: WalletListProps) => {
           </tr>
         </thead>
         <tbody>
-          {props.list.map(item => <WalletListItem key={item.address} item={item} onUpdate={() => props.onUpdate !== undefined ? props.onUpdate() : null} />)}
+          {_.sortBy(props.list, ['coin', 'name']).map(item => <WalletListItem key={item.address} item={item} onUpdate={props.onUpdate} />)}
         </tbody>
       </table>
     </FQuadContainer>

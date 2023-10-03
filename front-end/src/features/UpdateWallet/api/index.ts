@@ -1,1 +1,1 @@
-export { getFullCryptocurrencies, updateWallet } from '@/shared/api'
+export { getFullCryptocurrencies, editWallet } from '@/shared/api'

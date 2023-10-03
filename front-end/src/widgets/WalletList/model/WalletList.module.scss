@@ -69,6 +69,7 @@ $bg-color: rgba(0, 0, 0, 20%);
   white-space: nowrap;
   display: flex;
   gap: 4px;
+  justify-content: end;
 
   .icon.sp1 {
     font-size: 35px;

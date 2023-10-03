@@ -19,7 +19,7 @@ export const Wallets = (props: HTMLProps<HTMLDivElement>) => {
       <FButton severity='good' className="self-end" onClick={isAddOpen.setTrue}>Add new</FButton>
       <FModal open={isAddOpen.value} onClose={isAddOpen.setFalse} title="Add Wallet">
         <FContainer className={styles['new-wallet-wrapper']} bodyProps={{ className: styles['new-wallet-body']}}>
-          <CreateWallet onAdd={isAddOpen.setFalse} />
+          <CreateWallet onAdd={() => {walletListQuery.refetch(); isAddOpen.setFalse()}} />
         </FContainer>
       </FModal>
     </div>
