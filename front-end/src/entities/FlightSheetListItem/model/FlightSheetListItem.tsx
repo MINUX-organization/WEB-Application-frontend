@@ -75,7 +75,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
   )
 
   useEffect(() => {
-    action.cancelGpuList();
+    action.resetGpuList();
   }, [gpuListQuery.data])
 
   useEffect(() => {
@@ -133,14 +133,14 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
       <Tridot className={styles['tridot-outside']} />
       <FModal title="Select GPU" open={isOpen.value} onClose={isOpen.setFalse} bodyProps={{ className: styles['modal-body'] }}>
         <FContainer className={styles['gpu-list-container']} visibility={{ tc: false }} bodyProps={{ className: styles['gpu-list-container-body'] }}>
+          {gpuListQuery.isFetching && <Spin size="large" className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2" />}
+          {gpuListQuery.data !== undefined && modifiedGpuList.value.length === 0 && <div className="w-fit mx-auto ">nothing found</div>}
           <Scrollbars
             autoHide
             className={styles['gpu-list']}
             renderTrackVertical={props => <div {...props} className={styles['scroll-track']} />}
             renderThumbVertical={props => <div {...props} className={styles['scroll-thumb']} />}
           >
-            {gpuListQuery.isFetching && <Spin size="large" className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2" />}
-            {gpuListQuery.data !== undefined && modifiedGpuList.value.length === 0 && <div className="w-fit mx-auto ">nothing found</div>}
             {gpuListQuery.data !== undefined && modifiedGpuList.value.map((gpu, index) => (
               <div key={gpu.id + ' ' + gpu.flightSheetId} className={styles['gpu-item']} onClick={() => action.updateModifiedGpuListItem(gpu.id, !(gpu.flightSheetId === props.item.id) ? props.item.id : null)}>
                 <div className={styles['gpu-item-index']}>{index}</div>
