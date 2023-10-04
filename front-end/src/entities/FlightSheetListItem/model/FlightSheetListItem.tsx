@@ -5,8 +5,10 @@ import { AiOutlineDown } from "react-icons/ai"
 import { useBooleanUrl } from "@/shared/lib/useBooleanUrl"
 import { useBoolean, useElementSize } from "usehooks-ts"
 import { useQuery } from "react-query"
-import { getGPUListForFlightSheet, updateFlightSheetGPUList } from "../api"
+import { getGpusForFlightSheets, editGpusForFlightSheets } from "../api"
 import { useStateObj } from "@/shared/lib"
+import { Spin } from "antd"
+import { toast } from "react-toastify"
 import Scrollbars from "react-custom-scrollbars-2"
 import styles from './FlightSheetListItem.module.scss'
 import _ from 'lodash'
@@ -19,8 +21,8 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
   const isExpanded = useBoolean(false);
   const isOpen = useBooleanUrl('flight-sheet-open-' + props.item.id + '-' + props.item.name);
   const isUpdatingGPUList = useBoolean(false) 
-  const gpuListQuery = useQuery(['load gpu list for flight sheet'], () => getGPUListForFlightSheet({}))
-  const modifiedGpuList = useStateObj<Exclude<typeof gpuListQuery.data, undefined>['list']>([])
+  const gpuListQuery = useQuery(['load gpu list for flight sheet'], () => getGpusForFlightSheets({}), { onError: (error: any) => toast.error(error.message, { position: toast.POSITION.BOTTOM_LEFT})})
+  const modifiedGpuList = useStateObj<Exclude<typeof gpuListQuery.data, undefined>['data']['gpusForFlightSheets']>([])
   const [extraDataRef, extraDataSize] = useElementSize()
 
   const action = {
@@ -29,7 +31,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
         const found = prev.find(gpu => gpu.id === gpuId);
         if (found !== undefined) {
           if (flightSheetId === null) {
-            const oldFlightSheetId = gpuListQuery.data!.list.find(gpu => gpu.id === gpuId)!.flightSheetId
+            const oldFlightSheetId = gpuListQuery.data!.data.gpusForFlightSheets.find(gpu => gpu.id === gpuId)!.flightSheetId
             found.flightSheetId = oldFlightSheetId !== props.item.id ? oldFlightSheetId : null;
           } else {
             found.flightSheetId = flightSheetId
@@ -42,7 +44,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
       if (gpuListQuery.data === undefined) {
         modifiedGpuList.setValue([])
       } else {
-        modifiedGpuList.setValue(_.cloneDeep(gpuListQuery.data.list))
+        modifiedGpuList.setValue(_.cloneDeep(gpuListQuery.data.data.gpusForFlightSheets))
       }
     },
     cancelGpuList: () => {
@@ -51,13 +53,12 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
     },
     updateFlightGPUList: () => {
       isUpdatingGPUList.setTrue();
-      updateFlightSheetGPUList({
-        flightSheetId: props.item.id,
-        gpuIdList: modifiedGpuList.value.filter(gpu => gpu.flightSheetId === props.item.id).map(gpu => gpu.id)
+      editGpusForFlightSheets({
+        gpusForFlightSheets: modifiedGpuList.value.map(v => _.omit(v, 'name'))
       }).then(res => {
-
+        toast.info('updated gpus for flight sheets')
       }).catch(e => {
-
+        toast.info(e.message)
       }).finally(() => {
         isUpdatingGPUList.setFalse();
         isOpen.setFalse();
@@ -132,6 +133,8 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
             renderTrackVertical={props => <div {...props} className={styles['scroll-track']} />}
             renderThumbVertical={props => <div {...props} className={styles['scroll-thumb']} />}
           >
+            {gpuListQuery.isFetching && <Spin size="large" className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2" />}
+            {gpuListQuery.data !== undefined && modifiedGpuList.value.length === 0 && <div className="w-fit mx-auto ">nothing found</div>}
             {gpuListQuery.data !== undefined && modifiedGpuList.value.map((gpu, index) => (
               <div key={gpu.id + ' ' + gpu.flightSheetId} className={styles['gpu-item']} onClick={() => action.updateModifiedGpuListItem(gpu.id, !(gpu.flightSheetId === props.item.id) ? props.item.id : null)}>
                 <div className={styles['gpu-item-index']}>{index}</div>

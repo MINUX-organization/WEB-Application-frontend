@@ -1,1 +1,1 @@
-export { getGPUListForFlightSheet, updateFlightSheetGPUList } from '@/shared/api'
+export { getGpusForFlightSheets, editGpusForFlightSheets } from '@/shared/api'
