@@ -21,7 +21,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
   const isExpanded = useBoolean(false);
   const isOpen = useBooleanUrl('flight-sheet-open-' + props.item.id + '-' + props.item.name);
   const isUpdatingGPUList = useBoolean(false) 
-  const gpuListQuery = useQuery(['load gpu list for flight sheet'], () => getGpusForFlightSheets({}), { onError: (error: any) => toast.error(error.message, { position: toast.POSITION.BOTTOM_LEFT})})
+  const gpuListQuery = useQuery(['load gpu list for flight sheet'], () => getGpusForFlightSheets({}), { onError: (error: any) => toast.error(error.message)})
   const modifiedGpuList = useStateObj<Exclude<typeof gpuListQuery.data, undefined>['data']['gpusForFlightSheets']>([])
   const [extraDataRef, extraDataSize] = useElementSize()
 

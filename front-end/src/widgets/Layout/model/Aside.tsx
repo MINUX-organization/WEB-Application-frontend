@@ -41,9 +41,9 @@ export const Aside = () => {
       if (res.status === 200) {
         updateDynamicData({ state: { mining: false }})
       }
-      toast.info('mining stopped', { position: toast.POSITION.BOTTOM_LEFT})
+      toast.info('mining stopped')
     }).catch(e => {
-      toast.error(JSON.stringify(e.message), { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error(JSON.stringify(e.message))
     })
   }
 
@@ -52,9 +52,9 @@ export const Aside = () => {
       if (res.status === 200) {
         updateDynamicData({ state: { mining: true }})
       }
-      toast.info('mining started', { position: toast.POSITION.BOTTOM_LEFT})
+      toast.info('mining started')
     }).catch(e => {
-      toast.error(JSON.stringify(e.message), { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error(JSON.stringify(e.message))
     })
   }
 

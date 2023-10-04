@@ -30,7 +30,7 @@ export const AuthProvider = (props: PropsWithChildren) => {
   const { data: credentials, isFetching, isError } = useQuery(
     ['get info query', sessionId, sessionIdCount],
     async () => (await getUserInfo({})).data,
-    { onError: (e: any) => toast.error(e, { position: toast.POSITION.BOTTOM_LEFT })}
+    { onError: (e: any) => toast.error(e)}
   )
 
   const isAuthenticated = useMemo(() => {

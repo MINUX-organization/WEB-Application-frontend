@@ -48,7 +48,7 @@ export function App() {
                   <WebSocketProvider>
                     <FRoutes /> 
                   </WebSocketProvider>
-                  <ToastContainer />
+                  <ToastContainer position='bottom-left' />
                 </AntDConfigProvider>
               </Provider>
             </AuthProvider>
