@@ -3,22 +3,35 @@ import axios, { AxiosResponse } from 'axios'
 import { RuntypeBase } from 'runtypes/lib/runtype'
 import * as rt from 'runtypes'
 import { backendUrlHttp } from '../constants'
+import { toast } from 'react-toastify'
 
 const axiosInstance = axios.create({
-  baseURL: backendUrlHttp
+  baseURL: backendUrlHttp,
+  params: {}
 })
 
-axiosInstance.interceptors.request.use(request => {
-  request.headers.set('sessionId', getSessionId())
-  return request
-})
-
-axiosInstance.interceptors.response.use(response => {
-  if (response.status === 401) {
-    setSessionId(null) // remove sessionId
+axiosInstance.interceptors.request.use(
+  request => {
+    console.log(request)
+    request.headers.set('sessionId', getSessionId())
+    return request
+  },
+  error => {
+    toast.error(error.message)
   }
-  return response
-})
+)
+
+axiosInstance.interceptors.response.use(
+  response => {
+    if (response.status === 401) {
+      setSessionId(null) // remove sessionId
+    }
+    return response
+  },
+  error => {
+    toast.error(error.message)
+  }
+)
 
 export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown>, Response = rt.Static<ResponseRuntype>>(method: 'GET' | 'POST' | 'DELETE', url: string, responseRuntype: ResponseRuntype ) => {
   return async (data: Request) => {

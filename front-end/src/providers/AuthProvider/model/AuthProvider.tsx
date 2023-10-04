@@ -27,13 +27,10 @@ export const AuthProvider = (props: PropsWithChildren) => {
   const sessionId = useSessionId()
   const { value: sessionIdCount } = useJunkStoreStateObj('sessionIdUpdateCount')
 
-  const { data: credentials, isFetching, isError } = useQuery(
-    ['get info query', sessionId, sessionIdCount],
-    async () => (await getUserInfo({})).data,
-    { onError: (e: any) => toast.error(e)}
-  )
+  const { data: credentials, isFetching, isError } = useQuery(['get info query', sessionId, sessionIdCount], async () => ((await getUserInfo({})).data), { onError: (e: any) => toast.error(e.message)})
 
   const isAuthenticated = useMemo(() => {
+    // if (sessionId === null) return false
     if (isFetching) return undefined;
     if (isError || credentials === undefined) return false
     return true
