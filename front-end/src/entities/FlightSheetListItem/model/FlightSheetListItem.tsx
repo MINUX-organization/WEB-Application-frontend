@@ -21,7 +21,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
   const isExpanded = useBoolean(false);
   const isOpen = useBooleanUrl('flight-sheet-open-' + props.item.id + '-' + props.item.name);
   const isUpdatingGPUList = useBoolean(false) 
-  const gpuListQuery = useQuery(['load gpu list for flight sheet'], () => getGpusForFlightSheets({}), { onError: (error: any) => toast.error(error.message)})
+  const gpuListQuery = useQuery(['load gpu for flight sheet'], () => getGpusForFlightSheets({}), { enabled: false, onError: (error: any) => toast.error(error.message)})
   const modifiedGpuList = useStateObj<Exclude<typeof gpuListQuery.data, undefined>['data']['gpusForFlightSheets']>([])
   const [extraDataRef, extraDataSize] = useElementSize()
 
@@ -77,6 +77,12 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
   useEffect(() => {
     action.cancelGpuList();
   }, [gpuListQuery.data])
+
+  useEffect(() => {
+    if (isOpen.value) {
+      gpuListQuery.refetch()
+    }
+  }, [isOpen.value])
 
   return (
     <div {..._.omit(props, omittedProps)}
