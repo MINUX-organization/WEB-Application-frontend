@@ -1,7 +1,7 @@
-import { CSSProperties, HTMLProps, SetStateAction, useEffect, useRef } from "react"
+import { CSSProperties, HTMLProps, SetStateAction, useRef } from "react"
 import { useFInterval, useStateObj } from "@/shared/lib"
 import { AiOutlineClose, AiOutlineDown } from "react-icons/ai"
-import { useBoolean, useElementSize, useEventListener, useScreen } from "usehooks-ts"
+import { useBoolean, useEventListener, useWindowSize } from "usehooks-ts"
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Spin } from "antd";
 import { FCheckbox } from "./FCheckbox";
@@ -62,14 +62,9 @@ type FDropdownProps<T> = Omit<HTMLProps<HTMLDivElement>, typeof omittedProps[num
 export const FDropdown = <T,>(props: FDropdownProps<T>) => {
   const innerSelectedSingle = useStateObj<T | null>(null)
   const innerSelectedMultiple = useStateObj<T[]>([])
-  const screen = useScreen();
+  const window = useWindowSize();
   const optionListRef = useRef<HTMLDivElement | null>(null)
-  const [tmpRefSet, optionListSize] = useElementSize();
   const state = (() => {
-    useEffect(() => {
-      tmpRefSet(optionListRef.current)
-    }, [optionListRef.current])
-
     const selectedSingle = {
       value: !props.multiple && props.value !== undefined ? props.value : innerSelectedSingle.value,
       setValue: (argValue: SetStateAction<T | null>) => {
@@ -94,9 +89,10 @@ export const FDropdown = <T,>(props: FDropdownProps<T>) => {
       selectedMultiple,
 
       updateAbove: () => {
-        if (screen !== undefined && state.ref.current !== null) {
+        if (window !== undefined && state.ref.current !== null) {
           const box = state.ref.current.getBoundingClientRect();
-          if (box.bottom + optionsListOffset + optionListSize.height > screen.height - screenOffset) {
+          const listBox = optionListRef.current?.getBoundingClientRect();
+          if (box.bottom + listBox!.height > window.height - screenOffset) {
             state.isAbove.setTrue();
           } else {
             state.isAbove.setFalse();
@@ -136,7 +132,7 @@ export const FDropdown = <T,>(props: FDropdownProps<T>) => {
       state.isOpen.setFalse()
     }
   })
-  useFInterval(state.updateAbove, 200, state.isOpen.value)
+  useFInterval(state.updateAbove, 300, state.isOpen.value)
 
   return (
     <div

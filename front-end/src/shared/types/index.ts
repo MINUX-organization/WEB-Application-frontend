@@ -1,4 +1,4 @@
-import { getStaticCpu, getStaticGpus, getStaticHarddrives } from "@/shared/api";
+import { getStaticCpu, getStaticGpus, getStaticHarddrives, getSettingsGpus, getGpuSetup } from "@/shared/api";
 import { useStateObj } from "@/shared/lib";
 
 export type TStateObj<T> = ReturnType<typeof useStateObj<T>>
@@ -6,6 +6,8 @@ export type TStateObj<T> = ReturnType<typeof useStateObj<T>>
 export type TStaticCPU = Awaited<ReturnType<typeof getStaticCpu>>['data']
 export type TStaticGPU = Awaited<ReturnType<typeof getStaticGpus>>['data']['gpus'][number]
 export type TStaticHarddrive = Awaited<ReturnType<typeof getStaticHarddrives>>['data']['harddrives'][number]
+export type TSettingsGpu = Awaited<ReturnType<typeof getSettingsGpus>>['data']['settingGpus'][number]
+export type TGpuSetup = Awaited<ReturnType<typeof getGpuSetup>>['data']['gpuSetup']
 
 export type TCryptocurrency = { id: number, name: string, fullName: string, algorithmId: number }
 export type TPool = { id: number, host: string, port: number, cryptocurrencyId: number }

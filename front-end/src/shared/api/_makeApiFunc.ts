@@ -1,9 +1,9 @@
 import { getSessionId, setSessionId } from 'providers/AuthProvider'
-import axios, { AxiosResponse } from 'axios'
 import { RuntypeBase } from 'runtypes/lib/runtype'
-import * as rt from 'runtypes'
 import { backendUrlHttp } from '../constants'
 import { toast } from 'react-toastify'
+import axios, { AxiosResponse } from 'axios'
+import * as rt from 'runtypes'
 
 const axiosInstance = axios.create({
   baseURL: backendUrlHttp,
@@ -12,7 +12,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   request => {
-    console.log(request)
     request.headers.set('sessionId', getSessionId())
     return request
   },
