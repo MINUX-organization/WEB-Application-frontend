@@ -10,6 +10,7 @@ import gearsImage from '@/shared/images/gears.png'
 
 type SettingsGpuItemProps = React.ComponentPropsWithoutRef<'div'> & {
   item: TSettingsGpu
+  onEdit?: () => void
 }
 
 export const SettingsGpuItem = (props: SettingsGpuItemProps) => {
@@ -116,7 +117,7 @@ export const SettingsGpuItem = (props: SettingsGpuItemProps) => {
         )}
       </FContainer>
       <FModal open={isOpen.value} title={props.item.name ?? 'Empty Name'} onClose={isOpen.setFalse}>
-        <EditGpuSetup gpuId={props.item.gpuSetupId} onCancel={isOpen.setFalse} onApply={isOpen.setFalse} />
+        <EditGpuSetup gpuId={props.item.gpuSetupId} onCancel={isOpen.setFalse} onApply={() => {isOpen.setFalse(); if (props.onEdit !== undefined) props.onEdit()}} />
       </FModal>
     </>
   )
