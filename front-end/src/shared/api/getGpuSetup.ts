@@ -2,7 +2,7 @@ import * as rt from 'runtypes'
 import { makeApiFunc } from "./_makeApiFunc";
 
 type Request = {
-  gpuId: number
+  gpuSetupId: number
 }
 
 const ResponseRuntype = rt.Record({

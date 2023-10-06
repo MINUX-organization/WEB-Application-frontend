@@ -12,13 +12,14 @@ import { AiOutlineClose } from "react-icons/ai"
 
 type EditGpuSetupProps = {
   gpuId: number
+  gpuSetupId: number
   onCancel?: () => void
   onApply?: () => void
 }
 
 export const EditGpuSetup = (props: EditGpuSetupProps) => {
   const { data: flightSheets, isLoading: isLoadingFlightSheets } = useQuery(['load flight sheets'], () => getFullFlightSheets({}), { onError: (e: any) => toast.error(e.message)})
-  const { data: gpuSetup, isLoading: isLoadingGpuSetup } = useQuery(['load gpu setup', props.gpuId], () => getGpuSetup({ gpuId: props.gpuId }), { onError: (e: any) => toast.error(e.message)})
+  const { data: gpuSetup, isLoading: isLoadingGpuSetup } = useQuery(['load gpu setup', props.gpuId], () => getGpuSetup({ gpuSetupId: props.gpuSetupId }), { onError: (e: any) => toast.error(e.message)})
   const { data: gpuPresetsData, isLoading: isLoadingPresets, refetch: refetchPresets } = useQuery(['get gpu presets', props.gpuId], () => getGpuPresets({ gpuId: props.gpuId }), { onError: (e: any) => toast.error(e.message)})
 
   const [coreClock, setCoreClock] = useState(0)
