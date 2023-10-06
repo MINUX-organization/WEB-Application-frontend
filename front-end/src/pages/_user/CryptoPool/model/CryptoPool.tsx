@@ -8,7 +8,6 @@ export const CryptoPool = (props: HTMLProps<HTMLDivElement>) => {
   return (
     <div {...props} className={(props.className ?? '') + ' ' + styles['wrapper']}>  
       <CreateCryptocurrency /> 
-
       <CreatePool/>
     </div>
   )

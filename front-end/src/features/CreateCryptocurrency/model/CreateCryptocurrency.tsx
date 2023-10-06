@@ -41,6 +41,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
         fullName: fullName.value,
         algorithmId: algorithm.value.id
       }).then(res => {
+        toast.info('cryptocurrency added')
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {

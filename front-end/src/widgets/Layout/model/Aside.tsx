@@ -5,7 +5,6 @@ import { errorHandlerToaster, useStateObj } from '@/shared/lib'
 import { FDropAside } from '@/widgets/Layout/model/FDropAside'
 import { commandPowerOff } from '@/shared/api/commandPowerOff'
 import { commandSystemReboot } from '@/shared/api/commandSystemReboot'
-import { commandSystemReboot60Seconds } from '@/shared/api/commandSystemReboot60Seconds'
 import { useEventListener } from 'usehooks-ts'
 import { commandStopMining } from '@/shared/api/commandStopMining'
 import { toast } from 'react-toastify'
@@ -22,8 +21,8 @@ export const Aside = () => {
   
   const fields = [
     {label: 'Power off', onSelect: () => errorHandlerToaster(commandPowerOff({}))},
-    {label: 'Reboot', onSelect: () => errorHandlerToaster(commandSystemReboot({}))},
-    {label: 'Power off and Start in 60s', onSelect: () => errorHandlerToaster(commandSystemReboot60Seconds({}))}
+    {label: 'Reboot', onSelect: () => errorHandlerToaster(commandSystemReboot({ startupDelay: 0 }))},
+    {label: 'Power off and Start in 60s', onSelect: () => errorHandlerToaster(commandSystemReboot({ startupDelay: 60 }))}
   ]
 
   const toggleDropAside = () => {

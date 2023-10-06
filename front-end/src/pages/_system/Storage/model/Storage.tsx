@@ -17,7 +17,7 @@ export const Storage = (props: StorageProps) => {
         {isFetching && <Spin size="default" />}
         {data !== undefined &&
           <div className={styles['list']}>
-            {data.data.harddrives.map(item => <StorageItem item={item} />)}
+            {data.data.harddrives.map(item => <StorageItem key={item.uuid} item={item} />)}
           </div>
         }
       </div>

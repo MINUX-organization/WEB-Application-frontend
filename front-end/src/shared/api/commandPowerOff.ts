@@ -5,4 +5,4 @@ type Request = {}
 
 const ResponseRuntype = rt.String // empty string
 
-export const commandPowerOff = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'power-off', ResponseRuntype)
+export const commandPowerOff = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'commands/power-off', ResponseRuntype)

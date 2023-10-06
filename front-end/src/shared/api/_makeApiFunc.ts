@@ -28,6 +28,7 @@ axiosInstance.interceptors.response.use(
     return response
   },
   error => {
+    console.log(error)
     toast.error(error.message)
   }
 )
@@ -38,13 +39,15 @@ export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown
       const response =  await axiosInstance.request<Response, AxiosResponse<Response>, Request>({ method, url, data })
       responseRuntype.check(response.data)
       return response
-    } catch (e: any) {
+    } catch (error: any) {
+      console.log(error)
+      toast.error(error.message)
       // if (axios.isAxiosError(e)) {
       //   if (e.code === '401') {
       //     setSessionId(null) // remove sessionId
       //   }
       // }
-      throw e
+      throw error
     }
   }
 }
