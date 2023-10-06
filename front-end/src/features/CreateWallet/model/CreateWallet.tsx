@@ -7,6 +7,7 @@ import { TCryptocurrency } from "@/shared/types";
 import { useBoolean } from "usehooks-ts";
 import styles from './CreateWallet.module.scss'
 import _ from 'lodash'
+import { toast } from "react-toastify";
 
 const omittedProps = [
   'onAdd'
@@ -32,10 +33,10 @@ export const CreateWallet = (props: CreateWalletProps) => {
       address.setValue('')
     },
     add: () => {
-      if (cryptocurrency.value === null) { alert('wallet\'s cryptocurrency must be selected'); return }
-      if (name.value === '') { alert('wallet\'s name must be entered'); return }
-      if (source.value === '') { alert('wallet\'s source must be entered'); return }
-      if (address.value === '') { alert('wallet\'s address must be entered'); return }
+      if (cryptocurrency.value === null) { toast.error('wallet\'s cryptocurrency must be selected'); return }
+      if (name.value === '') { toast.error('wallet\'s name must be entered'); return }
+      if (source.value === '') { toast.error('wallet\'s source must be entered'); return }
+      if (address.value === '') { toast.error('wallet\'s address must be entered'); return }
       isAdding.setTrue();
       createWallet({
         cryptocurrencyId: cryptocurrency.value.id,
@@ -46,7 +47,7 @@ export const CreateWallet = (props: CreateWalletProps) => {
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {
-        alert(e.message);
+        // alert(e.message);
       }).finally(() => {
         isAdding.setFalse();
       })

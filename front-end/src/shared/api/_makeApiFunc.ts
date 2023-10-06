@@ -2,7 +2,7 @@ import { getSessionId, setSessionId } from 'providers/AuthProvider'
 import { RuntypeBase } from 'runtypes/lib/runtype'
 import { backendUrlHttp } from '../constants'
 import { toast } from 'react-toastify'
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, isAxiosError } from 'axios'
 import * as rt from 'runtypes'
 
 const axiosInstance = axios.create({
@@ -27,10 +27,10 @@ axiosInstance.interceptors.response.use(
     }
     return response
   },
-  error => {
-    console.log(error)
-    toast.error(error.message)
-  }
+  // error => {
+  //   console.log(error.response.data)
+  //   toast.error(error.response.data.error)
+  // }
 )
 
 export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown>, Response = rt.Static<ResponseRuntype>>(method: 'GET' | 'POST' | 'DELETE', url: string, responseRuntype: ResponseRuntype ) => {
@@ -41,7 +41,19 @@ export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown
       return response
     } catch (error: any) {
       console.log(error)
-      toast.error(error.message)
+      if (isAxiosError(error)) {
+        if (error.response !== undefined) {
+          if ('error' in error.response.data) {
+            toast.error(error.response.data.error)
+          } else {
+            toast.error(error.response.data)
+          }
+        } else {
+          toast.error(error.message)
+        }
+      } else {
+        toast.error(JSON.stringify(error))
+      }
       // if (axios.isAxiosError(e)) {
       //   if (e.code === '401') {
       //     setSessionId(null) // remove sessionId

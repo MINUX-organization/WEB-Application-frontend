@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { TAlgorithm } from "@/shared/types";
 import styles from './CreateMiner.module.scss'
 import _ from 'lodash'
+import { toast } from "react-toastify";
 
 const omittedProps = [
   'onAdd'
@@ -30,8 +31,8 @@ export const CreateMiner = (props: CreateMinerProps) => {
       algorithms.setValue([])
     },
     add: () => {
-      if (name.value === '') { alert('name must be entered'); return}
-      if (fullName.value === '') { alert('full name must be entered'); return}
+      if (name.value === '') { toast.error('name must be entered'); return}
+      if (fullName.value === '') { toast.error('full name must be entered'); return}
       isAdding.setTrue();
       createMiner({
         name: name.value,
@@ -39,7 +40,6 @@ export const CreateMiner = (props: CreateMinerProps) => {
       }).then(res => {
         if (props.onAdd !== undefined) props.onAdd();
       }).catch(e => {
-        alert(e.message);
       }).finally(() => {
         isAdding.setFalse();
       })

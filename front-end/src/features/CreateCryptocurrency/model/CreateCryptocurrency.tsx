@@ -45,7 +45,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {
-        toast.error(e.message)
+        // toast.error(e.message)
       }).finally(() => {
         isAdding.setFalse();
       })

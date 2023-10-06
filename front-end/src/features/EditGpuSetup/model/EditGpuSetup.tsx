@@ -5,10 +5,10 @@ import { useEffect, useState } from "react"
 import { useBoolean } from "usehooks-ts"
 import { Button, Spin } from "antd"
 import { FNumInput } from "@/shared/ui/FNumInput"
-import styles from './EditGpuSetup.module.scss'
 import { toast } from "react-toastify"
 import { deleteGpuPreset } from "@/shared/api/deleteGpuPreset"
 import { AiOutlineClose } from "react-icons/ai"
+import styles from './EditGpuSetup.module.scss'
 
 type EditGpuSetupProps = {
   gpuId: number
@@ -53,7 +53,7 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
       cancelName()
       refetchPresets();
     }).catch(e => {
-      toast.error(e.message)
+      // toast.error(e.message)
     }).finally(() => {
       isCreatingNewPreset.setFalse();
     })

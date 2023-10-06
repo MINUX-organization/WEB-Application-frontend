@@ -48,7 +48,7 @@ export const CreatePool = (props: CreatePoolProps) => {
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {
-        alert(e.message);
+        // alert(e.message);
       }).finally(() => {
         isAdding.setFalse();
       })

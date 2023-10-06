@@ -13,6 +13,7 @@ import { CreateMiner } from "@/features/CreateMiner";
 import { showNotifyInfo } from "@/shared/utils";
 import styles from './CreateFlightSheet.module.scss'
 import _ from 'lodash'
+import { toast } from "react-toastify";
 
 const useAddModal = (title: string, booleanUrlKey: string, ModalBody: (props: HTMLProps<HTMLDivElement> & { onAdd?: () => void }) => JSX.Element) => {
   return {
@@ -68,11 +69,11 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
       name.setValue('');
     },
     createFlightSheet: () => {
-      if (cryptocurrencySmart === null) {showNotifyInfo('Cryptocurrency must be selected'); return}
-      if (walletSmart === null) {showNotifyInfo('Wallet must be selected'); return}
-      if (poolSmart === null) {showNotifyInfo('Pool must be selected'); return}
-      if (minerSmart === null) {showNotifyInfo('Miner must be selected'); return}
-      if (name.value === '') {showNotifyInfo('Name must be entered'); return}
+      if (cryptocurrencySmart === null) {toast.error('Cryptocurrency must be selected'); return}
+      if (walletSmart === null) {toast.error('Wallet must be selected'); return}
+      if (poolSmart === null) {toast.error('Pool must be selected'); return}
+      if (minerSmart === null) {toast.error('Miner must be selected'); return}
+      if (name.value === '') {toast.error('Name must be entered'); return}
       isAdding.setTrue();
       createFlightSheet({
         name: name.value,
@@ -83,7 +84,6 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
       }).then(res => {
         if (props.onAdd !== undefined) props.onAdd();
       }).catch(e => {
-        alert(e.message);
       }).finally(() => {
         action.reset();
         isAdding.setFalse();
