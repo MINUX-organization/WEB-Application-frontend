@@ -25,6 +25,12 @@
     color: values.$text-color-red;
   }
 
+  .span-8 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
   .power-unit {
     color: values.$line-color;
   }

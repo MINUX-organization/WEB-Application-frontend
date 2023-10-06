@@ -20,9 +20,33 @@ export const Aside = () => {
   const updateDynamicData = useDynamicDataStore((state) => state.updateDynamicData); 
   
   const fields = [
-    {label: 'Power off', onSelect: () => errorHandlerToaster(commandPowerOff({}))},
-    {label: 'Reboot', onSelect: () => errorHandlerToaster(commandSystemReboot({ startupDelay: 0 }))},
-    {label: 'Power off and Start in 60s', onSelect: () => errorHandlerToaster(commandSystemReboot({ startupDelay: 60 }))}
+    {label: 'Power off', onSelect: () => (
+      commandPowerOff({}).then(res => {
+        if (res.status) {
+          toast.info('system is powering off...')
+        } else {
+          toast.error('system cannot be powered off')
+        }
+      })
+    )},
+    {label: 'Reboot', onSelect: () => (
+      commandSystemReboot({ startupDelay: 0 }).then(res => {
+        if (res.status) {
+          toast.info('system is rebooting...')
+        } else {
+          toast.error('system cannot reboot')
+        }
+      })
+    )},
+    {label: 'Power off and Start in 60s', onSelect: () => (
+      commandSystemReboot({ startupDelay: 60 }).then(res => {
+        if (res.status) {
+          toast.info('system will be powered off right now and started in 60 seconds')
+        } else {
+          toast.info('system cannot be powered off')
+        }
+      })
+    )}
   ]
 
   const toggleDropAside = () => {
