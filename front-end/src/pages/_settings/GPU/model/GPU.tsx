@@ -13,7 +13,7 @@ export const GPU = (props: HTMLProps<HTMLDivElement>) => {
       {isLoading && <Spin />}
       {settingGpus !== undefined && (
         settingGpus.data.settingGpus.map(item => (
-          <SettingsGpuItem item={item} onEdit={refetch} />
+          <SettingsGpuItem key={item.gpuId} item={item} onEdit={refetch} />
         ))
       )}
     </div>

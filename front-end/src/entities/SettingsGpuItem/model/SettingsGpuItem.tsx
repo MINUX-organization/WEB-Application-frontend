@@ -74,8 +74,8 @@ export const SettingsGpuItem = (props: SettingsGpuItemProps) => {
             <div className={styles['first-line']}>
               <div className={styles['name-box']}>
                 <div className={styles['name']}>{props.item.name}</div>
-                <div className={styles['under-name']}>-</div>
-                <div className={styles['under-name']}>-</div>
+                {/* <div className={styles['under-name']}>-</div>
+                <div className={styles['under-name']}>-</div> */}
               </div>
               {above800 && <img src={gpuImage} className={styles['image']} alt="gpu" />}
               <img src={gearsImage} className={styles['gears']} alt="gears" onClick={isOpen.setTrue} />
