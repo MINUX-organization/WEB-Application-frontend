@@ -33,7 +33,7 @@ export default function GpuItem({item, index}: Props) {
         <span className={'span-5'}>{`${item.hashrate.value} ${item.hashrate.measurement}`}</span> 
         <span className={'span-6'}>{item.temperature + ' °C'}</span> 
         <span className={'span-7'}>{item.fanSpeed + ' %'}</span> 
-        <span className={'span-8'}>{item.powerUsage}</span> 
+        <span className={'span-8'}>{item.powerUsage} <span className="power-unit">W</span></span> 
       </div>
       <div className={`overflow ${isClose ? '' : 'active'}`} >
         <div className='gpu-popup'>

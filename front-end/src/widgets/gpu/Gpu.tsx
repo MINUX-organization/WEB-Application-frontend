@@ -9,30 +9,20 @@ export default function Gpu() {
     <div className='gpus-table'> 
       <div className='grid-gpus-container'>
         <TotalGpus/>
-
         <TotalNvidia/>
-
         <TotalAmd/>
-
         <div className='grid-gpus-subgrid'>
           <span>Accepted</span>
-
           <span>Rejected</span>
-
           <span>Hashrate</span>
-
           <span>Temp</span> 
-          
           <span>Fan</span> 
-          
           <span>Power</span> 
         </div>
       </div> 
-
       <div className='gpus-scroll-container'> 
-          <GpuItems/>
+        <GpuItems/>
       </div>
     </div>
-
   )
 }
