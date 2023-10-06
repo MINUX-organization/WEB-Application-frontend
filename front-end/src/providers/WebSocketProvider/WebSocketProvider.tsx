@@ -25,7 +25,7 @@ export const WebSocketProvider = ({ children } : PropsWithChildren) => {
   useEffectOnce(() => {
     const lws = new WebSocket(backendUrlWs)
     lws.onerror = error => {
-      toast.error('Cannot connect to backend', { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error('Cannot connect to backend')
       console.error('WebSocket error:', error);
     }
     lws.onopen = event => {

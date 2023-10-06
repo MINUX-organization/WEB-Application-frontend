@@ -5,7 +5,6 @@ import { errorHandlerToaster, useStateObj } from '@/shared/lib'
 import { FDropAside } from '@/widgets/Layout/model/FDropAside'
 import { commandPowerOff } from '@/shared/api/commandPowerOff'
 import { commandSystemReboot } from '@/shared/api/commandSystemReboot'
-import { commandSystemReboot60Seconds } from '@/shared/api/commandSystemReboot60Seconds'
 import { useEventListener } from 'usehooks-ts'
 import { commandStopMining } from '@/shared/api/commandStopMining'
 import { toast } from 'react-toastify'
@@ -21,9 +20,33 @@ export const Aside = () => {
   const updateDynamicData = useDynamicDataStore((state) => state.updateDynamicData); 
   
   const fields = [
-    {label: 'Power off', onSelect: () => errorHandlerToaster(commandPowerOff({}))},
-    {label: 'Reboot', onSelect: () => errorHandlerToaster(commandSystemReboot({}))},
-    {label: 'Power off and Start in 60s', onSelect: () => errorHandlerToaster(commandSystemReboot60Seconds({}))}
+    {label: 'Power off', onSelect: () => (
+      commandPowerOff({}).then(res => {
+        if (res.status) {
+          toast.info('system is powering off...')
+        } else {
+          toast.error('system cannot be powered off')
+        }
+      })
+    )},
+    {label: 'Reboot', onSelect: () => (
+      commandSystemReboot({ startupDelay: 0 }).then(res => {
+        if (res.status) {
+          toast.info('system is rebooting...')
+        } else {
+          toast.error('system cannot reboot')
+        }
+      })
+    )},
+    {label: 'Power off and Start in 60s', onSelect: () => (
+      commandSystemReboot({ startupDelay: 60 }).then(res => {
+        if (res.status) {
+          toast.info('system will be powered off right now and started in 60 seconds')
+        } else {
+          toast.info('system cannot be powered off')
+        }
+      })
+    )}
   ]
 
   const toggleDropAside = () => {
@@ -41,9 +64,9 @@ export const Aside = () => {
       if (res.status === 200) {
         updateDynamicData({ state: { mining: false }})
       }
-      toast.info('mining stopped', { position: toast.POSITION.BOTTOM_LEFT})
+      toast.info('mining stopped')
     }).catch(e => {
-      toast.error(JSON.stringify(e.message), { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error(JSON.stringify(e.message))
     })
   }
 
@@ -52,9 +75,9 @@ export const Aside = () => {
       if (res.status === 200) {
         updateDynamicData({ state: { mining: true }})
       }
-      toast.info('mining started', { position: toast.POSITION.BOTTOM_LEFT})
+      toast.info('mining started')
     }).catch(e => {
-      toast.error(JSON.stringify(e.message), { position: toast.POSITION.BOTTOM_LEFT})
+      toast.error(JSON.stringify(e.message))
     })
   }
 

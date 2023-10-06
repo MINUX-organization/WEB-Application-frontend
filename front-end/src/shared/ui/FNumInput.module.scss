@@ -1,0 +1,198 @@
+@use '@/app/values.scss';
+
+/**
+  those variables are defined inside FTextInput.tsx
+  --line-height
+  --px
+  --py
+*/
+
+$px: var(--px);
+$py: var(--py);
+$line-height: var(--line-height);
+$transition-duration: 200ms;
+$title-p: 5px;
+$title-scale: 0.6;
+$arrows-width: 28px;
+$arrows-px: 10px;
+
+
+.wrapper {
+  --current-color: #{values.$line-color};
+  position: relative;
+  display: flex; 
+  border: 1px solid var(--current-color);
+  border-top-color: transparent;
+  background: #ffffff0c;
+  min-height: 60px;
+  min-width: 100px;
+  height: fit-content;
+  transition: all $transition-duration;
+  &:focus-within {
+    --current-color: #{values.$text-color-thirdy};
+    border-top-color: transparent;
+  }
+
+  &:focus-within, &.active {
+    .title {
+      transform: translate($px, -50%) scale($title-scale);
+    }
+    .lt-line {
+      width: calc($px - $title-p);
+    }
+
+    .rt-line {
+      width: calc(100% - var(--title-width) * $title-scale - $title-p - $px );
+    }
+  }
+
+  &.active {
+    .title {
+      color: values.$line-color;
+    }
+  }
+
+  &:focus-within {
+    .title {
+      color: values.$text-color-thirdy;
+    }
+
+    .lt-line, .rt-line {
+      color: values.$text-color-thirdy;
+    }
+  }
+
+  &.no-title {
+    .lt-line, .rt-line {
+      display: none;
+    }
+    // border-top-color: values.$line-color;
+    border-top-color: var(--current-color);
+
+    &:focus-within {
+      // border-top-color: values.$text-color-thirdy;
+      border-top-color: var(--current-color);
+    }
+  }
+}
+
+@mixin line {
+  position: absolute;
+  height: 0;
+  color: values.$line-color;
+  border-bottom: 1px solid currentColor;
+  transition: all $transition-duration;
+}
+
+.lt-line {
+  @include line();
+  left: 0;
+  top: -1px;
+  width: $px;
+}
+
+.rt-line {
+  @include line();
+  right: 0;
+  top: -1px;
+  width: calc(100% - $px);
+}
+
+.title {
+  position: absolute;
+  font-size: $line-height;
+  line-height: $line-height;
+  left: 0px;
+  top: 0px;
+  transform: translate($px, $py);
+  transform-origin: left center;
+  transition: all $transition-duration;
+  color: var(--fuck-you);
+  pointer-events: none;
+}
+
+.textarea {
+  left: 0;
+  background: transparent !important;
+  margin: 0;
+  padding: $py $px;
+  min-width: 20px;
+  width: 100%;
+  min-height: calc($line-height + 2px);
+  overflow: visible;
+  height: fit-content;
+  font-size: $line-height;
+  line-height: $line-height;
+  vertical-align: top;
+  resize: none;
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.input {
+  position: absolute;
+  left: 0; 
+  background: transparent !important;
+  margin: 0;
+  padding: $py $px;
+  min-width: 20px;
+  width: 100%;
+  min-height: calc($line-height + 2px);
+  height: 100% !important;
+  overflow: visible;
+  height: fit-content;
+  font-size: $line-height;
+  line-height: $line-height;
+  vertical-align: top;
+  resize: none;
+  padding-left: calc($arrows-width + 2 * $arrows-px);
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: rgba(255,255,255, 20%);
+  }
+
+  // disable arrows
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type=number]{
+    -moz-appearance: textfield;
+  }
+
+}
+
+.arrows {
+  width: $arrows-width;
+  height: 100%;
+  position: absolute;
+  left: $arrows-px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: var(--current-color);
+
+  button {
+    // background: rgba(255, 255, 255, 0.041);
+    height: calc(($line-height + 2 * $py) / 2);
+    color: inherit;
+
+    &:focus {
+      outline: none;
+      background: #ffffff23;
+    }
+    
+    &:hover {
+      background: #ffffff2f;
+    }
+  }
+}

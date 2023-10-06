@@ -9,6 +9,7 @@ import { useQuery } from "react-query";
 import { getFullCryptocurrencies } from "@/shared/api";
 import styles from './CreatePool.module.scss'
 import _ from 'lodash'
+import { toast } from "react-toastify";
 
 const omittedProps = [
   'onAdd'
@@ -27,25 +28,27 @@ export const CreatePool = (props: CreatePoolProps) => {
 
   const action = {
     reset: () => {
+      cryptocurrency.setValue(null);
       domain.setValue('');
       port.setValue('');
     },
     add: () => {
-      if (cryptocurrency.value === null) {showNotifyInfo('Cryptocurrency must be selected'); return;}
-      if (domain.value === '') {showNotifyInfo('Domain must be entered'); return;}
-      if (port.value === '') {showNotifyInfo('Port must be entered'); return;}
+      if (cryptocurrency.value === null) {toast.error('Cryptocurrency must be selected'); return;}
+      if (domain.value === '') {toast.error('Domain must be entered'); return;}
+      if (port.value === '') {toast.error('Port must be entered'); return;}
       const numPort = Number.parseInt(port.value);
-      if (Number.isNaN(numPort)) {showNotifyInfo('Port must be a number'); return;}
+      if (Number.isNaN(numPort)) {toast.error('Port must be a number'); return;}
       isAdding.setTrue();
       createPool({
         cryptocurrencyId: cryptocurrency.value.id,
         host: domain.value,
         port: numPort
       }).then(res => {
+        toast.info('pool added')
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {
-        alert(e.message);
+        // alert(e.message);
       }).finally(() => {
         isAdding.setFalse();
       })

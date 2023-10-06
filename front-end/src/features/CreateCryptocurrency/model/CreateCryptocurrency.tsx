@@ -41,10 +41,11 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
         fullName: fullName.value,
         algorithmId: algorithm.value.id
       }).then(res => {
+        toast.info('cryptocurrency added')
         if (props.onAdd !== undefined) props.onAdd();
         action.reset();
       }).catch(e => {
-        toast.error(e.message, { position: toast.POSITION.BOTTOM_LEFT })
+        // toast.error(e.message)
       }).finally(() => {
         isAdding.setFalse();
       })

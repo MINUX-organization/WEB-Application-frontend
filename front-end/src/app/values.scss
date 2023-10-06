@@ -46,37 +46,37 @@ $widget-cpu-width: 786px;
 $widget-coin-width: 686px; 
 
 .border-line {
-    border: solid $line-size-smaller $line-color;
-    padding: 7px;
+  border: solid $line-size-smaller $line-color;
+  padding: 7px;
 }
 
 .img-no-drag {
-    user-select: none; 
+  user-select: none; 
 }
 
 .red {
-    color: $text-color-red;
+  color: $text-color-red;
 }
 
 .green {
-    color: $text-color-green;
+  color: $text-color-green;
 }
 
 .value {
-    color: $text-color-value
+  color: $text-color-value
 }
 
 .not-active {
-    display: inline-block;
-    width: 100%; 
+  display: inline-block;
+  width: 100%; 
 
-    &:hover {
-        background-image: linear-gradient(to top, rgba(128, 128, 128, 0.588), #3b3e3f00); 
-    }
+  &:hover {
+    background-image: linear-gradient(to top, rgba(128, 128, 128, 0.588), #3b3e3f00); 
+  }
 }
 
 .not-active-click {
-    display: inline-block;
-    width: 100%; 
-    background-image: linear-gradient(to top, #3c9ea5b8, #3b3e3f00); 
+  display: inline-block;
+  width: 100%; 
+  background-image: linear-gradient(to top, #3c9ea5b8, #3b3e3f00); 
 }

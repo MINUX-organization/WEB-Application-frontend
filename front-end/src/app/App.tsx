@@ -17,13 +17,16 @@ const color = {
 
 const ftheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
-  token: { colorPrimary: '#3C9EA5', borderRadius: 0 },
+  token: {
+    colorPrimary: '#3C9EA5',
+    borderRadius: 0,
+  },
   components: {
     DatePicker: {
       colorBorder: color.primary,
       colorTextPlaceholder: 'rgba(255, 255, 255, 0.4862745098)',
       fontSize:  20
-    }
+    },
   }
 }
 
@@ -48,7 +51,7 @@ export function App() {
                   <WebSocketProvider>
                     <FRoutes /> 
                   </WebSocketProvider>
-                  <ToastContainer />
+                  <ToastContainer position='bottom-left' />
                 </AntDConfigProvider>
               </Provider>
             </AuthProvider>

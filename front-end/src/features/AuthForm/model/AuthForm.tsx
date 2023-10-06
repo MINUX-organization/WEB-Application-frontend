@@ -33,7 +33,7 @@ export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
         if (e.statusCode === '401') {
           setSessionId(null)
         }
-        toast.error(e.error, { position: toast.POSITION.BOTTOM_LEFT })
+        toast.error(e.error)
       }).finally(() => {
         state.isAuthenticating.setFalse()
       })

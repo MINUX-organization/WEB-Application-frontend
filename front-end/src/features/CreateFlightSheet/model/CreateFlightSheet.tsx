@@ -13,6 +13,7 @@ import { CreateMiner } from "@/features/CreateMiner";
 import { showNotifyInfo } from "@/shared/utils";
 import styles from './CreateFlightSheet.module.scss'
 import _ from 'lodash'
+import { toast } from "react-toastify";
 
 const useAddModal = (title: string, booleanUrlKey: string, ModalBody: (props: HTMLProps<HTMLDivElement> & { onAdd?: () => void }) => JSX.Element) => {
   return {
@@ -41,17 +42,22 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
   const modalAddWallet = useAddModal('Add wallet', 'create-flightsheet-create-wallet', CreateWallet)
   const modalAddPool = useAddModal('Add pool', 'create-flightsheet-create-pool', CreatePool)
   const modalAddMiner = useAddModal('Add miner', 'create-flightsheet-create-miner', CreateMiner)
-
+  
   const cryptocurrencyOptions = useMemo(() => flightSheeAddOptions.calculateOptions({ cryptocurrency: null,                 miner: miner.value, pool: pool.value, wallet: wallet.value }).cryptocurrencyOptions, [flightSheeAddOptions,                       miner.value, pool.value, wallet.value])
   const minerOptions = useMemo(() => flightSheeAddOptions.calculateOptions({          cryptocurrency: cryptocurrency.value, miner: null,        pool: pool.value, wallet: wallet.value }).minerOptions,          [flightSheeAddOptions, cryptocurrency.value,              pool.value, wallet.value])
   const poolOptions = useMemo(() => flightSheeAddOptions.calculateOptions({           cryptocurrency: cryptocurrency.value, miner: miner.value, pool: null,       wallet: wallet.value }).poolOptions,           [flightSheeAddOptions, cryptocurrency.value, miner.value,             wallet.value])
   const walletOptions = useMemo(() => flightSheeAddOptions.calculateOptions({         cryptocurrency: cryptocurrency.value, miner: miner.value, pool: pool.value, wallet: null         }).walletOptions,         [flightSheeAddOptions, cryptocurrency.value, miner.value, pool.value              ])
-      
-  const fields: Array<{ label: string, stateObj: TStateObj<any>, options: Array<any>, placeholder: string, getOptionLabel: (item: any) => string, getKey: (item: any) => string, modalOpenState: ReturnType<typeof useAddModal>}> = [
-    {label: 'Crypto', stateObj: cryptocurrency, options: cryptocurrencyOptions, placeholder: 'Select crypto', getOptionLabel: (item: TCryptocurrency) => item.name, getKey: (item: TCryptocurrency) => item.name + item.id, modalOpenState: modalAddCryptocurrency},
-    {label: 'Wallet', stateObj: wallet,         options: walletOptions,         placeholder: 'Select wallet', getOptionLabel: (item: TWallet) => item.name,         getKey: (item: TWallet) => item.name + item.id,         modalOpenState: modalAddWallet},
-    {label: 'Pool',   stateObj: pool,           options: poolOptions,           placeholder: 'Select pool',   getOptionLabel: (item: TPool) => item.host,           getKey: (item: TPool) => item.host + item.id,           modalOpenState: modalAddPool},
-    {label: 'Miner',  stateObj: miner,          options: minerOptions,          placeholder: 'Select miner',  getOptionLabel: (item: TMiner) => item.name,          getKey: (item: TMiner) => item.name + item.id,          modalOpenState: modalAddMiner},
+  
+  const cryptocurrencySmart = useMemo(() => cryptocurrencyOptions.length === 1 ? cryptocurrencyOptions[0] : cryptocurrency.value, [cryptocurrency.value, cryptocurrencyOptions])
+  const minerSmart = useMemo(() => minerOptions.length === 1 ? minerOptions[0] : miner.value, [miner.value, minerOptions])
+  const poolSmart = useMemo(() => poolOptions.length === 1 ? poolOptions[0] : pool.value, [pool.value, poolOptions])
+  const walletSmart = useMemo(() => walletOptions.length === 1 ? walletOptions[0] : wallet.value, [wallet.value, walletOptions])
+
+  const fields: Array<{ label: string, stateObj: TStateObj<any>, smart: any, options: Array<any>, placeholder: string, getOptionLabel: (item: any) => string, getKey: (item: any) => string, modalOpenState: ReturnType<typeof useAddModal>}> = [
+    {label: 'Crypto', stateObj: cryptocurrency, smart: cryptocurrencySmart,     options: cryptocurrencyOptions, placeholder: 'Select crypto', getOptionLabel: (item: TCryptocurrency) => item.name, getKey: (item: TCryptocurrency) => item.name + item.id, modalOpenState: modalAddCryptocurrency},
+    {label: 'Wallet', stateObj: wallet,         smart: walletSmart,             options: walletOptions,         placeholder: 'Select wallet', getOptionLabel: (item: TWallet) => item.name,         getKey: (item: TWallet) => item.name + item.id,         modalOpenState: modalAddWallet},
+    {label: 'Pool',   stateObj: pool,           smart: poolSmart,               options: poolOptions,           placeholder: 'Select pool',   getOptionLabel: (item: TPool) => item.host,           getKey: (item: TPool) => item.host + item.id,           modalOpenState: modalAddPool},
+    {label: 'Miner',  stateObj: miner,          smart: minerSmart,              options: minerOptions,          placeholder: 'Select miner',  getOptionLabel: (item: TMiner) => item.name,          getKey: (item: TMiner) => item.name + item.id,          modalOpenState: modalAddMiner},
   ]
 
   const action = {
@@ -63,22 +69,21 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
       name.setValue('');
     },
     createFlightSheet: () => {
-      if (cryptocurrency.value === null) {showNotifyInfo('Cryptocurrency must be selected'); return}
-      if (wallet.value === null) {showNotifyInfo('Wallet must be selected'); return}
-      if (pool.value === null) {showNotifyInfo('Pool must be selected'); return}
-      if (miner.value === null) {showNotifyInfo('Miner must be selected'); return}
-      if (name.value === '') {showNotifyInfo('Name must be entered'); return}
+      if (cryptocurrencySmart === null) {toast.error('Cryptocurrency must be selected'); return}
+      if (walletSmart === null) {toast.error('Wallet must be selected'); return}
+      if (poolSmart === null) {toast.error('Pool must be selected'); return}
+      if (minerSmart === null) {toast.error('Miner must be selected'); return}
+      if (name.value === '') {toast.error('Name must be entered'); return}
       isAdding.setTrue();
       createFlightSheet({
         name: name.value,
-        cryptocurrencyId: cryptocurrency.value.id,
-        minerId: miner.value.id,
-        poolId: pool.value.id,
-        walletId: wallet.value.id
+        cryptocurrencyId: cryptocurrencySmart.id,
+        minerId: minerSmart.id,
+        poolId: poolSmart.id,
+        walletId: walletSmart.id
       }).then(res => {
         if (props.onAdd !== undefined) props.onAdd();
       }).catch(e => {
-        alert(e.message);
       }).finally(() => {
         action.reset();
         isAdding.setFalse();
@@ -103,7 +108,7 @@ export const CreateFlightSheet = (props: CreateFlightSheetProps) => {
               warnWhenNoOptions
               loading={flightSheeAddOptions.query.isFetching}
               options={field.options}
-              value={field.stateObj.value}
+              value={field.smart}
               getOptionLabel={field.getOptionLabel}
               getOptionValue={field.getKey}
               placeholder={field.placeholder}

@@ -68,7 +68,7 @@ export const useDynamicDataStore = create<DynamicStore>((set) => ({
           draft.data = { ...draft.data, ...data };
         })
       } catch (e: any) {
-        toast.error((e.message ?? JSON.stringify(e)).slice(0, 100) + '... for more info see console', { position: toast.POSITION.BOTTOM_LEFT })
+        toast.error((e.message ?? JSON.stringify(e)).slice(0, 100) + '... for more info see console')
         console.log(e.message ?? JSON.stringify(e))
       }
       return state

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 export default function FooterSystemInfo() { 
   const id = useId();
-    const {isFetching, data } = useQuery(['load system info data'], getSystemInfo, { onError: (err: any) => toast.error(`cannot get system info: ${err.message}`, { position: toast.POSITION.BOTTOM_LEFT })}) 
+    const {isFetching, data } = useQuery(['load system info data'], getSystemInfo, { onError: (err: any) => toast.error(`cannot get system info: ${err.message}`)}) 
 
     const fields = [
       {labels: ["MB", "CPU", "Disk", "Linux"], 
