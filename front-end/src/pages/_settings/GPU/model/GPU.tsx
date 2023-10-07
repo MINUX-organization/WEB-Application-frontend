@@ -23,7 +23,7 @@ export const GPU = (props: HTMLProps<HTMLDivElement>) => {
                 <span>{orphanGpus.length}</span> orphan gpu(s)
               </div>
             )
-          })}
+          })()}
           {settingGpus.data.settingGpus.filter(v => v.connected).map(item => (
             <SettingsGpuItem key={item.gpuId} item={item} onEdit={refetch} />
           ))}
