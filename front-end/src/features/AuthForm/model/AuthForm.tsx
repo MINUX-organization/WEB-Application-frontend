@@ -44,12 +44,12 @@ export const AuthForm = (props: HTMLProps<HTMLFormElement>) => {
     <form {...props} className={(props.className ?? '') + ' ' + styles['wrapper']} onSubmit={action.login}>
       <div>
         <label>Login</label>
-        <FTextInput value={state.username.value} onChange={state.username.setValue} inputProps={{ required: true }} />
+        <FTextInput autoComplete="login" value={state.username.value} onChange={state.username.setValue} inputProps={{ required: true }} />
       </div>
       <div>
         <label>Password</label>
         <div className={styles['password-wrapper']}>
-          <FTextInput password={!state.showPassword.value} value={state.password.value} inputProps={{ className: styles['password-input'], required: true }} onChange={state.password.setValue} />
+          <FTextInput autoComplete="password" password={!state.showPassword.value} value={state.password.value} inputProps={{ className: styles['password-input'], required: true }} onChange={state.password.setValue} />
           {state.showPassword.value && <AiOutlineEye onClick={state.showPassword.toggle} />}
           {!state.showPassword.value && <AiOutlineEyeInvisible onClick={state.showPassword.toggle} />}
         </div>

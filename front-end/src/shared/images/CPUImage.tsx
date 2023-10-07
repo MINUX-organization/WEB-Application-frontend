@@ -11,7 +11,7 @@ export const CPUImage = (props: HTMLProps<SVGSVGElement>) => {
       viewBox="0 0 739 739"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="204.759" y="204.617" width="330" height="330" rx="27" fill="var(--main-color)" stroke="var(--main-color)" stroke-width="4"/>
+      <rect x="204.759" y="204.617" width="330" height="330" rx="27" fill="var(--main-color)" stroke="var(--main-color)" strokeWidth="4"/>
       <rect x="182.759" y="64.6177" width="3" height="70" fill="var(--line-color)"/>
       <rect x="182.759" y="64.6177" width="3" height="70" fill="var(--line-color)"/>
       <rect x="387.759" y="38.6177" width="3" height="96" fill="var(--line-color)"/>
@@ -67,7 +67,7 @@ export const CPUImage = (props: HTMLProps<SVGSVGElement>) => {
       <rect x="685.759" y="264.617" width="3" height="81" transform="rotate(90 685.759 264.617)" fill="var(--line-color)"/>
       <rect x="665.759" y="305.618" width="3" height="61" transform="rotate(90 665.759 305.618)" fill="var(--line-color)"/>
       <rect x="738.759" y="346.618" width="3" height="134" transform="rotate(90 738.759 346.618)" fill="var(--line-color)"/>
-      <rect x="131.259" y="131.117" width="477" height="477" rx="43.5" stroke="var(--main-color)" stroke-width="10"/>
+      <rect x="131.259" y="131.117" width="477" height="477" rx="43.5" stroke="var(--main-color)" strokeWidth="10"/>
     </svg>
   )
 }

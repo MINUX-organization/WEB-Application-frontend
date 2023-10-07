@@ -4,9 +4,10 @@ import { RuntypeBase } from 'runtypes/lib/runtype'
 import { toast } from 'react-toastify'
 import axios, { AxiosResponse, isAxiosError } from 'axios'
 import * as rt from 'runtypes'
+import { backendUrlHttp } from '../constants'
 
 const axiosInstance = axios.create({
-  baseURL: '/api',
+  baseURL: backendUrlHttp,
   params: {}
 })
 
