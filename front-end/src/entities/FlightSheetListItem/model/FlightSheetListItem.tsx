@@ -54,7 +54,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
     updateFlightGPUList: () => {
       isUpdatingGPUList.setTrue();
       editGpusForFlightSheets({
-        gpusForFlightSheets: modifiedGpuList.value.map(v => _.omit(v, 'name', 'conected'))
+        gpusForFlightSheets: modifiedGpuList.value.map(v => _.omit(v, 'name', 'connected'))
       }).then(res => {
         toast.info('updated gpus for flight sheets')
       }).catch(e => {

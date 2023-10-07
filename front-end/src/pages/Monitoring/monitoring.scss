@@ -1,32 +1,32 @@
 @import '@/app/values.scss';
 
 .monitoring { 
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+
+  height: 100%;
+
+  .monitoring-main-content {
     display: flex;
     flex-direction: column; 
-    justify-content: space-between;
-
-    height: 100%;
-
-    .monitoring-main-content {
-        display: flex;
-        flex-direction: column; 
+  
+    .flex-container-monitoring { 
+  
+      padding: 0 $padding-30 0 $padding-30; 
+      padding-top: $padding-30;
     
-        .flex-container-monitoring { 
+      justify-content: center;
+  
+      gap: $padding-30;
     
-            padding: 0 $padding-30 0 $padding-30; 
-            padding-top: $padding-30;
-        
-            justify-content: center;
-    
-            gap: $padding-30;
-        
-            display: flex; 
-            flex-wrap: wrap;
-        } 
-    
-    }
-    
-    .flex-container-monitoring-footer {   
-        padding-top: $padding-30;
+      display: flex; 
+      flex-wrap: wrap;
     } 
+  
+  }
+  
+  .flex-container-monitoring-footer {   
+    padding-top: $padding-30;
+  } 
 }
