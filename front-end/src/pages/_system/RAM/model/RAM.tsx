@@ -6,7 +6,8 @@ type RAMProps = HTMLProps<HTMLDivElement>
 export const RAM = (props: RAMProps) => {
   return (
     <div {...props} className={(props.className ?? '') + " " + styles['wrapper']}>
-      ram
+      <p>In development</p>
+      <p>Coming soon...</p>
     </div>
   )
 }
