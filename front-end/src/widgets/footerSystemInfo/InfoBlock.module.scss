@@ -1,22 +1,19 @@
 .wrapper {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    
-    .item {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(4, 1fr);
+    justify-content: center;
+    gap: 10px;
+
+    .label-data {
+        text-align: right;
+        opacity: 65%;
+    }
+
+    .value-data {
         display: flex;
-        flex-direction: row;
         align-items: center;
-        gap: 10px;
-    
-        .label-data {
-            text-align: right;
-            opacity: 65%;
-        }
-    
-        .value-data {
-            min-width: 50px;
-            text-align: left;
-        }
+        min-width: 50px;
+        text-align: left;
     }
 }
