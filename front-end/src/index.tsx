@@ -7,8 +7,8 @@ function assertEnv(key: string) {
   }
 }
 
-// assertEnv('REACT_APP_BACKEND_PORT')
 assertEnv('REACT_APP_BACKEND_URL')
+assertEnv('REACT_APP_BACKEND_WS_URL')
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
