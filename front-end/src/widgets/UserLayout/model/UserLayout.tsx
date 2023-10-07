@@ -5,7 +5,6 @@ import { useMediaQuery } from "usehooks-ts";
 import styles from './UserLayout.module.scss'
 
 export const UserLayout = (props: HTMLProps<HTMLDivElement>) => {
-  const credentials = { username: 'ivan_chuvaev'}
   const above1500 = useMediaQuery('(min-width:1500px)');
 
   return (
@@ -13,7 +12,7 @@ export const UserLayout = (props: HTMLProps<HTMLDivElement>) => {
       {above1500 &&
         <>
           <div className={styles['left-panel']}>
-            <div className={styles['name']}>{credentials.username.toUpperCase()}</div>
+            <div className={styles['name']}>USERNAME</div>
             <NavLink to="/user/profile" className={styles['page-link']}><div>Profile</div></NavLink>
             <NavLink to="/user/wallets" className={styles['page-link']}><div>Wallets</div></NavLink>
             <NavLink to="/user/crypto-pool" className={styles['page-link']}><div>Crypto/Pool</div></NavLink>
