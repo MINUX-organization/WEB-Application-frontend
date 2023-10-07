@@ -36,5 +36,4 @@
 *.sql
 *.sqlite
 
-# env
-# .env
+.env
