@@ -1,6 +1,18 @@
+@use '@/app/values.scss';
+
 .wrapper {
   display: flex;
   flex-direction: column;
   padding: 30px;
   gap: 30px;
+}
+
+.notification {
+  background: values.$color-primary;
+  padding: 10px;
+
+  span {
+    color: values.$line-color;
+    // padding: 0 5px;
+  }
 }

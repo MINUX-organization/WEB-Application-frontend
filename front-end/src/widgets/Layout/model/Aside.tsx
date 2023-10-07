@@ -65,8 +65,6 @@ export const Aside = () => {
         updateDynamicData({ state: { mining: false }})
       }
       toast.info('mining stopped')
-    }).catch(e => {
-      toast.error(JSON.stringify(e.message))
     })
   }
 
@@ -76,8 +74,6 @@ export const Aside = () => {
         updateDynamicData({ state: { mining: true }})
       }
       toast.info('mining started')
-    }).catch(e => {
-      toast.error(JSON.stringify(e.message))
     })
   }
 

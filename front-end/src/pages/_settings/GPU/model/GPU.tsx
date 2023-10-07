@@ -12,9 +12,22 @@ export const GPU = (props: HTMLProps<HTMLDivElement>) => {
     <div {...props} className={props.className + ' ' + styles['wrapper']}>
       {isLoading && <Spin />}
       {settingGpus !== undefined && (
-        settingGpus.data.settingGpus.map(item => (
-          <SettingsGpuItem key={item.gpuId} item={item} onEdit={refetch} />
-        ))
+        <>
+          {(() => {
+            const orphanGpus = settingGpus.data.settingGpus.filter(v => !v.connected)
+            if (orphanGpus.length === 0) {
+              return null;
+            }
+            return (
+              <div className={styles['notification']}>
+                <span>{orphanGpus.length}</span> orphan gpu(s)
+              </div>
+            )
+          })}
+          {settingGpus.data.settingGpus.filter(v => v.connected).map(item => (
+            <SettingsGpuItem key={item.gpuId} item={item} onEdit={refetch} />
+          ))}
+        </>
       )}
     </div>
   )
