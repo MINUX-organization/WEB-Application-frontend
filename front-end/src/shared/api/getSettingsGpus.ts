@@ -9,6 +9,7 @@ const ResponseRuntype = rt.Record({
     gpuSetupId: rt.Number,
     memoryClock: rt.Number,
     coreClock: rt.Number,
+    connected: rt.Boolean,
     powerLimit: rt.Number,
     fanSpeed: rt.Number,
     flightSheetId: rt.Union(rt.Null, rt.Number),
