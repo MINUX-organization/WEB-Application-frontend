@@ -1,43 +1,43 @@
 @import '@/app/values.scss'; 
 
 .gpus-table {
-    font-size: $text-size24; 
-    width: 1518px;
-    display: grid;
-    grid-template-rows: repeat(auto-fit, 1fr);
-    gap: 10px;
+  font-size: $text-size24; 
+  width: 1518px;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 1fr);
+  gap: 10px;
 
-    .grid-gpus-container {
-        display: grid; 
-        grid-template-columns: 150px 150px 160px auto; 
-        align-items: center; 
+  .grid-gpus-container {
+    display: grid; 
+    grid-template-columns: 150px 150px 160px auto; 
+    align-items: center; 
 
-        .grid-gpus-subgrid {
-            opacity: $text-opacity; 
-            display: grid; 
-            grid-template-columns: repeat(6, minmax(62px, 1fr));
-            justify-items: center;
-            align-items: center;
+    .grid-gpus-subgrid {
+      opacity: $text-opacity; 
+      display: grid; 
+      grid-template-columns: repeat(6, minmax(62px, 1fr));
+      justify-items: center;
+      align-items: center;
 
-            padding-right: 10px;
-        }
+      padding-right: 10px;
     }
+  }
 
-    .gpus-scroll-container {
-        display: flex;
+  .gpus-scroll-container {
+    display: flex;
 
-        flex-direction: column;
+    flex-direction: column;
 
-        user-select: none; 
+    user-select: none; 
 
-        padding: 7px;
+    padding: 7px;
 
-        border-top: solid $line-size-smaller $line-color; 
-        border-left: $line-size-3 solid $line-color;
-        border-right: $line-size-3 solid $line-color;
+    border-top: solid $line-size-smaller $line-color; 
+    border-left: $line-size-3 solid $line-color;
+    border-right: $line-size-3 solid $line-color;
 
-        min-height: 310px; 
+    min-height: 310px; 
 
-        gap: 10px; 
-    }
+    gap: 10px; 
+  }
 }

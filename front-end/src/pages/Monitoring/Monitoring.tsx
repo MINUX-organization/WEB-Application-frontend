@@ -14,19 +14,16 @@ export default function Monitoring() {
         <div className='flex-container-monitoring'> 
           <WorkerWidget/> 
           <PowerRamWidget/> 
-          <SharesWidget/> 
+          <SharesWidget/>
         </div>
-
         <div className='flex-container-monitoring'>
           <Cpu/>
           <Coins/>
         </div>
-
         <div className='flex-container-monitoring'>
           <Gpu/>
         </div> 
       </div>
-
       <div className='flex-container-monitoring-footer'>
         <FooterSystemInfo/>
       </div>

@@ -1,7 +1,7 @@
 import { AsideItem } from './AsideItem'
 import { useDynamicDataStore } from '@/shared/stores'
 import { useRef } from 'react'
-import { errorHandlerToaster, useStateObj } from '@/shared/lib'
+import { useStateObj } from '@/shared/lib'
 import { FDropAside } from '@/widgets/Layout/model/FDropAside'
 import { commandPowerOff } from '@/shared/api/commandPowerOff'
 import { commandSystemReboot } from '@/shared/api/commandSystemReboot'
