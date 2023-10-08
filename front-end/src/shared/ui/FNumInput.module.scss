@@ -44,6 +44,11 @@ $arrows-px: 10px;
     .rt-line {
       width: calc(100% - var(--title-width) * $title-scale - $title-p - $px );
     }
+
+    .min-max-popup {
+      opacity: 1;
+      transform: translateY(-100%);
+    }
   }
 
   &.active {
@@ -195,4 +200,17 @@ $arrows-px: 10px;
       background: #ffffff2f;
     }
   }
+}
+
+.min-max-popup {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  transition: all 200ms;
+  transform: translateY(-80%);
+  width: calc(100% + 2px);
+  text-align: right;
+  font-size: 18px;
+  opacity: 0;
+  color: values.$text-color-grey;
 }

@@ -14,7 +14,27 @@ const ResponseRuntype = rt.Record({
 		critTemp: rt.Number,
 		fanSpeed: rt.Number,
 		flightSheetId: rt.Union(rt.Number, rt.Null),
-		gpuUuid: rt.String
+		gpuUuid: rt.String,
+		options: rt.Record({
+			temperature: rt.Record({
+				maximumCritical: rt.Number,
+				enforcedCritical: rt.Number
+			}),
+			power: rt.Record({
+				defaultLimit: rt.Number,
+				enforcedLimit: rt.Number,
+				minimal: rt.Number,
+				maximum: rt.Number
+			}),
+			clocks: rt.Record({
+				minimalCore: rt.Number,
+				maximumCore: rt.Number,
+				enforcedCore: rt.Number,
+				minimalMemory: rt.Number,
+				maximumMemory: rt.Number,
+				enforcedMemory: rt.Number
+			})
+		})
 	})
 })
 
