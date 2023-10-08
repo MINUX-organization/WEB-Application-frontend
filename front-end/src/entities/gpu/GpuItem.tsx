@@ -6,17 +6,6 @@ type Props = {
   index: number
 }
 
-// interface gpuTicket {
-//   index: number 
-//   name: string | null
-//   accepted: number | null
-//   rejected: number | null
-//   hashrate: string
-//   temperature: number | null
-//   fanSpeed: number | null
-//   powerUsage: number | null
-// }
-
 export default function GpuItem({item, index}: Props) {
   const [isClose, setIsClose] = useState(true); 
   const clickHandler = () => {

@@ -4,7 +4,6 @@ $font-size: 28px;
   display: flex;
   min-width: 0;
   width: 100%;
-  max-width: 1600px;
 }
 
 .fields-grid-wrapper {
@@ -17,7 +16,7 @@ $font-size: 28px;
   gap: 40px;
   row-gap: 20px;
   padding: 20px 20px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .fields-chunk {
@@ -67,13 +66,13 @@ $font-size: 28px;
 }
 
 .image-container-wrapper.sp1 {
-  aspect-ratio: 1;
   flex-shrink: 0;
   height: unset;
 }
 
 .image-container {
   padding: 10px;
+  height: 100%;
 }
 
 .image {

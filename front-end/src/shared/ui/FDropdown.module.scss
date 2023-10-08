@@ -30,6 +30,7 @@ $p: 10px;
       outline-color: var(--color);
       pointer-events: all;
       opacity: 1;
+      transform: scaleY(1);
     }
   }
 
@@ -135,7 +136,6 @@ $p: 10px;
 
 .option-list {
   display: flex;
-  opacity: 0;
   pointer-events: none;
   flex-direction: column;
   position: absolute;
@@ -149,6 +149,9 @@ $p: 10px;
   overflow: auto;
   outline: 1px solid values.$line-color;
   background: color-mix(in srgb, values.$bg-color 100%, white);
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 200ms;
 
   &.above {
     top: unset;

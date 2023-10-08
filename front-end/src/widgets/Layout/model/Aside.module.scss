@@ -2,7 +2,7 @@
 @use '@/app/values.scss';
 
 .wrapper {
-  width: shared.$layout-size;
+  width: var(--aside-width);
   display: flex; 
   flex-direction: column;
   text-align: center; 

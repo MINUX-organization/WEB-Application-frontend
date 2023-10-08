@@ -3,11 +3,11 @@
 
 .wrapper {
   display: flex;
-  height: shared.$layout-size;
+  height: var(--header-height);
+  max-height: var(--header-height);
   overflow: visible;
   z-index: 1;
 }
-
 
 .links {
   flex-grow: 1;

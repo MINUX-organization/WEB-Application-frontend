@@ -1,24 +1,24 @@
-@import '@/app/values.scss';
+@use '@/app/values.scss';
 
 .flex-container-coin { 
     display: flex;
     flex-direction: column;
-    width: $widget-coin-width; 
-    font-size: $text-size24;
+    width: values.$widget-coin-width; 
+    font-size: values.$text-size24;
     
     .coin-container {
-        padding: $text-padding-tb $text-padding-lr;
+        padding: values.$text-padding-tb values.$text-padding-lr;
         display: grid; 
         grid-template-columns: repeat(3, 1fr);
         text-align: center;
-        background-color: $color-primary; 
-        opacity: $text-opacity;
+        background-color: values.$color-primary; 
+        opacity: values.$text-opacity;
     }
 
     .coin-scroll {
         height: 102px; 
-        padding: $text-padding-tb $text-padding-lr; 
-        background-color: $color-primary;
+        padding: values.$text-padding-tb values.$text-padding-lr; 
+        background-color: values.$color-primary;
         overflow: auto;
         &::-webkit-scrollbar {
             display: none;
@@ -26,7 +26,11 @@
     }
 
     .text {
-        opacity: $text-opacity; 
+        opacity: values.$text-opacity; 
+    }
+
+    .unit {
+        color: values.$line-color;
     }
 
 } 

@@ -3,9 +3,11 @@
   min-height: 100%;
   display: flex;
   gap: 30px;
-  padding: 30px;
+  padding: var(--page-padding);
   align-items: center;
   justify-content: center;
+  max-width: var(--page-max-width);
+  margin: auto;
 }
 
 .list {

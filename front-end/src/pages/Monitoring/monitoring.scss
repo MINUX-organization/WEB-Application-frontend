@@ -4,17 +4,16 @@
   display: flex;
   flex-direction: column; 
   justify-content: space-between;
+  padding: var(--page-padding);
 
   height: 100%;
 
   .monitoring-main-content {
     display: flex;
     flex-direction: column; 
+    gap: $padding-30;
   
     .flex-container-monitoring { 
-  
-      padding: 0 $padding-30 0 $padding-30; 
-      padding-top: $padding-30;
     
       justify-content: center;
   

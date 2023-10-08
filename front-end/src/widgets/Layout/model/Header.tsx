@@ -2,6 +2,7 @@ import { HTMLProps } from 'react';
 import { HeaderItem } from './HeaderItem';
 import { ProfileButton } from './ProfileButton';
 import styles from './Header.module.scss'
+import { useMediaQuery } from 'usehooks-ts';
 
 const linkGroups: Array<Parameters<typeof HeaderItem>[0]['item']> = [
   {
@@ -37,6 +38,8 @@ const linkGroups: Array<Parameters<typeof HeaderItem>[0]['item']> = [
 
 
 export const Header = (props: HTMLProps<HTMLDivElement>) => {
+  const above800 = useMediaQuery('(min-width: 800px)');
+
   return (
     <div {...props} className={props.className + ' ' + styles['wrapper']}>
       <div className={styles['links']}>

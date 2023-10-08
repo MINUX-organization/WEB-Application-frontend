@@ -1,10 +1,12 @@
 @use '@/app/values.scss';
 
 .wrapper {
-  padding: values.$padding-30;
+  padding: var(--page-padding);
   display: grid; 
   grid-template-rows: repeat(2, auto);
   gap: 65px;
+  max-width: var(--page-max-width);
+  margin: auto;
 }
 
 .list {

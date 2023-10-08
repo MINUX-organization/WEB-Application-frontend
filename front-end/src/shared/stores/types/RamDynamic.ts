@@ -7,7 +7,7 @@ export const Value = rt.Record({
 });
 export type Value = rt.Static<typeof Value>;
 
-export const RamDynamic = rt.Record({
+export const RamDynamicRuntype = rt.Record({
 	uuid: rt.String, 
 	free: rt.Record({
 		value: rt.Number,
@@ -18,4 +18,4 @@ export const RamDynamic = rt.Record({
 		measurement: rt.String
 	})
 })
-export type RamDynamic = rt.Static<typeof RamDynamic>;
+export type RamDynamic = rt.Static<typeof RamDynamicRuntype>;

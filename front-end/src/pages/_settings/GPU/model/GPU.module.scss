@@ -3,8 +3,10 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: var(--page-padding);
   gap: 30px;
+  max-width: var(--page-max-width);
+  margin: auto;
 }
 
 .notification {

@@ -2,28 +2,25 @@
 
 $item-gap: 10px;
 $item-px: 15px;
-$offset: 50px;
-$padding: 25px;
+$offset: 40px;
 
 .wrapper {
-  min-width: 100%;
-  min-height: 100%;
   display: flex;
   gap: $offset;
-  padding: $padding;
-  align-items: flex-start;
-  justify-content: center;
+  padding: var(--page-padding);
+  max-width: var(--page-max-width);
+  margin: auto;
 }
 
 .left-panel {
   position: sticky;
-  top: 30px;
   border: 1px solid values.$line-color;
   border-left-width: 4px;
   border-right: none;
   min-width: 220px;
   width: min-content;
   max-width: 400px;
+  height: fit-content;
   display: block;
   font-size: 24px;
 
@@ -87,11 +84,10 @@ $padding: 25px;
 
 .body {
   @include body();
-  padding: 40px;
+  padding: 30px;
   max-width: 1500px;
 }
 
 .body-no-border {
   @include body();
-
 }

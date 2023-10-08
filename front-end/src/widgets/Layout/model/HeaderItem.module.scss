@@ -40,7 +40,7 @@ $active-color: values.$text-color-thirdy;
 @mixin item {
   display: flex;
   width: 150px;
-  height: shared.$layout-size;
+  height: var(--header-height);
   align-items: center;
   justify-content: center;
   font-size: 26px;

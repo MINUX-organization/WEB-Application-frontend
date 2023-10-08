@@ -25,7 +25,7 @@ import * as rt from 'runtypes';
 //   measurement: rt.Union(rt.String, rt.Null)
 // })
 
-export const GpuDynamic = rt.Record({
+export const GpuDynamicRuntype = rt.Record({
   uuid: rt.Union(rt.String, rt.Null),
   fullName: rt.Union(rt.String, rt.Null),
   temperature: rt.Union(rt.Number, rt.Null),
@@ -56,4 +56,4 @@ export const GpuDynamic = rt.Record({
     memory: rt.Union(rt.Number, rt.Null), 
   })
 });
-export type GpuDynamic = rt.Static<typeof GpuDynamic>;
+export type GpuDynamic = rt.Static<typeof GpuDynamicRuntype>;

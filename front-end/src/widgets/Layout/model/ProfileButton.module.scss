@@ -6,7 +6,7 @@
   position: relative;
   color: values.$line-color;
   box-sizing: content-box;
-  height: shared.$layout-size;
+  height: var(--header-height);
 
   &.open {
     background-image: linear-gradient(to left, color-mix(in srgb, currentColor 20%, transparent), transparent);
@@ -34,7 +34,7 @@
   padding-left: 30px;
   gap: 8px;
   box-sizing: content-box;
-  height: shared.$layout-size;
+  height: var(--header-height);
   border-bottom: 1px solid transparent;
   cursor: pointer;
 }
@@ -45,8 +45,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: calc(var(--header-height) * 0.7);
+  height: calc(var(--header-height) * 0.7);
   color: inherit;
 }
 
@@ -79,8 +79,8 @@
   position: absolute;
   display: none;
   top: 100%;
-  right: 24px;
-  width: 221px;
+  right: calc(var(--header-height) * 0.2);
+  width: calc(var(--header-height) * 3.5);
   z-index: 1;
 }
 
@@ -105,7 +105,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 47px;
+  height: calc(var(--header-height) * 0.6);
   font-size: 24px;
   border: 1px solid;
   border-color: currentColor;

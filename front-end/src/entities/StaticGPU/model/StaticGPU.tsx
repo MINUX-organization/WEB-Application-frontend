@@ -33,8 +33,8 @@ export const StaticGPU = (props: StaticGPUProps) => {
     { label: 'PCI bus', value: (props.item.information.pci.busId) },
     { label: 'Memory', value: (props.item.memory.total + " GB")  },
     { label: 'Power', value: (props.item.power.minimal + " Watt")  },
-    { label: 'Core Clocks Mhz', value: (props.item.clocks.maximumCore + ' Mhz') },
-    { label: 'Memory Clocks Mhz', value: (props.item.clocks.maximumMemory + ' Mhz') }
+    { label: 'Core Clocks', value: (props.item.clocks.maximumCore + ' Mhz') },
+    { label: 'Memory Clocks', value: (props.item.clocks.maximumMemory + ' Mhz') }
   ]
   const lastField = { label: 'GPU uuid', value: props.item.uuid }
 

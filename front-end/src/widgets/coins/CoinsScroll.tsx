@@ -10,7 +10,7 @@ export default function CoinsScroll() {
         <div className='grid grid-cols-3 text-center' key={index + id}>
             <p>{item.coin}</p>
             <p>{item.algorithm}</p>
-            <p>{item.value} Mh/s</p> 
+            <p>{item.value.toFixed(3)} <span className="unit">Mh/s</span></p> 
         </div>
     )) 
 
