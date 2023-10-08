@@ -141,13 +141,22 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
             renderTrackVertical={props => <div {...props} className={styles['scroll-track']} />}
             renderThumbVertical={props => <div {...props} className={styles['scroll-thumb']} />}
           >
-            {gpuListQuery.data !== undefined && modifiedGpuList.value.map((gpu, index) => (
-              <div key={gpu.id + ' ' + gpu.flightSheetId} className={styles['gpu-item']} onClick={() => action.updateModifiedGpuListItem(gpu.id, !(gpu.flightSheetId === props.item.id) ? props.item.id : null)}>
-                <div className={styles['gpu-item-index']}>{index + 1}</div>
-                <div className={styles['gpu-item-name']}>{gpu.name}</div>
-                <FCheckbox value={gpu.flightSheetId === props.item.id} />
-              </div>
-            ))}
+            {gpuListQuery.data !== undefined && (() => {
+              const orphans = modifiedGpuList.value.filter(v => !v.connected)
+              const connected = modifiedGpuList.value.filter(v => v.connected)
+              return (
+                <>
+                  {orphans.length !== 0 && (<div className={styles['notification']}><span>{orphans.length}</span>Orphan GPUs</div>)}
+                  {connected.map((gpu, index) => (
+                    <div key={gpu.id + ' ' + gpu.flightSheetId} className={styles['gpu-item']} onClick={() => action.updateModifiedGpuListItem(gpu.id, !(gpu.flightSheetId === props.item.id) ? props.item.id : null)}>
+                      <div className={styles['gpu-item-index']}>{index + 1}</div>
+                      <div className={styles['gpu-item-name']}>{gpu.name}</div>
+                      <FCheckbox value={gpu.flightSheetId === props.item.id} />
+                    </div>
+                  ))}
+                </>
+              )
+            })()}
           </Scrollbars>
         </FContainer>
         <div className={styles['modal-buttons']}>

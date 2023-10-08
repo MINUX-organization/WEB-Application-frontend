@@ -6,6 +6,7 @@ type Request = {}
 const ResponseRuntype = rt.Record({
   gpusForFlightSheets: rt.Array(rt.Record({
     id: rt.Number,
+    connected: rt.Boolean,
     name: rt.Union(rt.Null, rt.String),
     flightSheetId: rt.Union(rt.Null, rt.Number)
   }))

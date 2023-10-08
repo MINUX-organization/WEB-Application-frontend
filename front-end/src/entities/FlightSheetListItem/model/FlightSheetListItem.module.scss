@@ -235,6 +235,19 @@ $p: 9px;
 
 }
 
+.notification {
+  background: values.$color-primary;
+  // padding: 0 20px;
+  color: values.$text-color-neutral;
+
+  span {
+    min-width: 30px;
+    display: inline-block;
+    color: values.$line-color;
+    margin: 0 20px;
+  }
+}
+
 @media screen and (max-width: 1900px) {
   .common-data {
     display: grid;
