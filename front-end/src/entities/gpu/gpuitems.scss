@@ -25,10 +25,22 @@
     color: values.$text-color-red;
   }
 
-  .span-8 {
+  @mixin with-unit {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+  }
+
+  .span-6 {
+    @include with-unit();
+  }
+
+  .span-7 {
+    @include with-unit();
+  }
+
+  .span-8 {
+    @include with-unit();
   }
 
   .power-unit {

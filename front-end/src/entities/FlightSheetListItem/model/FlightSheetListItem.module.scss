@@ -229,6 +229,10 @@ $p: 9px;
     flex-grow: 1;
   }
 
+  .checkbox {
+    flex-shrink: 0;
+  }
+
   &:hover {
     background: color-mix(in srgb, $bg-color 90%, white);
   }

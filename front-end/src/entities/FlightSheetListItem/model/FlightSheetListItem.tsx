@@ -151,7 +151,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
                     <div key={gpu.id + ' ' + gpu.flightSheetId} className={styles['gpu-item']} onClick={() => action.updateModifiedGpuListItem(gpu.id, !(gpu.flightSheetId === props.item.id) ? props.item.id : null)}>
                       <div className={styles['gpu-item-index']}>{index + 1}</div>
                       <div className={styles['gpu-item-name']}>{gpu.name}</div>
-                      <FCheckbox value={gpu.flightSheetId === props.item.id} />
+                      <FCheckbox className={styles['checkbox']} value={gpu.flightSheetId === props.item.id} />
                     </div>
                   ))}
                 </>
