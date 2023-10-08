@@ -1,7 +1,7 @@
 import { TFlightSheetFilled } from "@/shared/types"
 import { CSSProperties, HTMLProps, useEffect } from "react"
 import { FButton, FCheckbox, FContainer, FModal } from "@/shared/ui"
-import { AiOutlineDown } from "react-icons/ai"
+import { AiOutlineClose, AiOutlineDown } from "react-icons/ai"
 import { useBooleanUrl } from "@/shared/lib/useBooleanUrl"
 import { useBoolean, useElementSize } from "usehooks-ts"
 import { useQuery } from "react-query"
@@ -12,10 +12,14 @@ import { toast } from "react-toastify"
 import Scrollbars from "react-custom-scrollbars-2"
 import styles from './FlightSheetListItem.module.scss'
 import _ from 'lodash'
+import { deleteFlightSheet } from "@/shared/api"
 
 const omittedProps = [ 'item' ]
 
-type FlightSheetListItemProps = HTMLProps<HTMLDivElement> & { item: TFlightSheetFilled }
+type FlightSheetListItemProps = HTMLProps<HTMLDivElement> & {
+  item: TFlightSheetFilled
+  onDelete?: () => void
+}
 
 export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
   const isExpanded = useBoolean(false);
@@ -63,6 +67,18 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
         isUpdatingGPUList.setFalse();
         isOpen.setFalse();
       })
+    },
+    delete: () => {
+      if (window.confirm('are you sure you want to delete flight sheet?')) {
+        deleteFlightSheet({
+          id: props.item.id
+        }).then(res => {
+          toast.info('Flight sheet deleted')
+          if (props.onDelete) props.onDelete();
+        }).catch(e => {
+
+        });
+      }
     }
   }
 
@@ -97,7 +113,11 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
         className={styles['container'] + ' ' + styles['sp1'] + ' ' + styles['sp2']}
       >
         <div className={styles['common-data']}>
-          <div className={styles['name']}>{props.item.name} <Tridot className={styles['tridot-inside']} /></div>
+          <div className={styles['name']}>
+            <span className="flex-grow">{props.item.name}</span>
+            <Tridot className={styles['tridot']} />
+            <AiOutlineClose onClick={action.delete} className={styles['delete-button']} />
+          </div>
           <div className={styles['fields']}>
             {[
               { label: 'Coin', value: props.item.cryptocurrency.name },
@@ -130,7 +150,10 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
           </div>
         </div>
       </FContainer>
-      <Tridot className={styles['tridot-outside']} />
+      <div className={styles['outside-buttons']}>
+        <AiOutlineClose onClick={action.delete} className={styles['delete-button']} />
+        <Tridot className={styles['tridot']} />
+      </div>
       <FModal title="Select GPU" open={isOpen.value} onClose={isOpen.setFalse} bodyProps={{ className: styles['modal-body'] }}>
         <FContainer className={styles['gpu-list-container']} visibility={{ tc: false }} bodyProps={{ className: styles['gpu-list-container-body'] }}>
           {gpuListQuery.isFetching && <Spin size="large" className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2" />}

@@ -7,13 +7,13 @@ import { Coins } from '@/widgets/coins'
 import { Gpu } from '@/widgets/gpu'
 import { FooterSystemInfo } from '@/widgets/footerSystemInfo' 
 
-export default function Monitoring() { 
+export default function Monitoring() {
   return (
     <div className='monitoring'>
       <div className='monitoring-main-content'>
-        <div className='flex-container-monitoring'> 
-          <WorkerWidget/> 
-          <PowerRamWidget/> 
+        <div className='flex-container-monitoring'>
+          <WorkerWidget/>
+          <PowerRamWidget/>
           <SharesWidget/>
         </div>
         <div className='flex-container-monitoring'>
@@ -22,7 +22,7 @@ export default function Monitoring() {
         </div>
         <div className='flex-container-monitoring'>
           <Gpu/>
-        </div> 
+        </div>
       </div>
       <div className='flex-container-monitoring-footer'>
         <FooterSystemInfo/>
