@@ -31,6 +31,10 @@
     gap: 10px;
   }
 
+  .span-5 {
+    @include with-unit();
+  }
+
   .span-6 {
     @include with-unit();
   }

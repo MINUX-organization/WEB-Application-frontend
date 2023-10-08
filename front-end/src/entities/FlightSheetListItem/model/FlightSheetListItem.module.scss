@@ -51,12 +51,15 @@ $p: 9px;
     font-size: 32px;
     line-height: $line-height;
     flex-grow: 1;
+    align-items: center;
 
-    .tridot-inside {
+    .tridot {
       display: none;
-      // margin-top: calc($line-height / 2);
-      transform: translateY(calc(#{$line-height} / 2 - 50%));
-      align-self: flex-start;
+    }
+    .delete-button {
+      display: none;
+      width: fit-content;
+      height: 24px;
     }
   }
 
@@ -131,13 +134,16 @@ $p: 9px;
     .value {
       color: #ffffffa1;
     }
-
   }
-
 }
 
-.tridot-outside {
-  display: flex;
+.delete-button {
+  background: red;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 5px red;
+  }
 }
 
 .tridot-button {
@@ -252,6 +258,14 @@ $p: 9px;
   }
 }
 
+.outside-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  gap: 10px;
+  align-items: center;
+}
+
 @media screen and (max-width: 1900px) {
   .common-data {
     display: grid;
@@ -269,7 +283,6 @@ $p: 9px;
 
   .extra-data {
     grid-template-columns: 450px repeat(2, 1fr) 49.99px;
-
   }
 
 }
@@ -287,8 +300,11 @@ $p: 9px;
       width: 100%;
       justify-content: space-between;
 
-      .tridot-inside {
+      .tridot {
         display: flex;
+      }
+      .delete-button {
+        display: block;
       }
     }
 
@@ -304,9 +320,14 @@ $p: 9px;
       display: flex;
       justify-content: space-between;
     }
-    .dropdown-icon {
-      display: none;
-    }
+
+  }
+  .dropdown-icon {
+    display: none;
+  }
+
+  .outside-buttons {
+    display: none;
   }
 
   .extra-data-wrapper {
@@ -330,10 +351,6 @@ $p: 9px;
       }
     }
   
-  }
-
-  .tridot-outside {
-    display: none;
   }
 }
 

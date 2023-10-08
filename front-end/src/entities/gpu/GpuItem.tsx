@@ -19,7 +19,7 @@ export default function GpuItem({item, index}: Props) {
         <span className={'span-2'}>{item.fullName}</span> 
         <span className={'span-3'}>{item.shares.accepted}</span> 
         <span className={'span-4'}>{item.shares.rejected}</span> 
-        <span className={'span-5'}>{`${item.hashrate.value?.toFixed(3)} ${item.hashrate.measurement}`}</span> 
+        <span className={'span-5'}>{item.hashrate.value?.toFixed(3)}<span className="power-unit">{item.hashrate.measurement}</span></span> 
         <span className={'span-6'}>{item.temperature}<span className="power-unit">°C</span></span>
         <span className={'span-7'}>{item.fanSpeed}<span className="power-unit">%</span></span>
         <span className={'span-8'}>{item.powerUsage}<span className="power-unit">W</span></span> 

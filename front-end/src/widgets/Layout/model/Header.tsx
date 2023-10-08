@@ -41,13 +41,17 @@ export const Header = (props: HTMLProps<HTMLDivElement>) => {
   const above800 = useMediaQuery('(min-width: 800px)');
 
   return (
-    <div {...props} className={props.className + ' ' + styles['wrapper']}>
-      <div className={styles['links']}>
-        {linkGroups.map(linkGroup => (
-          <HeaderItem key={linkGroup.title} item={linkGroup} />
-        ))}
-      </div>
-      <ProfileButton />
-    </div>
+    <>
+      {above800 &&
+        <div {...props} className={props.className + ' ' + styles['wrapper']}>
+          <div className={styles['links']}>
+            {linkGroups.map(linkGroup => (
+              <HeaderItem key={linkGroup.title} item={linkGroup} />
+            ))}
+          </div>
+          <ProfileButton />
+        </div>
+      }
+    </>
   )
 }

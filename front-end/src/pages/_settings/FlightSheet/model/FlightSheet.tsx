@@ -15,7 +15,7 @@ export const FlightSheet = (props: HTMLProps<HTMLDivElement>) => {
       <div className={styles['list']}>
         {flightSheetListQuery.isFetching && <div className="w-full flex justify-center"><Spin size="large" /></div>}
         {!flightSheetListQuery.isFetching && flightSheetListQuery.data !== undefined && flightSheetListQuery.data.data.flightSheets.map(item => (
-          <FlightSheetListItem key={item.id} item={item}/>
+          <FlightSheetListItem key={item.id} item={item} onDelete={flightSheetListQuery.refetch}/>
         ))}
       </div>
     </div>

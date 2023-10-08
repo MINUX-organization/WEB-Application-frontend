@@ -18,8 +18,14 @@
       grid-template-columns: repeat(6, minmax(62px, 1fr));
       justify-items: center;
       align-items: center;
-
       padding-right: 10px;
+
+      &>* {
+        min-width: 0;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 

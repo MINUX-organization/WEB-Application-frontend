@@ -40,10 +40,19 @@ export const makeApiFunc = <Request, ResponseRuntype extends RuntypeBase<unknown
       console.log(error)
       if (isAxiosError(error)) {
         if (error.response !== undefined) {
-          if ('error' in error.response.data) {
-            toast.error(error.response.data.error)
-          } else {
-            toast.error(error.response.data)
+          switch (typeof error.response.data) {
+            case 'object':
+              if ('error' in error.response.data) {
+                toast.error(error.response.data.error)
+              } else {
+                toast.error(error.response.data)
+              }
+            break
+            case 'string':
+              toast.error(error.response.data.slice(0, 200))
+            break;
+            default:
+              toast.error(error.response.data)
           }
         } else {
           toast.error(error.message)

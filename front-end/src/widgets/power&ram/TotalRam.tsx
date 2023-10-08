@@ -7,6 +7,6 @@ export default function TotalRam() {
   const totalRam = useDynamicDataStore((state) => state.data.calculations.totalRam)
 
   return (
-    <BoxWithBorder name={name} count={totalRam} value='Gb' color2='value'/> 
+    <BoxWithBorder name={name} count={totalRam} value='Mb' color2='value'/> 
   )
 }
