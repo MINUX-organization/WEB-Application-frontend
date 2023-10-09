@@ -38,6 +38,7 @@ export const WebSocketProvider = ({ children } : PropsWithChildren) => {
     lws.onmessage = event => {
       // TODO validate event.data
       // console.log(event)
+      console.log(JSON.parse(event.data))
       updateDynamicData(JSON.parse(event.data))
     }
     setWs(lws)

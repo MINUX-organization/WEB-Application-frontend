@@ -7,7 +7,6 @@ import gpuOneVentImage from '@/shared/images/gpu-one-vent-image.png'
 import gpuTwoVentImage from '@/shared/images/gpu-two-vent-image.png'
 import styles from './StaticGPU.module.scss'
 import _ from 'lodash'
-// import { GpuStaticRunType } from "@/shared/stores/types/gpuStatic"
 
 const omittedProps = [
   'item',
@@ -23,7 +22,8 @@ export const StaticGPU = (props: StaticGPUProps) => {
   const above1500px = useMediaQuery('(min-width: 1600px)');
   const above1300px = useMediaQuery('(min-width: 1300px)');
 
-  const fields: Array<{ label: string, value: any }> = [ 
+  const fields: Array<{ label: string, value: any }> = [
+    { label: 'ID', value: (props.item.id) },
     { label: 'Manufacturer', value: (props.item.information.manufacturer) },
     { label: 'Periphery', value: (props.item.information.periphery) },
     { label: 'Driver Ver.', value: (props.item.information.driverVersion) },

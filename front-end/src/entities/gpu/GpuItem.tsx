@@ -3,10 +3,9 @@ import { GpuDynamic } from '@/shared/stores/types/GpuDynamic'
 
 type Props = {
   item: GpuDynamic
-  index: number
 }
 
-export default function GpuItem({item, index}: Props) {
+export default function GpuItem({ item }: Props) {
   const [isClose, setIsClose] = useState(true); 
   const clickHandler = () => {
     setIsClose(!isClose);
@@ -15,7 +14,7 @@ export default function GpuItem({item, index}: Props) {
   return ( 
     <div className='wrapper' onClick={clickHandler}> 
       <div className='grid-row-value'> 
-        <span className={'span-1'}>{index}</span> 
+        <span className={'span-1'}>{item.id}</span> 
         <span className={'span-2'}>{item.fullName}</span> 
         <span className={'span-3'}>{item.shares.accepted}</span> 
         <span className={'span-4'}>{item.shares.rejected}</span> 

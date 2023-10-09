@@ -8,8 +8,8 @@ export default function GpuItems() {
   if (gpuDynamicData.length !== 0) {
     return (
       <>
-        {gpuDynamicData.map((item, index) => (
-          <GpuItem key={item.uuid} item={item} index={index+1}/>
+        {gpuDynamicData.sort((a,b) => a.id - b.id).map((item) => (
+          <GpuItem key={item.uuid} item={item} />
         ))}
       </>
     )

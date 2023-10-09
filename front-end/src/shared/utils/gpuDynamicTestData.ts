@@ -2,6 +2,7 @@ import { GpuDynamic } from "@/shared/stores/types/GpuDynamic";
 
 export const gpuDynamicTestData: GpuDynamic[] = [
   {
+    id: 1,
     uuid: "fsdk23324",
     temperature: 45,
     fullName: "Nvidia RTX 3060TI",
@@ -30,6 +31,7 @@ export const gpuDynamicTestData: GpuDynamic[] = [
     }
   }, 
   {
+    id: 2,
     uuid: "fsdk23324",
     temperature: 45,
     fullName: "Nvidia RTX 3060TI",

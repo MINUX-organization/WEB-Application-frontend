@@ -22,7 +22,8 @@ export const testDynamicData: DynamicData = {
       rejected: 15
     }
   },
-  gpus: [{ 
+  gpus: [{
+    id: 1,
     uuid: 'fsdkfj324',
       temperature: 45,
       fullName: 'Nvidia RTX 3080TI',
@@ -51,6 +52,7 @@ export const testDynamicData: DynamicData = {
       }, 
   }, 
   {
+    id: 4,
     uuid: 'fsdkfj324',
       temperature: 45,
       fullName: 'Nvidia RTX 3080TI',

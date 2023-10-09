@@ -6,6 +6,7 @@ type Request = {}
 export const ResponseRuntype = rt.Record({
   gpus: rt.Array(
     rt.Record({
+      id: rt.Number,
       uuid: rt.Union(rt.String, rt.Null),
       information: rt.Record({
         driverVersion: rt.Union(rt.String, rt.Null),
