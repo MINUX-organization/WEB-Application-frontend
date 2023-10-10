@@ -21,8 +21,8 @@ export const SettingsGpuItem = (props: SettingsGpuItemProps) => {
   const fields = [
     { label: 'ID', value: props.item.gpuId, unit: '' },
     { label: 'BUS', value: '-', unit: '' },
-    { label: 'Core', value: props.item.coreClock, unit: 'Mhz' },
-    { label: 'Memory', value: props.item.memoryClock, unit: 'Mhz' },
+    { label: 'Core Offset', value: props.item.coreClockOffset, unit: 'Mhz' },
+    { label: 'Memory Offset', value: props.item.memoryClockOffset, unit: 'Mhz' },
     { label: 'Critical Temp.', value: '-', unit: '°C' },
     { label: 'Power limit', value: props.item.powerLimit, unit: 'Watt' },
     { label: 'AutoFan', value: '-', unit: '' },

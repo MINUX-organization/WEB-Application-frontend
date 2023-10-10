@@ -65,24 +65,20 @@ export const GpuStaticRunType = rt.Record({
     }),
     temperatureCelsius: rt.Record({
       maximumCritical: rt.Union(rt.Number, rt.Null), 
-      enforcedCritical: rt.Union(rt.Number, rt.Null), 
     }),
     memory: rt.Record({
       total: rt.Union(rt.Number, rt.Null)
     }),
     power: rt.Record({
       defaultLimit: rt.Union(rt.Number, rt.Null), 
-      enforcedLimit: rt.Union(rt.Number, rt.Null), 
       minimal: rt.Union(rt.Number, rt.Null),
       maximum: rt.Union(rt.Number, rt.Null)
     }),
     clocks: rt.Record({
-      minimalCore: rt.Union(rt.Number, rt.Null), 
-      enforcedCore: rt.Union(rt.Number, rt.Null), 
-      maximumCore: rt.Union(rt.Number, rt.Null), 
-      minimalMemory: rt.Union(rt.Number, rt.Null),
-      enforcedMemory: rt.Union(rt.Number, rt.Null),
-      maximumMemory: rt.Union(rt.Number, rt.Null)
+      minimalCoreOffset: rt.Union(rt.Number, rt.Null), 
+      maximumCoreOffset: rt.Union(rt.Number, rt.Null), 
+      minimalMemoryOffset: rt.Union(rt.Number, rt.Null),
+      maximumMemoryOffset: rt.Union(rt.Number, rt.Null)
     }) 
   }))
 })

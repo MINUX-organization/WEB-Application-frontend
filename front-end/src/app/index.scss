@@ -28,10 +28,6 @@ $font-gill-sans: 'Gill Sans MT', sans-serif;
   --page-max-width: 1600px;
 }
 
-button, [type='button'], [type='submit'], [type='reset'] {
-  background: values.$line-color;
-}
-
 * {
   box-sizing: border-box;
 }

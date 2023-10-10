@@ -7,8 +7,8 @@ const ResponseRuntype = rt.Record({
   settingGpus: rt.Array(rt.Record({
     gpuId: rt.Number,
     gpuSetupId: rt.Number,
-    memoryClock: rt.Number,
-    coreClock: rt.Number,
+    memoryClockOffset: rt.Number,
+    coreClockOffset: rt.Number,
     connected: rt.Boolean,
     powerLimit: rt.Number,
     fanSpeed: rt.Number,

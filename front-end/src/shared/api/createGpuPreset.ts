@@ -3,8 +3,8 @@ import { makeApiFunc } from "./_makeApiFunc";
 
 type Request = {
   name: string
-  memoryClock: number
-	coreClock: number
+  memoryClockOffset: number
+	coreClockOffset: number
 	powerLimit: number
 	critTemp: number
 	fanSpeed: number

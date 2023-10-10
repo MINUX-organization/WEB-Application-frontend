@@ -9,8 +9,8 @@ const ResponseRuntype = rt.Record({
   gpuPresets: rt.Array(rt.Record({
     name: rt.String,
     id: rt.Number,
-    memoryClock: rt.Number,
-    coreClock: rt.Number,
+    memoryClockOffset: rt.Number,
+    coreClockOffset: rt.Number,
     powerLimit: rt.Number,
     critTemp: rt.Number,
     fanSpeed: rt.Number,

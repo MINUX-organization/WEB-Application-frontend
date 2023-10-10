@@ -23,8 +23,8 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   const { data: gpuSetup, isLoading: isLoadingGpuSetup } = useQuery(['load gpu setup', props.gpuId], async () => (await getGpuSetup({ gpuSetupId: props.gpuSetupId })).data.gpuSetup, { onError: (e: any) => toast.error(e.message)})
   const { data: gpuPresetsData, isLoading: isLoadingPresets, refetch: refetchPresets } = useQuery(['get gpu presets', props.gpuId], () => getGpuPresets({ gpuId: props.gpuId }), { onError: (e: any) => toast.error(e.message)})
 
-  const [coreClock, setCoreClock] = useState<number | null>(null)
-  const [memoryClock, setMemoryClock] = useState<number | null>(null)
+  const [coreClockOffset, setCoreClockOffset] = useState<number | null>(null)
+  const [memoryClockOffset, setMemoryClockOffset] = useState<number | null>(null)
   const [powerLimit, setPowerLimit] = useState<number | null>(null)
   const [critTemp, setCritTemp] = useState<number | null>(null)
   const [fanSpeed, setFanSpeed] = useState<number | null>(null)
@@ -45,10 +45,10 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
     createGpuPreset({
       gpuId: props.gpuId,
       name: presetName,
-      coreClock: coreClock ?? -1,
+      coreClockOffset: coreClockOffset ?? -1,
       critTemp: critTemp ?? -1,
       fanSpeed: fanSpeed ?? -1,
-      memoryClock: memoryClock ?? -1,
+      memoryClockOffset: memoryClockOffset ?? -1,
       powerLimit: powerLimit ?? -1
     }).then(res => {
       cancelName()
@@ -69,8 +69,8 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   }
 
   const applyPreset = (preset: Exclude<typeof gpuPresetsData, undefined>['data']['gpuPresets'][number]) => {
-    setCoreClock(preset.coreClock)
-    setMemoryClock(preset.memoryClock)
+    setCoreClockOffset(preset.coreClockOffset)
+    setMemoryClockOffset(preset.memoryClockOffset)
     setPowerLimit(preset.powerLimit)
     setCritTemp(preset.critTemp)
     setFanSpeed(preset.fanSpeed)
@@ -84,11 +84,11 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
     isSaving.setTrue();
     editGpuSetup({
       id: gpuSetup.id,
-      newCoreClock: coreClock ?? -1,
+      newCoreClockOffset: coreClockOffset ?? -1,
       newCritTemp: critTemp ?? -1,
       newFanSpeed: fanSpeed ?? -1,
       newFlightSheetId: flightSheet?.id ?? null,
-      newMemoryClock: memoryClock ?? -1,
+      newMemoryClockOffset: memoryClockOffset ?? -1,
       newPowerLimit: powerLimit ?? -1
     }).then(res => {
       if (props.onApply !== undefined) props.onApply();
@@ -102,8 +102,8 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   useEffect(() => {
     if (gpuSetup !== undefined && flightSheets !== undefined) {
       const flightSheetsData = flightSheets.data.flightSheets
-      setCoreClock(gpuSetup.coreClock === -1 ? null : gpuSetup.coreClock)
-      setMemoryClock(gpuSetup.memoryClock === -1 ? null : gpuSetup.memoryClock)
+      setCoreClockOffset(gpuSetup.coreClockOffset === -1 ? null : gpuSetup.coreClockOffset)
+      setMemoryClockOffset(gpuSetup.memoryClockOffset === -1 ? null : gpuSetup.memoryClockOffset)
       setPowerLimit(gpuSetup.powerLimit === -1 ? null : gpuSetup.powerLimit)
       setCritTemp(gpuSetup.critTemp === -1 ? null : gpuSetup.critTemp)
       setFanSpeed(gpuSetup.fanSpeed === -1 ? null : gpuSetup.fanSpeed)
@@ -118,11 +118,11 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
           {isLoadingGpuSetup && <Spin />}
           {gpuSetup !== undefined && (
               <>
-                <div className={styles['label']}>Core Clock</div>
-                <div className={styles['value']}><FNumInput value={coreClock} onChange={value => setCoreClock(value)} min={gpuSetup.options.clocks.minimalCore} max={gpuSetup.options.clocks.maximumCore} /></div>
+                <div className={styles['label']}>Core Clock Offset</div>
+                <div className={styles['value']}><FNumInput value={coreClockOffset} onChange={value => setCoreClockOffset(value)} min={gpuSetup.options.clocks.minimalCoreOffset} max={gpuSetup.options.clocks.maximumCoreOffset} /></div>
                 <div className={styles['unit']}>Mhz</div>
-                <div className={styles['label']}>Memory Clock</div>
-                <div className={styles['value']}><FNumInput value={memoryClock} onChange={value => setMemoryClock(value)} min={gpuSetup.options.clocks.minimalMemory} max={gpuSetup.options.clocks.maximumMemory} /></div>
+                <div className={styles['label']}>Memory Clock Offset</div>
+                <div className={styles['value']}><FNumInput value={memoryClockOffset} onChange={value => setMemoryClockOffset(value)} min={gpuSetup.options.clocks.minimalMemoryOffset} max={gpuSetup.options.clocks.maximumMemoryOffset} /></div>
                 <div className={styles['unit']}>Mhz</div>
                 <div className={styles['label']}>Power Limit</div>
                 <div className={styles['value']}><FNumInput value={powerLimit} onChange={value => setPowerLimit(value)} min={gpuSetup.options.power.minimal} max={gpuSetup.options.power.maximum} /></div>

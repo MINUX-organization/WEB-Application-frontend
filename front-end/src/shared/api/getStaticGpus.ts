@@ -23,7 +23,6 @@ export const ResponseRuntype = rt.Record({
         }),
       }),
       temperature: rt.Record({
-        enforcedCritical: rt.Number,
         maximumCritical: rt.Number,
       }),
       memory: rt.Record({
@@ -31,17 +30,14 @@ export const ResponseRuntype = rt.Record({
       }),
       power: rt.Record({
         defaultLimit: rt.Union(rt.Number, rt.Null), 
-        enforcedLimit: rt.Union(rt.Number, rt.Null), 
         maximum: rt.Union(rt.Number, rt.Null),
         minimal: rt.Union(rt.Number, rt.Null)
       }),
       clocks: rt.Record({
-        enforcedCore: rt.Number,
-        enforcedMemory: rt.Number,
-        maximumCore: rt.Number,
-        maximumMemory: rt.Number,
-        minimalCore: rt.Number,
-        minimalMemory: rt.Number
+        maximumCoreOffset: rt.Number,
+        maximumMemoryOffset: rt.Number,
+        minimalCoreOffset: rt.Number,
+        minimalMemoryOffset: rt.Number
       })
     })
   )
