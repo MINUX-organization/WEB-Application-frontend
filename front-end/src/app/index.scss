@@ -22,10 +22,14 @@ $font-gill-sans: 'Gill Sans MT', sans-serif;
 
 :root {
   --font-size: 25px;
-  --aside-width: 65px;
-  --header-height: 65px;
+  --aside-width: 70px;
+  --header-height: 70px;
   --page-padding: 20px;
   --page-max-width: 1600px;
+}
+
+button, [type='button'], [type='submit'], [type='reset'] {
+  background: values.$line-color;
 }
 
 * {

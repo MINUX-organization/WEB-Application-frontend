@@ -1,0 +1,30 @@
+@use '@/app/values.scss';
+
+$offset: 10px;
+.connection-message {
+  position: fixed;
+  border-radius: 8px;
+  bottom: $offset;
+  right: $offset;
+  min-width: 100px;
+  min-height: 50px;
+  background: values.$text-color-red;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #fff;
+
+  transform: translateX(calc(100% + $offset));
+  transition: transform 200ms;
+
+  .button, [type='button'] {
+    background: values.$color-primary;
+    border-radius: 4px;
+  }
+
+  &.open {
+    transform: translateX(0);
+  }
+
+}

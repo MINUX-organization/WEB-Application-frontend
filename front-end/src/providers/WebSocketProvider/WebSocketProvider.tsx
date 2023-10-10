@@ -3,6 +3,8 @@ import { useDynamicDataStore } from "@/shared/stores";
 import { useEffectOnce } from "usehooks-ts";
 import { toast } from "react-toastify";
 import { backendUrlWs } from "@/shared/constants";
+import styles from './WebSocketProvider.module.scss'
+import { Button } from "antd";
 
 type WebSocketProviderContextType = {
   ws: WebSocket
@@ -21,18 +23,23 @@ export const useWebSocketProviderContext = () => {
 export const WebSocketProvider = ({ children } : PropsWithChildren) => { 
   const updateDynamicData = useDynamicDataStore((state) => state.updateDynamicData);
   const [ws, setWs] = useState<WebSocket>(new WebSocket(backendUrlWs))
+  const [connected, setConnected] = useState(true)
 
-  useEffectOnce(() => {
+  const open = () => {
+    ws.close()
     const lws = new WebSocket(backendUrlWs)
     lws.onerror = error => {
+      setConnected(false)
       toast.error('Cannot connect to backend')
       console.error('WebSocket error:', error);
     }
     lws.onopen = event => {
+      setConnected(true)
       console.log('WebSocket connection opened:', event);
       lws.send(JSON.stringify("Front"))
     }
     lws.onclose = event => {
+      setConnected(false)
       console.log('WebSocket connection closed:', event);
     }
     lws.onmessage = event => {
@@ -42,15 +49,26 @@ export const WebSocketProvider = ({ children } : PropsWithChildren) => {
       updateDynamicData(JSON.parse(event.data))
     }
     setWs(lws)
-    
+  }
+
+  const close = () => {
+    ws.close();
+  }
+
+  useEffectOnce(() => {
+    open();
     return () => {
-      ws.close();
+      close();
     };
   });
 
   return (
     <WebSocketProviderContext.Provider value={{ ws }}>
       {children}
+      <div className={styles['connection-message'] + ' ' + (!connected ? styles['open'] : '')}>
+        Backend not connected
+        <Button type="primary" onClick={() => open()}>Reconnect</Button>
+      </div>
     </WebSocketProviderContext.Provider>
   );
 }
