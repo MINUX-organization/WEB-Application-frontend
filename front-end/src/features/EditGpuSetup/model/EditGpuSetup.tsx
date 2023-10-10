@@ -23,11 +23,11 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   const { data: gpuSetup, isLoading: isLoadingGpuSetup } = useQuery(['load gpu setup', props.gpuId], async () => (await getGpuSetup({ gpuSetupId: props.gpuSetupId })).data.gpuSetup, { onError: (e: any) => toast.error(e.message)})
   const { data: gpuPresetsData, isLoading: isLoadingPresets, refetch: refetchPresets } = useQuery(['get gpu presets', props.gpuId], () => getGpuPresets({ gpuId: props.gpuId }), { onError: (e: any) => toast.error(e.message)})
 
-  const [coreClockOffset, setCoreClockOffset] = useState<number | null>(null)
-  const [memoryClockOffset, setMemoryClockOffset] = useState<number | null>(null)
-  const [powerLimit, setPowerLimit] = useState<number | null>(null)
-  const [critTemp, setCritTemp] = useState<number | null>(null)
-  const [fanSpeed, setFanSpeed] = useState<number | null>(null)
+  const [coreClockOffset, setCoreClockOffset] = useState<number>(NaN)
+  const [memoryClockOffset, setMemoryClockOffset] = useState<number>(NaN)
+  const [powerLimit, setPowerLimit] = useState<number>(NaN)
+  const [critTemp, setCritTemp] = useState<number>(NaN)
+  const [fanSpeed, setFanSpeed] = useState<number>(NaN)
   const [flightSheet, setFlightSheet] = useState<null | Exclude<typeof flightSheets, undefined>['data']['flightSheets'][number]>(null)
 
   const isOpenSave = useBoolean(false);
@@ -84,12 +84,12 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
     isSaving.setTrue();
     editGpuSetup({
       id: gpuSetup.id,
-      newCoreClockOffset: coreClockOffset ?? -1,
-      newCritTemp: critTemp ?? -1,
-      newFanSpeed: fanSpeed ?? -1,
+      newCoreClockOffset: _.isNaN(coreClockOffset) ? -1 : coreClockOffset,
+      newCritTemp: _.isNaN(critTemp) ? -1 : critTemp,
+      newFanSpeed: _.isNaN(fanSpeed) ? -1 : fanSpeed,
+      newMemoryClockOffset: _.isNaN(memoryClockOffset) ? -1 : memoryClockOffset,
+      newPowerLimit: _.isNaN(powerLimit) ? -1 : powerLimit,
       newFlightSheetId: flightSheet?.id ?? null,
-      newMemoryClockOffset: memoryClockOffset ?? -1,
-      newPowerLimit: powerLimit ?? -1
     }).then(res => {
       if (props.onApply !== undefined) props.onApply();
     }).catch(e => {
@@ -102,11 +102,11 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   useEffect(() => {
     if (gpuSetup !== undefined && flightSheets !== undefined) {
       const flightSheetsData = flightSheets.data.flightSheets
-      setCoreClockOffset(gpuSetup.coreClockOffset === -1 ? null : gpuSetup.coreClockOffset)
-      setMemoryClockOffset(gpuSetup.memoryClockOffset === -1 ? null : gpuSetup.memoryClockOffset)
-      setPowerLimit(gpuSetup.powerLimit === -1 ? null : gpuSetup.powerLimit)
-      setCritTemp(gpuSetup.critTemp === -1 ? null : gpuSetup.critTemp)
-      setFanSpeed(gpuSetup.fanSpeed === -1 ? null : gpuSetup.fanSpeed)
+      setCoreClockOffset(gpuSetup.coreClockOffset === -1 ? NaN : gpuSetup.coreClockOffset)
+      setMemoryClockOffset(gpuSetup.memoryClockOffset === -1 ? NaN : gpuSetup.memoryClockOffset)
+      setPowerLimit(gpuSetup.powerLimit === -1 ? NaN : gpuSetup.powerLimit)
+      setCritTemp(gpuSetup.critTemp === -1 ? NaN : gpuSetup.critTemp)
+      setFanSpeed(gpuSetup.fanSpeed === -1 ? NaN : gpuSetup.fanSpeed)
       setFlightSheet(flightSheetsData.find(v => v.id === gpuSetup.flightSheetId) ?? null)
     }
   }, [gpuSetup, flightSheets])
