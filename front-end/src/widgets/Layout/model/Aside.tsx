@@ -27,6 +27,8 @@ export const Aside = () => {
         } else {
           toast.error('system cannot be powered off')
         }
+      }).catch(e => {
+        // do nothing
       })
     )},
     {label: 'Reboot', onSelect: () => (
@@ -36,6 +38,8 @@ export const Aside = () => {
         } else {
           toast.error('system cannot reboot')
         }
+      }).catch(e => {
+        // do nothing
       })
     )},
     {label: 'Power off and Start in 60s', onSelect: () => (
@@ -45,6 +49,8 @@ export const Aside = () => {
         } else {
           toast.info('system cannot be powered off')
         }
+      }).catch(e => {
+        // do nothing
       })
     )}
   ]
