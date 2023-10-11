@@ -1,4 +1,4 @@
-import { HTMLProps } from "react";
+import { HTMLProps, useMemo } from "react";
 import { useQuery } from "react-query";
 import { createWallet, getFullCryptocurrencies } from "../api";
 import { useStateObj } from "@/shared/lib";
@@ -20,6 +20,13 @@ type CreateWalletProps = Omit<HTMLProps<HTMLDivElement>, typeof omittedProps[num
 export const CreateWallet = (props: CreateWalletProps) => {
   const cryptocurrencyList = useQuery(['load cryptocurrency list'], () => getFullCryptocurrencies({}))
   const cryptocurrency = useStateObj<TCryptocurrency | null>(null)
+  const cryptocurrencySmart = useMemo(() => {
+    if (cryptocurrency.value !== null) return cryptocurrency.value
+    if (cryptocurrencyList.data !== undefined && cryptocurrencyList.data.data.cryptocurrencies.length === 1) {
+      return cryptocurrencyList.data.data.cryptocurrencies[0]
+    }
+    return null
+  }, [cryptocurrencyList.data, cryptocurrency])
   const name = useStateObj('');
   const source = useStateObj('');
   const address = useStateObj('');
@@ -33,13 +40,13 @@ export const CreateWallet = (props: CreateWalletProps) => {
       address.setValue('')
     },
     add: () => {
-      if (cryptocurrency.value === null) { toast.error('wallet\'s cryptocurrency must be selected'); return }
+      if (cryptocurrencySmart === null) { toast.error('wallet\'s cryptocurrency must be selected'); return }
       if (name.value === '') { toast.error('wallet\'s name must be entered'); return }
       if (source.value === '') { toast.error('wallet\'s source must be entered'); return }
       if (address.value === '') { toast.error('wallet\'s address must be entered'); return }
       isAdding.setTrue();
       createWallet({
-        cryptocurrencyId: cryptocurrency.value.id,
+        cryptocurrencyId: cryptocurrencySmart.id,
         address: address.value,
         name: name.value,
         source: source.value
@@ -60,7 +67,7 @@ export const CreateWallet = (props: CreateWalletProps) => {
       <div>
         <FDropdown
           className={styles['field-value']}
-          value={cryptocurrency.value}
+          value={cryptocurrencySmart}
           onChange={value => cryptocurrency.setValue(value)}
           options={cryptocurrencyList.data?.data.cryptocurrencies ?? []}
           getOptionLabel={item => item.name}

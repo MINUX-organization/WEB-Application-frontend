@@ -166,13 +166,13 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
           >
             {gpuListQuery.data !== undefined && (() => {
               const orphans = modifiedGpuList.value.filter(v => !v.connected)
-              const connected = modifiedGpuList.value.filter(v => v.connected)
+              const connected = modifiedGpuList.value.filter(v => v.connected).sort((a,b) => a.id - b.id);
               return (
                 <>
                   {orphans.length !== 0 && (<div className={styles['notification']}><span>{orphans.length}</span>Orphan GPUs</div>)}
-                  {connected.map((gpu, index) => (
+                  {connected.map((gpu) => (
                     <div key={gpu.id + ' ' + gpu.flightSheetId} className={styles['gpu-item']} onClick={() => action.updateModifiedGpuListItem(gpu.id, !(gpu.flightSheetId === props.item.id) ? props.item.id : null)}>
-                      <div className={styles['gpu-item-index']}>{index + 1}</div>
+                      <div className={styles['gpu-item-index']}>{gpu.id}</div>
                       <div className={styles['gpu-item-name']}>{gpu.name}</div>
                       <FCheckbox className={styles['checkbox']} value={gpu.flightSheetId === props.item.id} />
                     </div>

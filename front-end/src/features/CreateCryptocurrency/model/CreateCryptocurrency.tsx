@@ -1,4 +1,4 @@
-import { HTMLProps } from "react";
+import { HTMLProps, useMemo } from "react";
 import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { useStateObj } from "@/shared/lib";
 import { TAlgorithm } from "@/shared/types";
@@ -20,9 +20,16 @@ type CreateCryptocurrencyProps = Omit<HTMLProps<HTMLDivElement>, typeof omittedP
 
 export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
   const algorithmListQuery = useQuery(['load algorithm list'], () => getFullAlgorithms({}))
+  const algorithm = useStateObj<TAlgorithm | null>(null)
+  const algorithmSmart = useMemo(() => {
+    if (algorithm.value !== null) return algorithm.value;
+    if (algorithmListQuery.data !== undefined && algorithmListQuery.data.data.algorithms.length === 1) {
+      return algorithmListQuery.data.data.algorithms[0]
+    }
+    return null
+  }, [algorithm, algorithmListQuery.data])
   const shortName = useStateObj('');
   const fullName = useStateObj('');
-  const algorithm = useStateObj<TAlgorithm | null>(null)
   const isAdding = useBoolean(false)
 
   const action = {
@@ -34,12 +41,12 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
     add: () => {
       if (shortName.value === '') {showNotifyInfo('Short name must be entered'); return}
       if (fullName.value === '') {showNotifyInfo('Full name must be entered'); return}
-      if (algorithm.value === null) {showNotifyInfo('Algorithm must be selected'); return}
+      if (algorithmSmart === null) {showNotifyInfo('Algorithm must be selected'); return}
       isAdding.setTrue();
       createCryptocurrency({
         name: shortName.value,
         fullName: fullName.value,
-        algorithmId: algorithm.value.id
+        algorithmId: algorithmSmart.id
       }).then(res => {
         toast.info('cryptocurrency added')
         if (props.onAdd !== undefined) props.onAdd();
@@ -62,7 +69,7 @@ export const CreateCryptocurrency = (props: CreateCryptocurrencyProps) => {
       <div className={styles['field-label']}>Algorithm</div>
       <FDropdown
         className={styles['field-value']}
-        value={algorithm.value}
+        value={algorithmSmart}
         onChange={value => algorithm.setValue(value)}
         options={algorithmListQuery.data?.data.algorithms ?? []}
         getOptionLabel={item => item.name}

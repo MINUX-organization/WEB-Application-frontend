@@ -1,7 +1,7 @@
-import { HTMLProps } from "react";
+import { HTMLProps, useMemo } from "react";
 import { FButton, FDropdown, FTextInput } from "@/shared/ui";
 import { useStateObj } from "@/shared/lib";
-import { useBoolean } from "usehooks-ts";
+import { useBoolean, useMap } from "usehooks-ts";
 import { createPool } from "../api";
 import { showNotifyInfo } from "@/shared/utils";
 import { TCryptocurrency } from "@/shared/types";
@@ -25,6 +25,13 @@ export const CreatePool = (props: CreatePoolProps) => {
   const isAdding = useBoolean(false);
   const cryptocurrencyListQuery = useQuery(['load cryptocurrency list'], () => getFullCryptocurrencies({}))
   const cryptocurrency = useStateObj<TCryptocurrency | null>(null)
+  const cryptocurrencySmart = useMemo(() => {
+    if (cryptocurrency.value !== null) return cryptocurrency.value
+    if (cryptocurrencyListQuery.data !== undefined && cryptocurrencyListQuery.data.data.cryptocurrencies.length === 1) {
+      return cryptocurrencyListQuery.data.data.cryptocurrencies[0]
+    }
+    return null
+  }, [cryptocurrencyListQuery.data, cryptocurrency])
 
   const action = {
     reset: () => {
@@ -33,14 +40,14 @@ export const CreatePool = (props: CreatePoolProps) => {
       port.setValue('');
     },
     add: () => {
-      if (cryptocurrency.value === null) {toast.error('Cryptocurrency must be selected'); return;}
+      if (cryptocurrencySmart === null) {toast.error('Cryptocurrency must be selected'); return;}
       if (domain.value === '') {toast.error('Domain must be entered'); return;}
       if (port.value === '') {toast.error('Port must be entered'); return;}
       const numPort = Number.parseInt(port.value);
       if (Number.isNaN(numPort)) {toast.error('Port must be a number'); return;}
       isAdding.setTrue();
       createPool({
-        cryptocurrencyId: cryptocurrency.value.id,
+        cryptocurrencyId: cryptocurrencySmart.id,
         host: domain.value,
         port: numPort
       }).then(res => {
@@ -61,7 +68,7 @@ export const CreatePool = (props: CreatePoolProps) => {
       <div className={styles['field-label']}>Cryptocurrency</div>
       <FDropdown
         className={styles['field-value']}
-        value={cryptocurrency.value}
+        value={cryptocurrencySmart}
         onChange={value => cryptocurrency.setValue(value)}
         options={cryptocurrencyListQuery.data?.data.cryptocurrencies ?? []}
         getOptionLabel={item => item.name}
