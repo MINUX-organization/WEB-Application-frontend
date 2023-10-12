@@ -69,8 +69,10 @@ export const Aside = () => {
     commandStopMining({}).then(res => {
       if (res.status === 200) {
         updateDynamicData({ state: { mining: false }})
+        toast.info('mining stopped')
+      } else {
+        toast.error('mining is not stopped, there is unknown error')
       }
-      toast.info('mining stopped')
     }).catch(e => {
       // do nothing
     })
@@ -80,8 +82,10 @@ export const Aside = () => {
     commandStartMining({}).then(res => {
       if (res.status === 200) {
         updateDynamicData({ state: { mining: true }})
+        toast.info('mining started')
+      } else {
+        toast.error('mining is not started, there is unknown error')
       }
-      toast.info('mining started')
     }).catch(e => {
       // do nothing
     })
