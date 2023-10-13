@@ -3,14 +3,16 @@ import naAlt from '@/shared/images/naAlt.svg'
 import '@/app/values.scss'
 
 type NaImagProps = {
-  width: string, 
+  width?: string | number,
+  className?: string
+  style?: CSSStyleSheet
   alt?: boolean
 }
 
-export default function NaImage({ width, alt }: NaImagProps) {
+export default function NaImage(props: NaImagProps) {
   return (
-    <div style={{width: width, height: 'auto'}}>
-      <img className='img-no-drag' src={alt ? naAlt : na} alt='n/a'/>
+    <div className={props.className} style={{width: props.width, height: 'auto', ...props.style}}>
+      <img className='img-no-drag' src={props.alt ? naAlt : na} alt='n/a'/>
     </div>
   )
 }

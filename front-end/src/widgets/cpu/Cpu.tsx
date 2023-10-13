@@ -1,10 +1,9 @@
-import React from 'react';
-import './cpu.scss';
 import { valueOrNA } from '@/shared/utils'; 
 import { useQuery } from 'react-query';
 import { useDynamicDataStore } from '@/shared/stores';
 import { CpuInfoItem } from './CpuInfoItem';
 import { getCpuData } from '@/shared/api/getCpuData';
+import './cpu.scss';
 
 export default function Cpu() {
   const { data } = useQuery((['load cpu full name']), getCpuData);
@@ -14,9 +13,7 @@ export default function Cpu() {
       <div className='flex-container-cpu'>
         <div className='cpu-container'>
           <span>CPU</span>
-          <span className='text'>{valueOrNA((data?.data.cpu.information.manufacturer ?? '') + 
-          ' ' + 
-          (data?.data.cpu.information.modelName ?? ''))}</span>
+          <span className='text'>{valueOrNA((data?.data.cpu.information.manufacturer ?? ''))} {(data?.data.cpu.information.modelName ?? '')}</span>
         </div> 
         <div className='cpu-info'>
           <div className='cpu-info-element'>

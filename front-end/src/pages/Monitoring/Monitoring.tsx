@@ -1,32 +1,20 @@
-import './monitoring.scss'
-import WorkerWidget from '@/widgets/workers'
-import SharesWidget from '@/widgets/shares'
-import PowerRamWidget from '@/widgets/power&ram'
-import { Cpu } from '@/widgets/cpu'
-import { Coins } from '@/widgets/coins'
-import { Gpu } from '@/widgets/gpu'
-import { FooterSystemInfo } from '@/widgets/footerSystemInfo' 
+import { Footer } from './Footer'
+import { GpuList } from './GpuList'
+import { Coins } from './Coins'
+import { DynamicCpu } from './DynamicCpu'
+import { TopStats } from './TopStats'
+import styles from './Monitoring.module.scss'
 
 export default function Monitoring() {
   return (
-    <div className='monitoring'>
-      <div className='monitoring-main-content'>
-        <div className='flex-container-monitoring'>
-          <WorkerWidget/>
-          <PowerRamWidget/>
-          <SharesWidget/>
-        </div>
-        <div className='flex-container-monitoring'>
-          <Cpu/>
-          <Coins/>
-        </div>
-        <div className='flex-container-monitoring'>
-          <Gpu/>
-        </div>
+    <div className={styles['wrapper']}>
+      <div className={styles['content']}>
+        <TopStats />
+        <DynamicCpu />
+        <Coins/>
       </div>
-      <div className='flex-container-monitoring-footer'>
-        <FooterSystemInfo/>
-      </div>
+      <GpuList />
+      <Footer />
     </div>
   )
 }

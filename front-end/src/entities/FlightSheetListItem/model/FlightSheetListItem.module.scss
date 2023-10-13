@@ -321,10 +321,11 @@ $p: 9px;
       justify-content: space-between;
     }
 
+    .dropdown-icon {
+      display: none;
+    }
   }
-  .dropdown-icon {
-    display: none;
-  }
+  
 
   .outside-buttons {
     display: none;
