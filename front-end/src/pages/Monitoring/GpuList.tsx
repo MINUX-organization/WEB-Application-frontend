@@ -74,7 +74,7 @@ export const GpuList = () => {
         <div className={styles['gpu-list-grid-wrapper']}>
           {gpus.length === 0 && <NaImage className={styles['na-image']} alt={true}/>}
           <div className={styles['gpu-list-body']}>
-            {[...gpus, ...gpus, ...gpus, ...gpus].map(item => (
+            {gpus.map(item => (
               <GpuItem key={item.id} item={item} />
             ))}
           </div>
