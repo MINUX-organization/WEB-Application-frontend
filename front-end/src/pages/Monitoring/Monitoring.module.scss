@@ -213,7 +213,7 @@ $item-padding: 7px;
   flex-grow: 1;
   --gpu-list-width: 100%;
   --gpu-list-height: 500px;
-  min-width: 0;
+  min-width: fit-content;
   width: 100%;
   max-width: 100%;
   display: flex;
