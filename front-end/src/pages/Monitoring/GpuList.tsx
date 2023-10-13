@@ -21,7 +21,7 @@ export const GpuList = () => {
     )
   },[])
 
-  const GpuItem = (props: { item: typeof gpus[number] }) => {
+  const GpuItem = useCallback((props: { item: typeof gpus[number] }) => {
     const item = props.item;
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownRef, size] = useElementSize()
@@ -53,7 +53,7 @@ export const GpuList = () => {
         </div>
       </div>
     )
-  }
+  }, []);
 
   return (
     <div className={styles['gpu-list-wrapper']} style={{ "--gpu-list-width": `${size.width}px`, "--gpu-list-height": `${size.height}px` } as CSSProperties}>
