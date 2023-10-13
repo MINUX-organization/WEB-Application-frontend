@@ -1,8 +1,8 @@
 import { FQuadContainer } from "@/shared/ui"
-import { HTMLProps, useRef } from "react"
+import { CSSProperties, HTMLProps, useRef } from "react"
 import { NavLink, useLocation } from "react-router-dom"
 import { setSessionId } from "providers/AuthProvider"
-import { useBoolean, useEventListener } from "usehooks-ts"
+import { useBoolean, useElementSize, useEventListener } from "usehooks-ts"
 import profile from '@/shared/images/profile.png'
 import styles from './ProfileButton.module.scss'
 
@@ -21,6 +21,7 @@ export const ProfileButton = (props: ProfileButtonProps) => {
   const location = useLocation()
   const isOpen = useBoolean(false)
   const ref = useRef<HTMLDivElement>(null)
+  const [dropdownRef, dropdownSize] = useElementSize();
 
   useEventListener('click', isOpen.setFalse)
 
@@ -44,9 +45,9 @@ export const ProfileButton = (props: ProfileButtonProps) => {
           <div className={styles['line']} />
         </div>
       </div>
-      <div className={styles['dropdown-wrapper']}>
+      <div className={styles['dropdown-wrapper']} style={{ "--dropdown-width": `${dropdownSize.width}px`, "--dropdown-height": `${dropdownSize.height}px` } as CSSProperties}>
         <div className={styles['dropdown-top-right-line']} />
-        <div className={styles['dropdown']}>
+        <div ref={dropdownRef} className={styles['dropdown']}>
           {links.map(link => (
               <NavLink key={link.url} to={link.url} onClick={isOpen.setFalse} className={styles['dropdown-item']}><span className={styles['text']}>{link.title}</span></NavLink> 
           ))}

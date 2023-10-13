@@ -1,6 +1,6 @@
-import { HTMLProps, useRef } from "react";
+import { CSSProperties, HTMLProps, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useBoolean, useElementSize, useOnClickOutside } from "usehooks-ts";
 import styles from './HeaderItem.module.scss'
 import _ from 'lodash'
 
@@ -18,9 +18,10 @@ export const HeaderItem = (props: HeaderItemProps) => {
   const location = useLocation()
   const isOpen = useBoolean(false);
   const ref = useRef<HTMLDivElement>(null);
-
+  const [dropdownRef, dropdownSize] = useElementSize();
+  
   useOnClickOutside(ref, isOpen.setFalse)
-
+  
   return (
     <div
       ref={ref}
@@ -38,10 +39,12 @@ export const HeaderItem = (props: HeaderItemProps) => {
       {props.item.links.length > 1 &&
         <>
           <div className={styles['group-label']}><span className={styles['text']}>{props.item.title}</span></div>
-          <div className={styles['dropdown']}>
-            {props.item.links.map(link => (
-              <NavLink key={link.url} className={styles['dropdown-item']} to={link.url}><span className={styles['text']}>{link.title}</span></NavLink>
-            ))}
+          <div className={styles['dropdown-wrapper']} style={{ "--dropdown-width": `${dropdownSize.width}px`, "--dropdown-height": `${dropdownSize.height}px` } as CSSProperties }>
+            <div ref={dropdownRef} className={styles['dropdown']}>
+              {props.item.links.map(link => (
+                <NavLink key={link.url} className={styles['dropdown-item']} to={link.url}><span className={styles['text']}>{link.title}</span></NavLink>
+              ))}
+            </div>
           </div>
         </>
       }
