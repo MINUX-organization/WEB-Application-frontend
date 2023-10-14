@@ -47,7 +47,7 @@ export const GpuList = () => {
             </div>
             <div className={styles['gpu-dropdown-second-item']}>
               <div className={styles['label']}>{"Miner\nup time"}</div>
-              <div className={styles['value']}>-</div>
+              <div className={styles['value']}>{item.minerUpTime}</div>
             </div>
           </div>
         </div>
