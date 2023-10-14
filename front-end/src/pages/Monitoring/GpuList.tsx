@@ -31,13 +31,13 @@ const GpuItem = (props: { item: GpuDynamic }) => {
         <div ref={dropdownRef} className={styles['gpu-dropdown'] + ' ' + (isOpen && styles['open'])}>
           <div className={styles['gpu-dropdown-first-item']}>
             <div className={styles['label']}>{"Crypto"}</div>
-            <div className={styles['value']}>{JSON.stringify(item.cryptocurrency)}</div>
+            <div className={styles['value']}>{item.cryptocurrency ?? 'Null'}</div>
             <div className={styles['label']}>{"Miner"}</div>
-            <div className={styles['value']}>{JSON.stringify(item.miner.fullName)}</div>
+            <div className={styles['value']}>{item.miner.fullName ?? 'Null'}</div>
           </div>
           <div className={styles['gpu-dropdown-second-item']}>
             <div className={styles['label']}>{"Miner up time"}</div>
-            <div className={styles['value']}>{JSON.stringify(item.minerUpTime)}</div>
+            <div className={styles['value']}>{item.minerUpTime ?? 'Null'}</div>
           </div>
         </div>
       </div>
