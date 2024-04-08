@@ -7,6 +7,7 @@ const ResponseRuntype = rt.Record({
   flightSheets: rt.Array(rt.Record({
     id: rt.Number,
     name: rt.String,
+    additionalString: rt.String,
     cryptocurrency: rt.Record({
       id: rt.Number,
       name: rt.String,

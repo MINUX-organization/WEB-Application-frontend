@@ -17,4 +17,4 @@ export type TMiner = { id: number, name: string, fullName: string }
 export type TFlightSheet = { id: number, name: string, cryptocurrency_id: number, wallet_id: number, miner_id: number, pool_id: number }
 
 export type TWalletFilled = { id: number, name: string, source: string, address: string, cryptocurrency: TCryptocurrency }
-export type TFlightSheetFilled = { id: number, name: string, cryptocurrency: TCryptocurrency, wallet: TWallet, miner: TMiner, pool: TPool, algorithm: TAlgorithm }
+export type TFlightSheetFilled = { id: number, name: string, additionalString: string, cryptocurrency: TCryptocurrency, wallet: TWallet, miner: TMiner, pool: TPool, algorithm: TAlgorithm }

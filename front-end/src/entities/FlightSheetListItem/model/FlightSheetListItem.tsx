@@ -147,6 +147,10 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
               <div className={styles['label']}>Algorithm</div>
               <div className={styles['value']}>{props.item.algorithm.name}</div>
             </div>
+            <div className={styles['field']}>
+              <div className={styles['label']}>Additional arguments</div>
+              <div className={styles['value']}>{props.item.additionalString}</div>
+            </div>
           </div>
         </div>
       </FContainer>

@@ -29,7 +29,8 @@ type Request = {
   cryptocurrencyId: number,
   minerId: number,
   walletId: number,
-  poolId: number
+  poolId: number,
+  additionalString: string
 }
 
 const ResponseRuntype = rt.String
