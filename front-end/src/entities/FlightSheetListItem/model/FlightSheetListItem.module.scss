@@ -266,6 +266,12 @@ $p: 9px;
   align-items: center;
 }
 
+.additional-arguments {
+  background: rgba(0, 0, 0, 0.171);
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
 @media screen and (max-width: 1900px) {
   .common-data {
     display: grid;
