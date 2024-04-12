@@ -54,14 +54,32 @@ import { makeApiFunc } from "./_makeApiFunc";
 type Request = {}
 
 const ResponseRuntype = rt.Record({
-  flightSheets: rt.Array(rt.Record({
-    id: rt.Number,
-    name: rt.String,
-    cryptocurrencyId: rt.Number,
-    minerId: rt.Number,
-    walletId: rt.Number,
-    poolId: rt.Number
-  }))
+  flightSheets: rt.Array(
+    rt.Union(
+      rt.Record({
+        type: rt.Literal("SIMPLE"),
+        id: rt.Number,
+        name: rt.String,
+        cryptocurrencyId: rt.Number,
+        minerId: rt.Number,
+        walletId: rt.Number,
+        poolId: rt.Number
+      }),
+      rt.Record({
+        type: rt.Literal("CUSTOM"),
+        id: rt.Number,
+        name: rt.String,
+        installationURL: rt.String,
+        wallet: rt.String,
+        poolURL: rt.String,
+        coin: rt.String,
+        algorithm: rt.String,
+        poolTemplate: rt.String,
+        walletAndWorkerTemplate: rt.String,
+        extraConfigArguments: rt.String
+      })
+    )
+  )
 })
 
 export const getFullFlightSheets = makeApiFunc<Request, typeof ResponseRuntype>("GET", 'other-data/get-full-flight-sheets', ResponseRuntype)

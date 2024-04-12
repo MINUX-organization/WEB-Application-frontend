@@ -4,7 +4,7 @@ import { useElementSize } from "usehooks-ts";
 import styles from './FTextInput.module.scss'
 import _ from 'lodash'
 
-const lineHeight = 30;
+const lineHeight = 32;
 const px = 10;
 const py = 15;
 
@@ -30,7 +30,8 @@ const omitProps: Array<keyof FTextInputProps> = [
   'maxRows',
   'title',
   'password',
-  'inputProps'
+  'inputProps',
+  'textareaProps'
 ]
 
 export const FTextInput = (props: FTextInputProps) => {

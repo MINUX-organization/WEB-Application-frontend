@@ -124,6 +124,9 @@ $title-scale: 0.6;
     outline: none;
   }
 
+  &::placeholder {
+    color: rgba(255,255,255, 20%);
+  }
 }
 
 .input {

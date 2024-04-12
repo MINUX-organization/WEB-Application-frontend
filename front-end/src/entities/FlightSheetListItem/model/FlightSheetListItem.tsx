@@ -21,10 +21,10 @@ type FlightSheetListItemProps = HTMLProps<HTMLDivElement> & {
   onDelete?: () => void;
 };
 
-export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
+export const FlightSheetListItem = ({ item, onDelete, ...props }: FlightSheetListItemProps) => {
   const isExpanded = useBoolean(false);
   const isOpen = useBooleanUrl(
-    "flight-sheet-open-" + props.item.id + "-" + props.item.name
+    "flight-sheet-open-" + item.id + "-" + item.name
   );
   const isUpdatingGPUList = useBoolean(false);
   const gpuListQuery = useQuery(
@@ -51,7 +51,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
                 (gpu) => gpu.id === gpuId
               )!.flightSheetId;
             found.flightSheetId =
-              oldFlightSheetId !== props.item.id ? oldFlightSheetId : null;
+              oldFlightSheetId !== item.id ? oldFlightSheetId : null;
           } else {
             found.flightSheetId = flightSheetId;
           }
@@ -93,11 +93,11 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
     delete: () => {
       if (window.confirm("are you sure you want to delete flight sheet?")) {
         deleteFlightSheet({
-          id: props.item.id,
+          id: item.id,
         })
           .then((res) => {
             toast.info("Flight sheet deleted");
-            if (props.onDelete) props.onDelete();
+            onDelete?.();
           })
           .catch((e) => {});
       }
@@ -138,71 +138,80 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
       }
       style={{ "--inner-height": extraDataSize.height + "px" } as CSSProperties}
     >
-      <FContainer
-        visibility={{ l: false, t: false, r: false, b: false }}
-        bodyProps={{ className: styles["container-body"] }}
-        className={
-          styles["container"] + " " + styles["sp1"] + " " + styles["sp2"]
-        }
-      >
-        <div className={styles['additional-arguments']}>
-          <span>
-            Additional arguments:
-          </span>{' '}
-          <span style={{ color: 'gray' }}>
-            {props.item.additionalString}
-          </span>
-        </div>
-        <div className={styles["common-data"]}>
-          <div className={styles["name"]}>
-            <span className="flex-grow">{props.item.name}</span>
-            <Tridot className={styles["tridot"]} />
-            <AiOutlineClose
-              onClick={action.delete}
-              className={styles["delete-button"]}
-            />
-          </div>
-          <div className={styles["fields"]}>
-            {[
-              { label: "Coin", value: props.item.cryptocurrency.name },
-              { label: "Wallet", value: props.item.wallet.name },
-              { label: "Pool", value: props.item.pool.host },
-              { label: "Miner", value: props.item.miner.name },
-            ].map((item) => (
-              <div key={item.label} className={styles["field"]}>
-                <div className={styles["label"]}>{item.label}</div>
-                <div className={styles["value"]}>{item.value}</div>
-              </div>
-            ))}
-          </div>
-          <AiOutlineDown
-            className={styles["dropdown-icon"]}
-            onClick={isExpanded.toggle}
-          />
-        </div>
-        <div className={styles["extra-data-wrapper"]}>
-          <div ref={extraDataRef} className={styles["extra-data"]}>
-            <div className={styles["field"]}>
-              <div className={styles["label"]}>Wallet Address</div>
-              <div className={styles["value"]}>{props.item.wallet.address}</div>
-            </div>
-            <div className={styles["field"]}>
-              <div className={styles["label"]}>Pool Host</div>
-              <div className={styles["value"]}>{props.item.pool.host}</div>
-            </div>
-            <div className={styles["field"]}>
-              <div className={styles["label"]}>Algorithm</div>
-              <div className={styles["value"]}>{props.item.algorithm.name}</div>
-            </div>
-          </div>
-          {/* <div>
-            <div className={styles["label"]}>Additional arguments</div>
-            <div className={styles["value"]}>
-              {props.item.additionalString}
-            </div>
-          </div> */}
-        </div>
-      </FContainer>
+      {
+        {
+          SIMPLE: () => item.type === 'SIMPLE' && (
+            <>
+              <FContainer
+                visibility={{ l: false, t: false, r: false, b: false }}
+                bodyProps={{ className: styles["container-body"] }}
+                className={
+                  styles["container"] + " " + styles["sp1"] + " " + styles["sp2"]
+                }
+              >
+                <div className={styles['additional-arguments']}>
+                  <span>
+                    Additional arguments:
+                  </span>{' '}
+                  <span style={{ color: 'gray' }}>
+                    {item.additionalString}
+                  </span>
+                </div>
+                <div className={styles["common-data"]}>
+                  <div className={styles["name"]}>
+                    <span className="flex-grow">{item.name}</span>
+                    <Tridot className={styles["tridot"]} />
+                    <AiOutlineClose
+                      onClick={action.delete}
+                      className={styles["delete-button"]}
+                    />
+                  </div>
+                  <div className={styles["fields"]}>
+                    {[
+                      { label: "Coin", value: item.cryptocurrency.name },
+                      { label: "Wallet", value: item.wallet.name },
+                      { label: "Pool", value: item.pool.host },
+                      { label: "Miner", value: item.miner.name },
+                    ].map((item) => (
+                      <div key={item.label} className={styles["field"]}>
+                        <div className={styles["label"]}>{item.label}</div>
+                        <div className={styles["value"]}>{item.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <AiOutlineDown
+                    className={styles["dropdown-icon"]}
+                    onClick={isExpanded.toggle}
+                  />
+                </div>
+                <div className={styles["extra-data-wrapper"]}>
+                  <div ref={extraDataRef} className={styles["extra-data"]}>
+                    <div className={styles["field"]}>
+                      <div className={styles["label"]}>Wallet Address</div>
+                      <div className={styles["value"]}>{item.wallet.address}</div>
+                    </div>
+                    <div className={styles["field"]}>
+                      <div className={styles["label"]}>Pool Host</div>
+                      <div className={styles["value"]}>{item.pool.host}</div>
+                    </div>
+                    <div className={styles["field"]}>
+                      <div className={styles["label"]}>Algorithm</div>
+                      <div className={styles["value"]}>{item.algorithm.name}</div>
+                    </div>
+                  </div>
+                </div>
+              </FContainer>
+            </>
+          ),
+          CUSTOM: () => item.type === 'CUSTOM' && (
+            <>
+              <pre>
+                {JSON.stringify(item)}
+              </pre>
+            </>
+          ),
+        }[item.type]()
+      }
       <div className={styles["outside-buttons"]}>
         <AiOutlineClose
           onClick={action.delete}
@@ -263,8 +272,8 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
                         onClick={() =>
                           action.updateModifiedGpuListItem(
                             gpu.id,
-                            !(gpu.flightSheetId === props.item.id)
-                              ? props.item.id
+                            !(gpu.flightSheetId === item.id)
+                              ? item.id
                               : null
                           )
                         }
@@ -275,7 +284,7 @@ export const FlightSheetListItem = (props: FlightSheetListItemProps) => {
                         </div>
                         <FCheckbox
                           className={styles["checkbox"]}
-                          value={gpu.flightSheetId === props.item.id}
+                          value={gpu.flightSheetId === item.id}
                         />
                       </div>
                     ))}
