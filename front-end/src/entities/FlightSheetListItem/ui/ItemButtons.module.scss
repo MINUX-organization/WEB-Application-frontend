@@ -1,3 +1,5 @@
+@use "@/app/values.scss";
+
 .main {
   display: flex;
   align-items: center;
@@ -11,9 +13,27 @@
 
 .delete-button {
   background: red;
-  width: fit-content;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 5px red;
+  }
+}
+
+.tridot-button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-button {
+  background: values.$line-color;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 5px values.$line-color;
   }
 }

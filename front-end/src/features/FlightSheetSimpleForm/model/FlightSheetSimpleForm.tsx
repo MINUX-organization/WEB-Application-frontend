@@ -1,4 +1,4 @@
-import { HTMLProps, useEffect, useMemo } from "react";
+import { HTMLProps, useMemo } from "react";
 import {
   FButton,
   FContainer,
@@ -51,42 +51,12 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');
 
-  const cryptocurrency = useStateObj<TCryptocurrency | null>(null);
-  const wallet = useStateObj<TWallet | null>(null);
-  const pool = useStateObj<TPool | null>(null);
-  const miner = useStateObj<TMiner | null>(null);
+  const cryptocurrency = useStateObj<TCryptocurrency | null>(flightSheet?.cryptocurrency ?? null);
+  const wallet = useStateObj<TWallet | null>(flightSheet?.wallet ?? null);
+  const pool = useStateObj<TPool | null>(flightSheet?.pool ?? null);
+  const miner = useStateObj<TMiner | null>(flightSheet?.miner ?? null);
 
-  // set initial values by provided flight sheet
-  // useEffect(() => {
-  //   const addOptions = flightSheeAddOptions.query.data?.data
-  //   if (addOptions && flightSheet) {
-  //     cryptocurrency.setValue((prev) => 
-  //       addOptions.cryptocurrencies.find(
-  //         (cryptocurrency) => cryptocurrency.id === flightSheet.cryptocurrencyId
-  //       ) ?? prev
-  //     );
-
-  //     wallet.setValue((prev) => 
-  //       addOptions.wallets.find(
-  //         (wallet) => wallet.id === flightSheet.walletId
-  //       ) ?? prev
-  //     );
-
-  //     pool.setValue((prev) => 
-  //       addOptions.pools.find(
-  //         (pool) => pool.id === flightSheet.poolId
-  //       ) ?? prev
-  //     )
-
-  //     miner.setValue((prev) => 
-  //       addOptions.miners.find(
-  //         (miner) => miner.id === flightSheet.minerId
-  //       ) ?? prev
-  //     )
-  //   }
-  // }, [flightSheeAddOptions.query.data])
-
-  const isAdding = useBoolean(false);
+  const isSubmitting = useBoolean(false);
   const modalAddCryptocurrency = useAddModal(
     "Add cryptocurrency",
     "create-flightsheet-create-crypto",
@@ -223,12 +193,21 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
 
   const action = {
     reset: () => {
-      cryptocurrency.setValue(null);
-      wallet.setValue(null);
-      pool.setValue(null);
-      miner.setValue(null);
-      name.setValue("");
-      additionalString.setValue('');
+      if (flightSheet) {
+        cryptocurrency.setValue(flightSheet.cryptocurrency);
+        wallet.setValue(flightSheet.wallet);
+        pool.setValue(flightSheet.pool);
+        miner.setValue(flightSheet.miner);
+        name.setValue(flightSheet.name);
+        additionalString.setValue(flightSheet.additionalString);
+      } else {
+        cryptocurrency.setValue(null);
+        wallet.setValue(null);
+        pool.setValue(null);
+        miner.setValue(null);
+        name.setValue("");
+        additionalString.setValue('');
+      }
     },
     submit: () => {
       if (cryptocurrencySmart === null) {
@@ -251,7 +230,7 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
         toast.error("Name must be entered");
         return;
       }
-      isAdding.setTrue();
+      isSubmitting.setTrue();
 
       if (flightSheet) {
         editFlightSheetSimple({
@@ -263,24 +242,34 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
           newPoolId: poolSmart.id,
           newWalletId: walletSmart.id
         })
+        .then(() => {
+          onSubmit?.();
+        })
+        .catch((e) => {
+          
+        })
+        .finally(() => {
+          isSubmitting.setFalse()
+        })
+      } else {
+        createFlightSheet({
+          name: name.value,
+          cryptocurrencyId: cryptocurrencySmart.id,
+          minerId: minerSmart.id,
+          poolId: poolSmart.id,
+          walletId: walletSmart.id,
+          additionalString: additionalString.value
+        })
+          .then((res) => {
+            onSubmit?.();
+            action.reset();
+          })
+          .catch((e) => {})
+          .finally(() => {
+            isSubmitting.setFalse();
+          });
       }
 
-      createFlightSheet({
-        name: name.value,
-        cryptocurrencyId: cryptocurrencySmart.id,
-        minerId: minerSmart.id,
-        poolId: poolSmart.id,
-        walletId: walletSmart.id,
-        additionalString: additionalString.value
-      })
-        .then((res) => {
-          onSubmit?.();
-          action.reset();
-        })
-        .catch((e) => {})
-        .finally(() => {
-          isAdding.setFalse();
-        });
     },
   };
 
@@ -353,11 +342,19 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
           Reset
         </FButton>
         <FButton
-          loading={isAdding.value}
+          loading={isSubmitting.value}
           severity="good"
           onClick={action.submit}
         >
-          Create flight sheet
+          {!!flightSheet ? (
+            <div>
+              Edit flight sheet
+            </div>
+          ) : (
+            <div>
+              Create flight sheet
+            </div>
+          )}
         </FButton>
       </div>
     </div>

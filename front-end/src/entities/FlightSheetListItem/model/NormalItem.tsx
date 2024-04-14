@@ -1,11 +1,12 @@
 import { TFlightSheetFilled } from '@/shared/types';
-import { FContainer } from '@/shared/ui';
+import { FContainer, FModal } from '@/shared/ui';
 import { AiOutlineDown } from 'react-icons/ai';
 import { useBoolean, useElementSize } from 'usehooks-ts';
 import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
 import { deleteFlightSheet } from '@/shared/api';
 import { toast } from 'react-toastify';
+import { FlightSheetSimpleForm } from '@/features/FlightSheetSimpleForm';
 import GpuListModal from './GpuListModal';
 import styles from './NormalItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
@@ -25,6 +26,7 @@ export default function NormalItem({
     "flight-sheet-open-" + item.id + "-" + item.name
   );
   const isExpanded = useBoolean(false);
+  const isEditing = useBoolean(false);
   const [extraDataRef, extraDataSize] = useElementSize();
 
   const handleDelete = () => {
@@ -67,6 +69,7 @@ export default function NormalItem({
                 direction='horizontal'
                 onDeleteClick={handleDelete}
                 onTridotClick={isOpen.setTrue}
+                onEditClick={isEditing.setTrue}
               />
             </div>
           </div>
@@ -115,10 +118,16 @@ export default function NormalItem({
         <ItemButtons
           onDeleteClick={handleDelete}
           onTridotClick={isOpen.setTrue}
-          direction='horizontal'
+          onEditClick={isEditing.setTrue}
+          direction='vertical'
         />
       </div>
       <GpuListModal isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
+      <FModal title="Edit flight sheet" open={isEditing.value} onClose={isEditing.setFalse}>
+        <div className='bg-black p-8'>
+          <FlightSheetSimpleForm flightSheet={item} onSubmit={onUpdate} />
+        </div>
+      </FModal>
     </div>
   );
 }

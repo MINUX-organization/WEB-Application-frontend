@@ -1,15 +1,14 @@
 import { TFlightSheetFilled } from "@/shared/types";
-import { FContainer } from "@/shared/ui";
+import { FContainer, FModal } from "@/shared/ui";
 import { AiOutlineDown } from "react-icons/ai";
 import { useBoolean, useElementSize } from "usehooks-ts";
 import { CSSProperties } from "react";
-import { deleteFlightSheet } from "@/shared/api";
 import { toast } from "react-toastify";
-import ItemButtons from "../ui/Itembuttons";
-import styles from './CustomItem.module.scss';
 import { editGpusForFlightSheetsWithCustomMiner } from "@/shared/api/editGpusForFlightSheetsWithCustomMiner";
 import { Spin } from "antd";
 import { deleteFlightSheetWithCustomMiner } from "@/shared/api/deleteFlightSheetWithCustomMiner";
+import ItemButtons from "../ui/Itembuttons";
+import styles from './CustomItem.module.scss';
 
 type CustomItemProps = {
   item: Extract<TFlightSheetFilled, { type: 'CUSTOM' }>;
@@ -20,6 +19,7 @@ type CustomItemProps = {
 export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps) {
   const isExpanded = useBoolean(false);
   const isApplying = useBoolean(false);
+  const isEditing = useBoolean(false);
   const [extraDataRef, extraDataSize] = useElementSize();
 
   const handleDelete = () => {
@@ -159,7 +159,7 @@ export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps
       </FContainer>
       <div className={styles['outside-buttons']}>
         <ItemButtons
-          direction="horizontal"
+          direction="vertical"
           onDeleteClick={handleDelete}
           onTridotClick={handleApplyCustomMiner}
         />

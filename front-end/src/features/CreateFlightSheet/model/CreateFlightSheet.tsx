@@ -3,6 +3,7 @@ import { CreateFlightSheetWithCustomMiner } from "@/features/CreateFlightSheetWi
 import { FDropdown, FQuadCornerContainer } from "@/shared/ui";
 import { useState } from "react";
 import styles from './CreateFlightSheet.module.scss';
+import { FlightSheetSimpleForm } from "@/features/FlightSheetSimpleForm";
 
 type TTypeOption = "SIMPLE" | "CUSTOM";
 const typeOptions: TTypeOption[] = ["SIMPLE", "CUSTOM"];
@@ -32,7 +33,7 @@ export function CreateFlightSheet({ onAdd }: TCreateFlightSheetProps) {
       <FQuadCornerContainer className={styles['box']}>
         {
           {
-            SIMPLE: <CreateFlightSheetNormal onAdd={onAdd} />,
+            SIMPLE: <FlightSheetSimpleForm onSubmit={onAdd} />,
             CUSTOM: (
               <CreateFlightSheetWithCustomMiner
                 onAdd={onAdd}
