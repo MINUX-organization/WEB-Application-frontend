@@ -32,6 +32,7 @@ export const FlightSheet = (props: HTMLProps<HTMLDivElement>) => {
               key={item.id}
               item={item}
               onDelete={flightSheetListQuery.refetch}
+              onUpdate={flightSheetListQuery.refetch}
             />
           ))}
       </div>

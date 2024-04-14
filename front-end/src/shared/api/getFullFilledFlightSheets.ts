@@ -7,7 +7,7 @@ const ResponseRuntype = rt.Record({
   flightSheets: rt.Array(
     rt.Union(
       rt.Record({
-        type: rt.Literal("SIMPLE"),
+        type: rt.Literal("normal"),
         id: rt.Number,
         name: rt.String,
         additionalString: rt.String,
@@ -41,12 +41,12 @@ const ResponseRuntype = rt.Record({
         }),
       }),
       rt.Record({
-        type: rt.Literal("CUSTOM"),
+        type: rt.Literal("custom"),
         id: rt.Number,
         name: rt.String,
-        installationURL: rt.String,
+        installationURI: rt.String,
         wallet: rt.String,
-        poolURL: rt.String,
+        pool: rt.String,
         coin: rt.String,
         algorithm: rt.String,
         poolTemplate: rt.String,
@@ -59,7 +59,65 @@ const ResponseRuntype = rt.Record({
 
 export type TFullFilledFlightSheet = rt.Static<typeof ResponseRuntype>['flightSheets'][number]
 
-export const getFullFilledFlightSheets = makeApiFunc<
-  Request,
-  typeof ResponseRuntype
->("GET", "other-data/get-full-filled-flight-sheets", ResponseRuntype);
+// export const getFullFilledFlightSheets = makeApiFunc<
+//   Request,
+//   typeof ResponseRuntype
+// >("GET", "other-data/get-full-filled-flight-sheets", ResponseRuntype);
+
+// testing
+export const getFullFilledFlightSheets = (arg: Request): Promise<{ data: { flightSheets: TFullFilledFlightSheet[] } }> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const items: TFullFilledFlightSheet[] = [
+        {
+          type: 'normal',
+          additionalString: '-feag',
+          algorithm: {
+            id: 32,
+            name: 'SHA256'
+          },
+          cryptocurrency: {
+            id: 10,
+            algorithmId: 3,
+            fullName: 'BITCOIN',
+            name: "BTC"
+          },
+          id: 1,
+          miner: {
+            fullName: "COOL MINER",
+            id: 53,
+            name: "CLMINER"
+          },
+          name: "feag --- normal FLIGHT sheet",
+          pool: {
+            cryptocurrencyId: 12,
+            host: "localhost:4342",
+            id: 123,
+            port: 34555
+          },
+          wallet: {
+            address: '0xfeafef32fef',
+            cryptocurrencyId: 12,
+            id: 33,
+            name: "Fine Wallet",
+            source: "feoag"
+          }
+        },
+        {
+          type: 'custom',
+          algorithm: 'feg',
+          coin: 'feag',
+          extraConfigArguments: '0f-f-f-ge-a',
+          id: 3,
+          installationURI: 'https://feagl.com',
+          name: 'Nice Custom FLIGHT Sheet',
+          poolTemplate: 'fjgjejg template',
+          pool: 'sisisisis',
+          wallet: 'ahaha',
+          walletAndWorkerTemplate: 'feaga'
+        }
+      ]
+      resolve({ data: { flightSheets: items } })
+    }, 2000)
+  })
+}

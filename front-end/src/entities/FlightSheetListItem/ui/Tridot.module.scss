@@ -1,0 +1,26 @@
+@use "@/app/values.scss";
+
+.tridot-button {
+  cursor: pointer;
+  align-self: center;
+  $p: 4px;
+  display: flex;
+  padding: calc(2 * $p) $p;
+  gap: $p;
+  color: values.$line-color;
+  background: currentColor;
+  
+  &:hover {
+    box-shadow: 0 0 5px currentColor;
+  }
+
+  .dot {
+    $size: 8px;
+    color: white;
+    display: block;
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    background: currentColor;
+  }
+}

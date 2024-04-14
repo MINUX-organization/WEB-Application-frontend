@@ -22,7 +22,7 @@ import { CreateCryptocurrency } from "@/features/CreateCryptocurrency";
 import { CreateWallet } from "@/features/CreateWallet";
 import { CreatePool } from "@/features/CreatePool";
 import { CreateMiner } from "@/features/CreateMiner";
-import styles from "./CreateFlightSheetSimple.module.scss";
+import styles from "./CreateFlightSheetNormal.module.scss";
 import _ from "lodash";
 import { toast } from "react-toastify";
 
@@ -50,7 +50,7 @@ type CreateFlightSheetProps = Omit<
   onSetup?: (refetchOptions: () => void) => void;
 };
 
-export const CreateFlightSheetSimple = (props: CreateFlightSheetProps) => {
+export const CreateFlightSheetNormal = (props: CreateFlightSheetProps) => {
   const flightSheeAddOptions = useFlightSheetAddOptions();
   const name = useStateObj("");
   const additionalString = useStateObj('');
