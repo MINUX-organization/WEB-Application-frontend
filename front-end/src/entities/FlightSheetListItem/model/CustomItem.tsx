@@ -9,6 +9,7 @@ import ItemButtons from "../ui/Itembuttons";
 import styles from './CustomItem.module.scss';
 import { editGpusForFlightSheetsWithCustomMiner } from "@/shared/api/editGpusForFlightSheetsWithCustomMiner";
 import { Spin } from "antd";
+import { deleteFlightSheetWithCustomMiner } from "@/shared/api/deleteFlightSheetWithCustomMiner";
 
 type CustomItemProps = {
   item: Extract<TFlightSheetFilled, { type: 'CUSTOM' }>;
@@ -23,7 +24,7 @@ export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps
 
   const handleDelete = () => {
     if (window.confirm("are you sure you want to delete flight sheet?")) {
-      deleteFlightSheet({
+      deleteFlightSheetWithCustomMiner({
         id: item.id,
       })
       .then((res) => {
