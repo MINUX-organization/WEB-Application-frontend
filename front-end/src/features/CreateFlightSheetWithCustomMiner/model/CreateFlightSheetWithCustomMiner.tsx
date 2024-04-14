@@ -50,7 +50,7 @@ export function CreateFlightSheetWithCustomMiner({
             <Form.Item
               initialValue={""}
               label={<div className="text-2xl">Installation URL</div>}
-              name="installationURI"
+              name="installationURL"
               rules={[{ required: true }]}
             >
               <FTextInput
@@ -76,7 +76,7 @@ export function CreateFlightSheetWithCustomMiner({
             <Form.Item
               initialValue={""}
               label={<div className="text-2xl">Pool URL</div>}
-              name="pool"
+              name="poolURL"
               rules={[{ required: true }]}
             >
               <FTextInput

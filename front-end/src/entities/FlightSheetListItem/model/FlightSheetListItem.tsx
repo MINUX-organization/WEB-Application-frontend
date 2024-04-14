@@ -14,14 +14,14 @@ export const FlightSheetListItem = ({ item, onDelete, onUpdate }: FlightSheetLis
     <div>
       {
         {
-          normal: () => item.type === 'normal' && (
+          SIMPLE: () => item.type === 'SIMPLE' && (
             <NormalItem
               item={item}
               onDelete={onDelete}
               onUpdate={onUpdate}
             />
           ),
-          custom: () => item.type === 'custom' && (
+          CUSTOM: () => item.type === 'CUSTOM' && (
             <CustomItem
               item={item}
               onDelete={onDelete}

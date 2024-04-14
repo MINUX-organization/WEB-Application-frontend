@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.main:global(.vertical) {
+  flex-direction: column;
+}
+
+.delete-button {
+  background: red;
+  width: fit-content;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 5px red;
+  }
+}

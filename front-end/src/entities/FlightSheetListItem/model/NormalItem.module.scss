@@ -21,6 +21,10 @@ $p: 9px;
   }
 }
 
+.inner-buttons {
+  display: none;
+}
+
 .container.sp1.sp2 {
   flex-grow: 1;
   min-height: $closed-height;
@@ -51,16 +55,6 @@ $p: 9px;
     line-height: $line-height;
     flex-grow: 1;
     align-items: center;
-    margin-bottom: 20px;
-
-    .tridot {
-      display: none;
-    }
-    .delete-button {
-      display: none;
-      width: fit-content;
-      height: 24px;
-    }
   }
 
   .fields {
@@ -172,37 +166,6 @@ $p: 9px;
   }
 }
 
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-
-.gpu-list-container {
-  display: grid;
-  width: 500px;
-  height: 600px;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.gpu-list-container-body {
-  background: transparent;
-}
-
-.gpu-list {
-  width: 100%;
-  background: transparent;
-  overflow: auto;
-}
-
 .scroll-track {
   top: 0;
   bottom: 0;
@@ -211,39 +174,6 @@ $p: 9px;
 
 .scroll-thumb {
   background: color-mix(in srgb, values.$line-color 50%, transparent);
-}
-
-.gpu-item {
-  $bg-color: #222222;
-  margin-top: 10px;
-  display: flex;
-  gap: 20px;
-  padding: 0 20px;
-  align-items: center;
-  background: $bg-color;
-  cursor: pointer;
-
-  &:first-child {
-    margin-top: 0;
-  }
-
-  .gpu-item-index {
-    min-width: 30px;
-    width: fit-content;
-  }
-
-  .gpu-item-name {
-    flex-grow: 1;
-  }
-
-  .checkbox {
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    background: color-mix(in srgb, $bg-color 90%, white);
-  }
-
 }
 
 .notification {
@@ -277,7 +207,6 @@ $p: 9px;
 
 @media screen and (max-width: 1900px) {
   .common-data {
-    display: grid;
     grid-template-columns: 450px 1fr min-content;
     .name {
       align-self: flex-start;
@@ -293,11 +222,12 @@ $p: 9px;
   .extra-data {
     grid-template-columns: 450px repeat(2, 1fr) 49.99px;
   }
-
 }
 
 @media screen and (max-width: 1550px) {
-
+  .inner-buttons {
+    display: flex;
+  }
   .common-data {
     display: flex;
     flex-direction: column;
@@ -308,13 +238,6 @@ $p: 9px;
       gap: 10px;
       width: 100%;
       justify-content: space-between;
-
-      .tridot {
-        display: flex;
-      }
-      .delete-button {
-        display: block;
-      }
     }
 
     .fields {

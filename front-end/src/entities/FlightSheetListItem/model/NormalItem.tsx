@@ -1,17 +1,17 @@
 import { TFlightSheetFilled } from '@/shared/types';
 import { FContainer } from '@/shared/ui';
-import { AiOutlineClose, AiOutlineDown } from 'react-icons/ai';
+import { AiOutlineDown } from 'react-icons/ai';
 import { useBoolean, useElementSize } from 'usehooks-ts';
 import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
 import { deleteFlightSheet } from '@/shared/api';
 import { toast } from 'react-toastify';
-import Tridot from '../ui/Tridot';
 import GpuListModal from './GpuListModal';
 import styles from './NormalItem.module.scss';
+import ItemButtons from '../ui/Itembuttons';
 
 type NormalItemProps = {
-  item: Extract<TFlightSheetFilled, { type: 'normal' }>;
+  item: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>;
   onDelete: () => void;
   onUpdate: () => void
 };
@@ -49,8 +49,8 @@ export default function NormalItem({
     <div
       className={styles["wrapper"] + " " +
       (isExpanded.value ? styles["open"] : "")
-    }
-    style={{ "--inner-height": extraDataSize.height + "px" } as CSSProperties}
+      }
+      style={{ "--inner-height": extraDataSize.height + "px" } as CSSProperties}
     >
       <FContainer
         visibility={{ l: false, t: false, r: false, b: false }}
@@ -60,13 +60,15 @@ export default function NormalItem({
         }
       >
         <div className={styles['common-data']}>
-          <div className={styles['name']}>
+          <div className='flex gap-2 items-center mb-2 w-full'>
             <span className="flex-grow">{item.name}</span>
-            <Tridot className={styles['tridot']} onClick={isOpen.setTrue} />
-            <AiOutlineClose
-              onClick={handleDelete}
-              className={styles['delete-button']}
-            />
+            <div className={styles['inner-buttons']}>
+              <ItemButtons
+                direction='horizontal'
+                onDeleteClick={handleDelete}
+                onTridotClick={isOpen.setTrue}
+              />
+            </div>
           </div>
           <div className={styles['additional-arguments']}>
             <span>Additional arguments:</span>{' '}
@@ -110,11 +112,11 @@ export default function NormalItem({
         </div>
       </FContainer>
       <div className={styles['outside-buttons']}>
-        <AiOutlineClose
-          onClick={handleDelete}
-          className={styles['delete-button']}
+        <ItemButtons
+          onDeleteClick={handleDelete}
+          onTridotClick={isOpen.setTrue}
+          direction='horizontal'
         />
-        <Tridot className={styles['tridot']} onClick={isOpen.setTrue} />
       </div>
       <GpuListModal isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
     </div>
