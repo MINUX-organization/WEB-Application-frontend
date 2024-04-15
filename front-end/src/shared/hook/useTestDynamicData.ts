@@ -24,6 +24,8 @@ export const testDynamicData: DynamicData = {
   },
   gpus: [{
     id: 1,
+    flightSheetName: 'Flight sheet normal',
+    flightSheetWithCustomMinerName: null,
     uuid: 'fsdkfj324',
       temperature: 45,
       fullName: 'Nvidia RTX 3080TI',
@@ -53,6 +55,8 @@ export const testDynamicData: DynamicData = {
   }, 
   {
     id: 4,
+    flightSheetName: null,
+    flightSheetWithCustomMinerName: 'flight sheet with custom miner',
     uuid: 'fsdkfj324',
       temperature: 45,
       fullName: 'Nvidia RTX 3080TI',

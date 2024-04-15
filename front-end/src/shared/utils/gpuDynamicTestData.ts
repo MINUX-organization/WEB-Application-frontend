@@ -4,6 +4,8 @@ export const gpuDynamicTestData: GpuDynamic[] = [
   {
     id: 1,
     uuid: "fsdk23324",
+    flightSheetName: 'flgith sheet nroaml',
+    flightSheetWithCustomMinerName: null,
     temperature: 45,
     fullName: "Nvidia RTX 3060TI",
     fanSpeed: 60, 
@@ -33,6 +35,8 @@ export const gpuDynamicTestData: GpuDynamic[] = [
   {
     id: 2,
     uuid: "fsdk23324",
+    flightSheetName: null,
+    flightSheetWithCustomMinerName: 'flight sheet custom',
     temperature: 45,
     fullName: "Nvidia RTX 3060TI",
     fanSpeed: 60, 

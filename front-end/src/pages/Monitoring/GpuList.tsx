@@ -16,6 +16,7 @@ const GpuItem = (props: { item: GpuDynamic }) => {
   return (
     <div className={styles['gpu-item-wrapper']}>
       <div className={styles['gpu-item']} onClick={() => setIsOpen(prev => !prev)}>
+      
         <div className={styles['gpu-id-and-fullname']}>
           <div className={styles['gpu-id']} title={item.id.toString()}>{item.id}</div>
           <div className={styles['gpu-fullname']}>{item.fullName}</div>
@@ -30,14 +31,18 @@ const GpuItem = (props: { item: GpuDynamic }) => {
       <div className={styles['gpu-dropdown-wrapper'] + ' ' + (isOpen && styles['open'])} style={{ "--gpu-dropdown-width": `${size.width}px`, "--gpu-dropdown-height": `${size.height}px` } as CSSProperties}>
         <div ref={dropdownRef} className={styles['gpu-dropdown'] + ' ' + (isOpen && styles['open'])}>
           <div className={styles['gpu-dropdown-first-item']}>
-            <div className={styles['label']}>{"Crypto"}</div>
+            <div className={styles['label']}>Crypto</div>
             <div className={styles['value']}>{item.cryptocurrency ?? 'Null'}</div>
-            <div className={styles['label']}>{"Miner"}</div>
+            <div className={styles['label']}>Miner</div>
             <div className={styles['value']}>{item.miner.fullName ?? 'Null'}</div>
           </div>
           <div className={styles['gpu-dropdown-second-item']}>
-            <div className={styles['label']}>{"Miner up time"}</div>
+            <div className={styles['label']}>Miner up time</div>
             <div className={styles['value']}>{item.minerUpTime ?? 'Null'}</div>
+          </div>
+          <div className={styles['gpu-dropdown-second-item']}>
+            <div className={styles['label']}>Flight sheet</div>
+            <div className={styles['value']}>{item.flightSheetName ?? item.flightSheetWithCustomMinerName ?? '-'}</div>
           </div>
         </div>
       </div>

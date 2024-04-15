@@ -27,6 +27,8 @@ import * as rt from 'runtypes';
 
 export const GpuDynamicRuntype = rt.Record({
   id: rt.Number,
+  flightSheetName: rt.Union(rt.String, rt.Null),
+  flightSheetWithCustomMinerName: rt.Union(rt.String, rt.Null),
   uuid: rt.Union(rt.String, rt.Null),
   fullName: rt.Union(rt.String, rt.Null),
   temperature: rt.Union(rt.Number, rt.Null),
