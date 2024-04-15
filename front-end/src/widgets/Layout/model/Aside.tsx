@@ -108,8 +108,8 @@ export const Aside = () => {
       </div>
       <div>
         <div ref={asideRef}>
-          <AsideItem text="Power Off" onClick={toggleDropAside}>
-            <img src={powerOff} alt="Power Off" />
+          <AsideItem text="Shutdown menu" onClick={toggleDropAside}>
+            <img src={powerOff} alt="Shutdown menu" />
           </AsideItem> 
         </div>
         {isDropAsideOpen.value && <FDropAside fields={fields} position='right'/>}
