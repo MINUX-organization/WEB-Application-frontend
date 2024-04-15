@@ -9,6 +9,7 @@ import { Spin } from "antd";
 import { deleteFlightSheetWithCustomMiner } from "@/shared/api/deleteFlightSheetWithCustomMiner";
 import ItemButtons from "../ui/Itembuttons";
 import styles from './CustomItem.module.scss';
+import { FlightSheetWithCustomMinerForm } from "@/features/FlightSheetWithCustomMinerForm";
 
 type CustomItemProps = {
   item: Extract<TFlightSheetFilled, { type: 'CUSTOM' }>;
@@ -81,6 +82,7 @@ export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps
               direction='horizontal'
               onDeleteClick={handleDelete}
               onTridotClick={handleApplyCustomMiner}
+              onEditClick={isEditing.setTrue}
             />
           </div>
         </div>
@@ -162,8 +164,14 @@ export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps
           direction="vertical"
           onDeleteClick={handleDelete}
           onTridotClick={handleApplyCustomMiner}
+          onEditClick={isEditing.setTrue}
         />
       </div>
+      <FModal title="Edit flight sheet with custom miner" open={isEditing.value} onClose={isEditing.setFalse}>
+        <div className="bg-black p-8">
+          <FlightSheetWithCustomMinerForm flightSheet={item} onSubmit={onUpdate} />
+        </div>
+      </FModal>
     </div>
   )
 }

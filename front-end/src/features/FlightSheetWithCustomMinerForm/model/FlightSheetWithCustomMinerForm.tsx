@@ -1,41 +1,61 @@
 import { createFlightSheetWithCustomMiner } from "@/shared/api/createFlightSheetWithCustomMiner";
+import { editFlightSheetWithCustomMiner } from "@/shared/api/editFlightSheetWithCustomMiner";
+import { TFlightSheetFilled } from "@/shared/types";
 import { FButton, FTextInput } from "@/shared/ui";
 import { Col, Form, Row } from "antd";
 import { toast } from "react-toastify";
 
-type TCreateFlightSheetWithCustomMinerData = Parameters<typeof createFlightSheetWithCustomMiner>[0]
+type TFlightSheetWithCustomMinerFormData = Parameters<typeof createFlightSheetWithCustomMiner>[0]
 
-type TCreateFlightSheetWithCustomMinerProps = {
-  onAdd: () => void;
+type TFlightSheetWithCustomMinerFormProps = {
+  flightSheet?: Extract<TFlightSheetFilled, { type: 'CUSTOM' }>
+  onSubmit: () => void;
 };
 
-export function CreateFlightSheetWithCustomMiner({
-  onAdd,
-}: TCreateFlightSheetWithCustomMinerProps) {
-  const [form] = Form.useForm();
-
-  const handleSubmit = (data: TCreateFlightSheetWithCustomMinerData) => {
-    createFlightSheetWithCustomMiner(data)
-    .then(() => {
-      onAdd()
-    })
-    .catch((error) => {
-      console.log(error);
-      toast(error.message, { type: 'error' })
-    })
-  };
-
-  const handleReset = () => {
-    form.resetFields();
+export function FlightSheetWithCustomMinerForm({
+  flightSheet,
+  onSubmit,
+}: TFlightSheetWithCustomMinerFormProps) {
+  const handleSubmit = (data: TFlightSheetWithCustomMinerFormData) => {
+    if (flightSheet) {
+      editFlightSheetWithCustomMiner({
+        id: flightSheet.id,
+        newName: data.name,
+        newAlgorithm: data.algorithm,
+        newCoin: data.coin,
+        newExtraConfigArguments: data.extraConfigArguments,
+        newInstallationURL: data.installationURL,
+        newPoolTemplate: data.poolTemplate,
+        newPoolURL: data.poolURL,
+        newWallet: data.wallet,
+        newWalletAndWorkerTemplate: data.walletAndWorkerTemplate
+      })
+      .then(() => {
+        onSubmit()
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+      })
+    } else {
+      createFlightSheetWithCustomMiner(data)
+      .then(() => {
+        onSubmit()
+      })
+      .catch((error) => {
+        console.log(error);
+        toast(error.message, { type: 'error' })
+      })
+    }
   };
 
   return (
     <div>
-      <Form form={form} onFinish={handleSubmit} layout="vertical">
+      <Form onFinish={handleSubmit} layout="vertical">
         <Row gutter={30}>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.name ?? ""}
               label={<div className="text-2xl">Name</div>}
               name="name"
               rules={[{ required: true }]}
@@ -48,7 +68,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.installationURL ?? ""}
               label={<div className="text-2xl">Installation URL</div>}
               name="installationURL"
               rules={[{ required: true }]}
@@ -61,7 +81,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.wallet ?? ""}
               label={<div className="text-2xl">Wallet</div>}
               name="wallet"
               rules={[{ required: true }]}
@@ -74,7 +94,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.poolURL ?? ""}
               label={<div className="text-2xl">Pool URL</div>}
               name="poolURL"
               rules={[{ required: true }]}
@@ -87,7 +107,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.coin ?? ""}
               label={<div className="text-2xl">Coin</div>}
               name="coin"
               rules={[{ required: true }]}
@@ -100,7 +120,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.algorithm ?? ""}
               label={<div className="text-2xl">Algorithm</div>}
               name="algorithm"
               rules={[{ required: true }]}
@@ -113,7 +133,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.poolTemplate ?? ""}
               label={<div className="text-2xl">Pool template</div>}
               name="poolTemplate"
               rules={[{ required: true }]}
@@ -126,7 +146,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={12}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.walletAndWorkerTemplate ?? ""}
               label={<div className="text-2xl">Wallet and worker template</div>}
               name="walletAndWorkerTemplate"
               rules={[{ required: true }]}
@@ -139,7 +159,7 @@ export function CreateFlightSheetWithCustomMiner({
           </Col>
           <Col xs={24}>
             <Form.Item
-              initialValue={""}
+              initialValue={flightSheet?.extraConfigArguments ?? ""}
               label={<div className="text-2xl">Extra config arguments</div>}
               name="extraConfigArguments"
               rules={[{ required: true }]}
@@ -156,14 +176,19 @@ export function CreateFlightSheetWithCustomMiner({
             <div className="float-right flex gap-20">
               <FButton
                 severity="bad"
-                type="submit"
+                type="reset"
                 className="float-right"
-                onClick={() => handleReset()}
               >
                 Reset
               </FButton>
               <FButton severity="good" type="submit" className="float-right">
-                Create flight sheet with custom miner
+                {!!flightSheet ? (
+                  <div>Edit flight sheet with custom miner</div>
+                ): (
+                  <div>
+                    Create flight sheet with custom miner
+                  </div>
+                )}
               </FButton>
             </div>
           </Col>

@@ -6,7 +6,6 @@ import _ from 'lodash'
 const omittedProps = [
   'severity',
   'loading',
-  'type'
 ] as const
 
 type FButtonProps = Omit<HTMLProps<HTMLButtonElement>, typeof omittedProps[number]> & {
