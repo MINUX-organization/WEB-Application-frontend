@@ -77,6 +77,18 @@ const ResponseRuntype = rt.Record({
         poolTemplate: rt.String,
         walletAndWorkerTemplate: rt.String,
         extraConfigArguments: rt.String
+      }), 
+      rt.Record({
+        type: rt.Literal("CPU"),
+        id: rt.Number,
+        name: rt.String,
+        cryptocurrencyId: rt.Number,
+        minerId: rt.Number,
+        walletId: rt.Number,
+        poolId: rt.Number,
+        additionalString: rt.String.optional(),
+        configFile: rt.String.optional(),
+        hugePages: rt.Number
       })
     )
   )

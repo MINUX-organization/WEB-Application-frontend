@@ -1,6 +1,7 @@
 import { TFlightSheetFilled } from "@/shared/types";
 import NormalItem from "./NormalItem";
 import CustomItem from "./CustomItem";
+import CpuItem from "./CpuItem";
 
 type FlightSheetListItemProps = {
   item: TFlightSheetFilled;
@@ -28,6 +29,13 @@ export const FlightSheetListItem = ({ item, onDelete, onUpdate }: FlightSheetLis
               onUpdate={onUpdate}
             />
           ),
+          CPU: () => item.type === 'CPU' && (
+            <CpuItem
+              item={item}
+              onDelete={onDelete}
+              onUpdate={onUpdate}
+            />
+          )
         }[item.type]()
       }
     </div>

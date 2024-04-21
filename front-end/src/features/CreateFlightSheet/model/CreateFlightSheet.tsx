@@ -3,9 +3,10 @@ import { useState } from "react";
 import styles from './CreateFlightSheet.module.scss';
 import { FlightSheetSimpleForm } from "@/features/FlightSheetSimpleForm";
 import { FlightSheetWithCustomMinerForm } from "@/features/FlightSheetWithCustomMinerForm";
+import { FlightSheetCpuForm } from "@/features/FlightSheetCpuForm";
 
-type TTypeOption = "SIMPLE" | "CUSTOM";
-const typeOptions: TTypeOption[] = ["SIMPLE", "CUSTOM"];
+type TTypeOption = "SIMPLE" | "CUSTOM" | 'CPU';
+const typeOptions: TTypeOption[] = ["SIMPLE", "CUSTOM", 'CPU'];
 
 type TCreateFlightSheetProps = {
   onAdd: () => void;
@@ -34,6 +35,7 @@ export function CreateFlightSheet({ onAdd }: TCreateFlightSheetProps) {
           {
             SIMPLE: <FlightSheetSimpleForm onSubmit={onAdd} />,
             CUSTOM: <FlightSheetWithCustomMinerForm onSubmit={onAdd} />,
+            CPU: <FlightSheetCpuForm onSubmit={onAdd} />
           }[type]
         }
       </FQuadCornerContainer>

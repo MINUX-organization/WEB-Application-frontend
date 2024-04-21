@@ -1,5 +1,5 @@
-import { createFlightSheetWithCustomMiner } from "@/shared/api/createFlightSheetWithCustomMiner";
-import { editFlightSheetWithCustomMiner } from "@/shared/api/editFlightSheetWithCustomMiner";
+import { createFlightSheetWithCustomMiner } from "@/shared/api";
+import { editFlightSheetWithCustomMiner } from "@/shared/api";
 import { TFlightSheetFilled } from "@/shared/types";
 import { FButton, FTextInput } from "@/shared/ui";
 import { Col, Form, Row } from "antd";

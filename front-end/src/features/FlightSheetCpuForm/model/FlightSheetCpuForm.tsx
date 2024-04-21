@@ -16,16 +16,16 @@ import {
   TStateObj,
   TWallet,
 } from "@/shared/types";
-import { createFlightSheet } from "@/shared/api";
+import { createFlightSheetWithCpu, editFlightSheetWithCpu } from "@/shared/api";
 import { useBoolean } from "usehooks-ts";
 import { useBooleanUrl } from "@/shared/lib/useBooleanUrl";
 import { CreateCryptocurrency } from "@/features/CreateCryptocurrency";
 import { CreateWallet } from "@/features/CreateWallet";
 import { CreatePool } from "@/features/CreatePool";
 import { CreateMiner } from "@/features/CreateMiner";
-import styles from "./FlightSheetSimpleForm.module.scss";
+import styles from "./FlightSheetCpuForm.module.scss";
 import { toast } from "react-toastify";
-import { editFlightSheetSimple } from "@/shared/api/editFlightSheetSimple";
+import { FNumInput } from "@/shared/ui/FNumInput";
 
 const useAddModal = (
   title: string,
@@ -41,15 +41,17 @@ const useAddModal = (
   };
 };
 
-type CreateFlightSheetProps = {
-  flightSheet?: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>
+type FlightSheetCpuFormProps = {
+  flightSheet?: Extract<TFlightSheetFilled, { type: 'CPU' }>
   onSubmit: () => void;
 };
 
-export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightSheetProps) => {
+export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuFormProps) => {
   const flightSheeAddOptions = useFlightSheetAddOptions();
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');
+  const configFile = useStateObj(flightSheet?.configFile ?? '')
+  const hugePages = useStateObj(flightSheet?.hugePages ?? 0);
 
   const cryptocurrency = useStateObj<TCryptocurrency | null>(flightSheet?.cryptocurrency ?? null);
   const wallet = useStateObj<TWallet | null>(flightSheet?.wallet ?? null);
@@ -199,7 +201,7 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
         pool.setValue(flightSheet.pool);
         miner.setValue(flightSheet.miner);
         name.setValue(flightSheet.name);
-        additionalString.setValue(flightSheet.additionalString);
+        additionalString.setValue(flightSheet.additionalString ?? '');
       } else {
         cryptocurrency.setValue(null);
         wallet.setValue(null);
@@ -233,14 +235,16 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
       isSubmitting.setTrue();
 
       if (flightSheet) {
-        editFlightSheetSimple({
+        editFlightSheetWithCpu({
           id: flightSheet.id,
           newAdditionalString: additionalString.value,
           newCryptocurrencyId: cryptocurrencySmart.id,
           newMinerId: minerSmart.id,
           newName: name.value,
           newPoolId: poolSmart.id,
-          newWalletId: walletSmart.id
+          newWalletId: walletSmart.id,
+          newConfigFile: configFile.value,
+          newHugePages: hugePages.value
         })
         .then(() => {
           onSubmit?.();
@@ -252,13 +256,15 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
           isSubmitting.setFalse()
         })
       } else {
-        createFlightSheet({
+        createFlightSheetWithCpu({
           name: name.value,
           cryptocurrencyId: cryptocurrencySmart.id,
           minerId: minerSmart.id,
           poolId: poolSmart.id,
           walletId: walletSmart.id,
-          additionalString: additionalString.value
+          additionalString: additionalString.value,
+          configFile: configFile.value,
+          hugePages: hugePages.value
         })
           .then((res) => {
             onSubmit?.();
@@ -318,6 +324,14 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
             </FModal>
           </div>
         ))}
+        <div className={styles["flight-sheet-huge-pages"]}>
+          <div className={styles["flight-sheet-name-label"]}>Huge pages</div>
+          <FNumInput
+            value={hugePages.value}
+            onChange={hugePages.setValue}
+            placeholder="Write huge pages..."
+          />
+        </div>
         <div className={styles["flight-sheet-name"]}>
           <div className={styles["flight-sheet-name-label"]}>Name</div>
           <FTextInput
@@ -333,6 +347,43 @@ export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightShe
             onChange={additionalString.setValue}
             placeholder="--cclk 1200,1300 --mclk 900"
             multiline
+          />
+        </div>
+        <div className={styles["flight-sheet-config-file"]}>
+          <div className={styles["flight-sheet-name-label"]}>Config file</div>
+          <FTextInput
+            value={configFile.value}
+            onChange={configFile.setValue}
+            textareaProps={{
+              onKeyDown: (e) => {
+                if (e.code === 'Tab') {
+                  e.preventDefault()
+                  const tabSize = 2;
+                  const selectionStart = e.currentTarget.selectionStart;
+                  const lineStart = e.currentTarget.value.lastIndexOf('\n', selectionStart - 1) + 1;
+                  if (e.shiftKey) {
+                    const spaceCount = e.currentTarget.value.slice(lineStart, lineStart + tabSize).replace(/\S[\s\S]*/, '').length
+                    console.log(lineStart, selectionStart, spaceCount);
+                    e.currentTarget.value =
+                      e.currentTarget.value.slice(0, lineStart) +
+                      e.currentTarget.value.slice(lineStart + spaceCount);
+                    e.currentTarget.setSelectionRange(
+                      Math.max(selectionStart - spaceCount, lineStart),
+                      Math.max(selectionStart - spaceCount, lineStart)
+                    );
+                  } else {
+                    e.currentTarget.value =
+                      e.currentTarget.value.slice(0, lineStart + 0) +
+                      Array(tabSize).fill(' ').join('') +
+                      e.currentTarget.value.slice(lineStart);
+                    e.currentTarget.setSelectionRange(selectionStart + tabSize, selectionStart + tabSize);
+                  }
+                }
+              }
+            }}
+            placeholder={JSON.stringify({ cclk: '1200, 1300', mclk: '900' }, null, 2)}
+            multiline
+            minRows={10}
           />
         </div>
       </div>
