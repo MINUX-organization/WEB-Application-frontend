@@ -6,22 +6,22 @@ import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
 import { deleteFlightSheet } from '@/shared/api';
 import { toast } from 'react-toastify';
-import { FlightSheetSimpleForm } from '@/features/FlightSheetSimpleForm';
+import { FlightSheetGpuForm } from '@/features/FlightSheetGpuForm';
 import GpuListModal from './GpuListModal';
-import styles from './NormalItem.module.scss';
+import styles from './GpuItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
 
-type NormalItemProps = {
+type GpuItemProps = {
   item: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>;
   onDelete: () => void;
   onUpdate: () => void
 };
 
-export default function NormalItem({
+export default function GpuItem({
   item,
   onDelete,
   onUpdate
-}: NormalItemProps) {
+}: GpuItemProps) {
   const isOpen = useBooleanUrl(
     "flight-sheet-open-" + item.id + "-" + item.name
   );
@@ -125,7 +125,7 @@ export default function NormalItem({
       <GpuListModal isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
       <FModal title="Edit flight sheet" open={isEditing.value} onClose={isEditing.setFalse}>
         <div className='bg-black p-8'>
-          <FlightSheetSimpleForm flightSheet={item} onSubmit={onUpdate} />
+          <FlightSheetGpuForm flightSheet={item} onSubmit={onUpdate} />
         </div>
       </FModal>
     </div>

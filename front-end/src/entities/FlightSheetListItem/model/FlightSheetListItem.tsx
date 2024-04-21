@@ -1,5 +1,5 @@
 import { TFlightSheetFilled } from "@/shared/types";
-import NormalItem from "./NormalItem";
+import GpuItem from "./GpuItem";
 import CustomItem from "./CustomItem";
 import CpuItem from "./CpuItem";
 
@@ -16,7 +16,7 @@ export const FlightSheetListItem = ({ item, onDelete, onUpdate }: FlightSheetLis
       {
         {
           SIMPLE: () => item.type === 'SIMPLE' && (
-            <NormalItem
+            <GpuItem
               item={item}
               onDelete={onDelete}
               onUpdate={onUpdate}

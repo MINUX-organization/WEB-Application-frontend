@@ -23,7 +23,7 @@ import { CreateCryptocurrency } from "@/features/CreateCryptocurrency";
 import { CreateWallet } from "@/features/CreateWallet";
 import { CreatePool } from "@/features/CreatePool";
 import { CreateMiner } from "@/features/CreateMiner";
-import styles from "./FlightSheetSimpleForm.module.scss";
+import styles from "./FlightSheetGpuForm.module.scss";
 import { toast } from "react-toastify";
 import { editFlightSheetSimple } from "@/shared/api/editFlightSheetSimple";
 
@@ -41,12 +41,12 @@ const useAddModal = (
   };
 };
 
-type CreateFlightSheetProps = {
+type FlightSheetGpuFormProps = {
   flightSheet?: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>
   onSubmit: () => void;
 };
 
-export const FlightSheetSimpleForm = ({ onSubmit, flightSheet }: CreateFlightSheetProps) => {
+export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuFormProps) => {
   const flightSheeAddOptions = useFlightSheetAddOptions();
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');

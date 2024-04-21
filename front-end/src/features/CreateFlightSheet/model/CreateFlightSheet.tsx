@@ -1,19 +1,19 @@
-import { FDropdown, FQuadCornerContainer } from "@/shared/ui";
-import { useState } from "react";
+import { FDropdown, FQuadCornerContainer } from '@/shared/ui';
+import { useState } from 'react';
 import styles from './CreateFlightSheet.module.scss';
-import { FlightSheetSimpleForm } from "@/features/FlightSheetSimpleForm";
-import { FlightSheetWithCustomMinerForm } from "@/features/FlightSheetWithCustomMinerForm";
-import { FlightSheetCpuForm } from "@/features/FlightSheetCpuForm";
+import { FlightSheetGpuForm } from '@/features/FlightSheetGpuForm';
+import { FlightSheetWithCustomMinerForm } from '@/features/FlightSheetWithCustomMinerForm';
+import { FlightSheetCpuForm } from '@/features/FlightSheetCpuForm';
 
-type TTypeOption = "SIMPLE" | "CUSTOM" | 'CPU';
-const typeOptions: TTypeOption[] = ["SIMPLE", "CUSTOM", 'CPU'];
+type TTypeOption = 'GPU' | 'CUSTOM' | 'CPU';
+const typeOptions: TTypeOption[] = ['GPU', 'CUSTOM', 'CPU'];
 
 type TCreateFlightSheetProps = {
   onAdd: () => void;
 };
 
 export function CreateFlightSheet({ onAdd }: TCreateFlightSheetProps) {
-  const [type, setType] = useState<TTypeOption>("SIMPLE");
+  const [type, setType] = useState<TTypeOption>('GPU');
 
   return (
     <div>
@@ -33,9 +33,9 @@ export function CreateFlightSheet({ onAdd }: TCreateFlightSheetProps) {
       <FQuadCornerContainer className={styles['box']}>
         {
           {
-            SIMPLE: <FlightSheetSimpleForm onSubmit={onAdd} />,
+            GPU: <FlightSheetGpuForm onSubmit={onAdd} />,
             CUSTOM: <FlightSheetWithCustomMinerForm onSubmit={onAdd} />,
-            CPU: <FlightSheetCpuForm onSubmit={onAdd} />
+            CPU: <FlightSheetCpuForm onSubmit={onAdd} />,
           }[type]
         }
       </FQuadCornerContainer>
