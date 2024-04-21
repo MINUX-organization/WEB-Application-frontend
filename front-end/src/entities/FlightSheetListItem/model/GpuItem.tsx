@@ -62,8 +62,11 @@ export default function GpuItem({
         }
       >
         <div className={styles['common-data']}>
-          <div className='flex gap-2 items-center mb-2 w-full'>
-            <span className="flex-grow">{item.name}</span>
+          <div className='flex gap-4 items-center mb-2 w-full'>
+            <span className="flex-grow text-3xl">{item.name}</span>
+            <div className="text-gray-500">
+              GPU
+            </div>
             <div className={styles['inner-buttons']}>
               <ItemButtons
                 direction='horizontal'
