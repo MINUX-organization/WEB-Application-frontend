@@ -1,13 +1,28 @@
 import { useQuery } from 'react-query';
 import { TCryptocurrency, TMiner, TPool, TWallet } from '@/shared/types';
 import { getCreateFlightSheetOptions } from '@/shared/api';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export const useFlightSheetAddOptions = () => {
   const flightSheetAddOptionsQuery = useQuery({
     queryKey: ['flight-sheet-add-options'],
     queryFn: () => getCreateFlightSheetOptions({})
   })
+
+  const options = useMemo((): {
+    minerOptions: TMiner[];
+    cryptocurrencyOptions: TCryptocurrency[];
+    walletOptions: TWallet[];
+    poolOptions: TPool[];
+  } => {
+    return {
+      minerOptions: flightSheetAddOptionsQuery?.data?.data.miners ?? [],
+      cryptocurrencyOptions: flightSheetAddOptionsQuery?.data?.data.cryptocurrencies ?? [],
+      walletOptions: flightSheetAddOptionsQuery?.data?.data.wallets ?? [],
+      poolOptions: flightSheetAddOptionsQuery?.data?.data.pools ?? [],
+    };
+  }, [flightSheetAddOptionsQuery.data]);
+
 
   const calculateOptions = useCallback(
     (arg: {
@@ -278,6 +293,7 @@ export const useFlightSheetAddOptions = () => {
 
   return {
     query: flightSheetAddOptionsQuery,
+    options,
     calculateOptions,
   };
 };

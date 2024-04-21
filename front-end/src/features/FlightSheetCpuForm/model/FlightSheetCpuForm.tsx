@@ -80,46 +80,57 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
     CreateMiner
   );
 
-  const cryptocurrencyOptions = useMemo(
-    () =>
-      flightSheeAddOptions.calculateOptions({
-        cryptocurrency: null,
-        miner: miner.value,
-        pool: pool.value,
-        wallet: wallet.value,
-      }).cryptocurrencyOptions,
-    [flightSheeAddOptions, miner.value, pool.value, wallet.value]
-  );
-  const minerOptions = useMemo(
-    () =>
-      flightSheeAddOptions.calculateOptions({
-        cryptocurrency: cryptocurrency.value,
-        miner: null,
-        pool: pool.value,
-        wallet: wallet.value,
-      }).minerOptions,
-    [flightSheeAddOptions, cryptocurrency.value, pool.value, wallet.value]
-  );
-  const poolOptions = useMemo(
-    () =>
-      flightSheeAddOptions.calculateOptions({
-        cryptocurrency: cryptocurrency.value,
-        miner: miner.value,
-        pool: null,
-        wallet: wallet.value,
-      }).poolOptions,
-    [flightSheeAddOptions, cryptocurrency.value, miner.value, wallet.value]
-  );
-  const walletOptions = useMemo(
-    () =>
-      flightSheeAddOptions.calculateOptions({
-        cryptocurrency: cryptocurrency.value,
-        miner: miner.value,
-        pool: pool.value,
-        wallet: null,
-      }).walletOptions,
-    [flightSheeAddOptions, cryptocurrency.value, miner.value, pool.value]
-  );
+  // const cryptocurrencyOptions = useMemo(
+  //   () =>
+  //     flightSheeAddOptions.calculateOptions({
+  //       cryptocurrency: null,
+  //       miner: miner.value,
+  //       pool: pool.value,
+  //       wallet: wallet.value,
+  //     }).cryptocurrencyOptions,
+  //   [flightSheeAddOptions, miner.value, pool.value, wallet.value]
+  // );
+
+  const cryptocurrencyOptions = flightSheeAddOptions.options.cryptocurrencyOptions
+
+  // const minerOptions = useMemo(
+  //   () =>
+  //     flightSheeAddOptions.calculateOptions({
+  //       cryptocurrency: cryptocurrency.value,
+  //       miner: null,
+  //       pool: pool.value,
+  //       wallet: wallet.value,
+  //     }).minerOptions,
+  //   [flightSheeAddOptions, cryptocurrency.value, pool.value, wallet.value]
+  // );
+
+  const minerOptions = flightSheeAddOptions.options.minerOptions
+
+  // const poolOptions = useMemo(
+  //   () =>
+  //     flightSheeAddOptions.calculateOptions({
+  //       cryptocurrency: cryptocurrency.value,
+  //       miner: miner.value,
+  //       pool: null,
+  //       wallet: wallet.value,
+  //     }).poolOptions,
+  //   [flightSheeAddOptions, cryptocurrency.value, miner.value, wallet.value]
+  // );
+  
+  const poolOptions = flightSheeAddOptions.options.poolOptions
+
+  // const walletOptions = useMemo(
+  //   () =>
+  //     flightSheeAddOptions.calculateOptions({
+  //       cryptocurrency: cryptocurrency.value,
+  //       miner: miner.value,
+  //       pool: pool.value,
+  //       wallet: null,
+  //     }).walletOptions,
+  //   [flightSheeAddOptions, cryptocurrency.value, miner.value, pool.value]
+  // );
+
+  const walletOptions = flightSheeAddOptions.options.walletOptions
 
   const cryptocurrencySmart = useMemo(
     () =>
