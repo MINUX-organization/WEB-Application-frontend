@@ -1,6 +1,9 @@
-import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo } from "react";
 import {
   FButton,
+  FContainer,
+  FModal,
+  FSwitch,
   FTextInput,
 } from "@/shared/ui";
 import { useFlightSheetAddOptions } from "../hooks";
@@ -36,9 +39,15 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');
   const miner = useStateObj<TMiner | null>(flightSheet?.miner ?? null);
+  const isTriple = useStateObj(false);
 
   const configs = useStateObj<TFlightSheetConfigInput[]>(
     flightSheet?.configs ?? [
+      {
+        cryptocurrency: null,
+        pool: null,
+        wallet: null
+      },
       {
         cryptocurrency: null,
         pool: null,
@@ -90,6 +99,27 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
     "create-flightsheet-create-miner",
     CreateMiner
   );
+
+  useEffect(() => {
+    if (isTriple.value && configs.value.length !== 3) {
+      if (configs.value.length < 3) {
+        configs.setValue((prev) => (
+          [
+            ...prev,
+            {
+              cryptocurrency: null,
+              pool: null,
+              wallet: null
+            }
+          ]
+        ))
+      }
+    } else {
+      if (configs.value.length >= 3) {
+        configs.setValue((prev) => prev.slice(0, 2))
+      }
+    }
+  }, [isTriple.value])
 
   // const cryptocurrencyOptions = useMemo(pool
   //   () =>
@@ -147,8 +177,8 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
     return configs.value.map((config, index) => ([
       {
         type: 'cryptocurrency',
-        label: 'Crypto',
-        getValue: getConfigValue(configs.value, index, 'cryptocurrency'),
+        label: 'Crypto ' + (index + 1),
+        getValue: () => getConfigValue(configs.value, index, 'cryptocurrency'),
         setValue: (value: TCryptocurrency | null) =>
           setConfigValue(configs.setValue, index, 'cryptocurrency', value),
         getSmartValue: () => (
@@ -164,8 +194,8 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
       },
       {
         type: 'pool',
-        label: 'Pool',
-        getValue: getConfigValue(configs.value, index, 'pool'),
+        label: 'Pool ' + (index + 1),
+        getValue: () =>  getConfigValue(configs.value, index, 'pool'),
         setValue: (value: TPool | null) =>
           setConfigValue(configs.setValue, index, 'pool', value),
         getSmartValue: () => (
@@ -181,8 +211,8 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
       },
       {
         type: 'wallet',
-        label: 'Wallet',
-        getValue: getConfigValue(configs.value, index, 'wallet'),
+        label: 'Wallet ' + (index + 1),
+        getValue: () => getConfigValue(configs.value, index, 'wallet'),
         setValue: (value: TWallet | null) =>
           setConfigValue(configs.setValue, index, 'wallet', value),
         getSmartValue: () => (
@@ -307,14 +337,20 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
       //   return;
       // }
 
-      if (configs.value.some((config) => (
-        config.cryptocurrency ||
-        config.pool ||
-        config.wallet
+      
+      if (rows.some((row) => (
+        row.some((field) => field.getSmartValue() === null)
       ))) {
         toast.error('Some of your configs are incorrect');
         return;
       }
+      
+      console.log('rows');
+      console.log((rows).map((row) => ({
+        cryptocurrencyId: row.find((v) => v.type === 'cryptocurrency')?.getSmartValue()!.id!,
+        poolId: row.find((v) => v.type === 'pool')?.getSmartValue()!.id!,
+        walletId: row.find((v) => v.type === 'wallet')?.getSmartValue()!.id!
+      })))
 
       if (minerSmart === null) {
         toast.error("Miner must be selected");
@@ -332,10 +368,10 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
           newAdditionalString: additionalString.value,
           newMinerId: minerSmart.id,
           newName: name.value,
-          newConfigs: (configs.value as TFlightSheetConfig[]).map((config) => ({
-            cryptocurrencyId: config.cryptocurrency.id,
-            poolId: config.pool.id,
-            walletId: config.wallet.id
+          newConfigs: (rows).map((row) => ({
+            cryptocurrencyId: row.find((v) => v.type === 'cryptocurrency')?.getSmartValue()!.id!,
+            poolId: row.find((v) => v.type === 'pool')?.getSmartValue()!.id!,
+            walletId: row.find((v) => v.type === 'wallet')?.getSmartValue()!.id!
           }))
         })
         .then(() => {
@@ -352,10 +388,10 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
           name: name.value,
           minerId: minerSmart.id,
           additionalString: additionalString.value,
-          configs: (configs.value as TFlightSheetConfig[]).map((config) => ({
-            cryptocurrencyId: config.cryptocurrency.id,
-            poolId: config.pool.id,
-            walletId: config.wallet.id
+          configs: (rows).map((row) => ({
+            cryptocurrencyId: row.find((v) => v.type === 'cryptocurrency')?.getSmartValue()!.id!,
+            poolId: row.find((v) => v.type === 'pool')?.getSmartValue()!.id!,
+            walletId: row.find((v) => v.type === 'wallet')?.getSmartValue()!.id!
           }))
         })
           .then((res) => {
@@ -375,6 +411,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
     <div
       className={styles["wrapper"]}
     >
+      <FSwitch checked={isTriple.value} onChange={isTriple.setValue} label="Triple" />
       <div className={styles["box"]}>
         <div className={styles['rows']}>
           {rows.map((row, index) => (
@@ -450,46 +487,6 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
             modalOpenState={modalAddMiner}
           />
         </div>
-        {/* {fields.map((field) => (
-          <div key={field.label} className={styles["field"]}>
-            <div className={styles["field-header"]}>
-              <div className={styles["field-label"]}>{field.label}</div>
-              <div
-                className={styles["field-add-button"]}
-                onClick={field.modalOpenState.isOpen.setTrue}
-              >
-                Add
-              </div>
-            </div>
-            <FDropdown
-              warnWhenNoOptions
-              loading={flightSheeAddOptions.query.isFetching}
-              options={field.options}
-              value={field.smart}
-              getOptionLabel={field.getOptionLabel}
-              getOptionValue={field.getKey}
-              placeholder={field.placeholder}
-              onChange={(value) => field.stateObj.setValue(value)}
-            />
-            <FModal
-              title={field.modalOpenState.title}
-              open={field.modalOpenState.isOpen.value}
-              onClose={field.modalOpenState.isOpen.setFalse}
-            >
-              <FContainer
-                visibility={{ tc: false }}
-                bodyProps={{ className: styles["modal-body"] }}
-              >
-                <field.modalOpenState.ModalBody
-                  onAdd={() => {
-                    field.modalOpenState.isOpen.setFalse();
-                    flightSheeAddOptions.query.refetch();
-                  }}
-                />
-              </FContainer>
-            </FModal>
-          </div>
-        ))} */}
         <div className={styles["flight-sheet-name"]}>
           <div className={styles["flight-sheet-name-label"]}>Name</div>
           <FTextInput
@@ -529,6 +526,27 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
           )}
         </FButton>
       </div>
+
+      {[modalAddCryptocurrency, modalAddMiner, modalAddPool, modalAddWallet].map((modal) => (
+        <FModal
+          key={modal.title}
+          title={modal.title}
+          open={modal.isOpen.value}
+          onClose={modal.isOpen.setFalse}
+        >
+          <FContainer
+            visibility={{ tc: false }}
+            bodyProps={{ className: styles["modal-body"] }}
+          >
+            <modal.ModalBody
+              onAdd={() => {
+                modal.isOpen.setFalse();
+                flightSheeAddOptions.query.refetch();
+              }}
+            />
+          </FContainer>
+        </FModal>
+      ))}
     </div>
   );
 };

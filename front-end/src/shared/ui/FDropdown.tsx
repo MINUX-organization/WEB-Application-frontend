@@ -20,7 +20,7 @@ const omittedProps = [
   'warnWhenNoOptions'
 ] as const
 
-const optionsListHeight = 200
+const optionsListHeight = 300
 const optionsListOffset = 0
 const screenOffset = 10;
 
@@ -186,7 +186,13 @@ export const FDropdown = <T,>(props: FDropdownProps<T>) => {
           </div>
         }
         {props.options.length !== 0 &&
-          <Scrollbars renderThumbVertical={props => <div {...props} className={styles['scroll-thumb']} />} style={{ width: '100%'}} autoHide autoHeight>
+          <Scrollbars
+            renderThumbVertical={props => <div {...props} className={styles['scroll-thumb']} />}
+            style={{ width: '100%' }}
+            autoHide
+            autoHeight
+            autoHeightMax={optionsListHeight}
+          >
             {props.options.map((option, index) => (
               <div
                 key={props.getOptionValue(option)}
