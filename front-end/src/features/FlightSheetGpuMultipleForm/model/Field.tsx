@@ -13,6 +13,7 @@ type TFieldProps<T> = {
   onChange: (value: T | null) => void
   modalOpenState: ReturnType<typeof useAddModal>;
   refetchOptions: () => void
+  disableAddButton?: boolean
 }
 
 export default function Field<T>({
@@ -25,18 +26,21 @@ export default function Field<T>({
   value,
   onChange,
   modalOpenState,
-  refetchOptions
+  refetchOptions,
+  disableAddButton = false
 }: TFieldProps<T>) {
   return (
     <div key={label} className={styles["field"]}>
       <div className={styles["field-header"]}>
         <div className={styles["field-label"]}>{label}</div>
-        <div
-          className={styles["field-add-button"]}
-          onClick={modalOpenState.isOpen.setTrue}
-        >
-          Add
-        </div>
+        {!disableAddButton &&
+          <div
+            className={styles["field-add-button"]}
+            onClick={modalOpenState.isOpen.setTrue}
+          >
+            Add
+          </div>
+        }
       </div>
       <FDropdown
         warnWhenNoOptions

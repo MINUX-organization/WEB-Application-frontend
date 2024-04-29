@@ -161,6 +161,7 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
     getOptionLabel: (item: any) => string;
     getKey: (item: any) => string;
     modalOpenState: ReturnType<typeof useAddModal>;
+    addable: boolean
   }> = [
     {
       label: "Crypto",
@@ -171,6 +172,7 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
       getOptionLabel: (item: TCryptocurrency) => item.name,
       getKey: (item: TCryptocurrency) => item.name + item.id,
       modalOpenState: modalAddCryptocurrency,
+      addable: true,
     },
     {
       label: "Wallet",
@@ -181,6 +183,7 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
       getOptionLabel: (item: TWallet) => item.name,
       getKey: (item: TWallet) => item.name + item.id,
       modalOpenState: modalAddWallet,
+      addable: true,
     },
     {
       label: "Pool",
@@ -191,6 +194,7 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
       getOptionLabel: (item: TPool) => item.host,
       getKey: (item: TPool) => item.host + item.id,
       modalOpenState: modalAddPool,
+      addable: true,
     },
     {
       label: "Miner",
@@ -201,6 +205,7 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
       getOptionLabel: (item: TMiner) => item.name,
       getKey: (item: TMiner) => item.name + item.id,
       modalOpenState: modalAddMiner,
+      addable: false,
     },
   ];
 
@@ -299,12 +304,14 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
           <div key={field.label} className={styles["field"]}>
             <div className={styles["field-header"]}>
               <div className={styles["field-label"]}>{field.label}</div>
-              <div
-                className={styles["field-add-button"]}
-                onClick={field.modalOpenState.isOpen.setTrue}
-              >
-                Add
-              </div>
+              {field.addable && (
+                <div
+                  className={styles["field-add-button"]}
+                  onClick={field.modalOpenState.isOpen.setTrue}
+                >
+                  Add
+                </div>
+              )}
             </div>
             <FDropdown
               warnWhenNoOptions

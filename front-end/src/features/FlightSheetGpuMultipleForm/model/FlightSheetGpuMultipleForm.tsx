@@ -10,7 +10,6 @@ import { useFlightSheetAddOptions } from "../hooks";
 import { useStateObj } from "@/shared/lib";
 import {
   TCryptocurrency,
-  TFlightSheetConfig,
   TFlightSheetConfigInput,
   TFlightSheetFilled,
   TMiner,
@@ -344,13 +343,13 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
         toast.error('Some of your configs are incorrect');
         return;
       }
-      
-      console.log('rows');
-      console.log((rows).map((row) => ({
-        cryptocurrencyId: row.find((v) => v.type === 'cryptocurrency')?.getSmartValue()!.id!,
-        poolId: row.find((v) => v.type === 'pool')?.getSmartValue()!.id!,
-        walletId: row.find((v) => v.type === 'wallet')?.getSmartValue()!.id!
-      })))
+
+      // console.log('rows');
+      // console.log((rows).map((row) => ({
+      //   cryptocurrencyId: row.find((v) => v.type === 'cryptocurrency')?.getSmartValue()!.id!,
+      //   poolId: row.find((v) => v.type === 'pool')?.getSmartValue()!.id!,
+      //   walletId: row.find((v) => v.type === 'wallet')?.getSmartValue()!.id!
+      // })))
 
       if (minerSmart === null) {
         toast.error("Miner must be selected");
@@ -485,6 +484,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
             getKey={(item) => item.id.toString()}
             getOptionLabel={(item) => item.name}
             modalOpenState={modalAddMiner}
+            disableAddButton
           />
         </div>
         <div className={styles["flight-sheet-name"]}>
