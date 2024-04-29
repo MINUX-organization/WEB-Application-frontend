@@ -156,6 +156,14 @@ export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps
                 {item.walletAndWorkerTemplate}
               </div>
             </div>
+            <div className={styles['field']  + ' ' + 'justify-self-end items-end'}>
+              <div className={styles['label']}>
+                Password
+              </div>
+              <div className={styles['value']}>
+                {item.password}
+              </div>
+            </div>
           </div>
         </div>
       </FContainer>

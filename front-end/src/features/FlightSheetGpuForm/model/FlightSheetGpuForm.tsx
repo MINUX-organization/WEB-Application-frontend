@@ -42,7 +42,7 @@ const useAddModal = (
 };
 
 type FlightSheetGpuFormProps = {
-  flightSheet?: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>
+  flightSheet?: Extract<TFlightSheetFilled, { type: 'GPU-SINGLE' }>
   onSubmit: () => void;
 };
 

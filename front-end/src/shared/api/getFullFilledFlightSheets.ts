@@ -7,7 +7,7 @@ const ResponseRuntype = rt.Record({
   flightSheets: rt.Array(
     rt.Union(
       rt.Record({
-        type: rt.Literal("SIMPLE"),
+        type: rt.Literal("GPU-SINGLE"),
         id: rt.Number,
         name: rt.String,
         additionalString: rt.String,
@@ -52,6 +52,7 @@ const ResponseRuntype = rt.Record({
         poolTemplate: rt.String,
         walletAndWorkerTemplate: rt.String,
         extraConfigArguments: rt.String,
+        password: rt.String,
       }),
       rt.Record({
         type: rt.Literal("CPU"),

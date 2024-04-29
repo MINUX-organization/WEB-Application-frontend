@@ -15,7 +15,7 @@ export const FlightSheetListItem = ({ item, onDelete, onUpdate }: FlightSheetLis
     <div>
       {
         {
-          SIMPLE: () => item.type === 'SIMPLE' && (
+          "GPU-SINGLE": () => item.type === 'GPU-SINGLE' && (
             <GpuItem
               item={item}
               onDelete={onDelete}

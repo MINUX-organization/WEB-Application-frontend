@@ -12,6 +12,7 @@ type Request = {
 	newPoolTemplate: string
 	newWalletAndWorkerTemplate: string
 	newExtraConfigArguments: string
+	newPassword: string
 }
 
 const ResponseRuntype = rt.String
