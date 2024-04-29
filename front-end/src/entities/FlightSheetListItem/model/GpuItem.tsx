@@ -12,7 +12,7 @@ import styles from './GpuItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
 
 type GpuItemProps = {
-  item: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>;
+  item: Extract<TFlightSheetFilled, { type: 'GPU-SINGLE' }>;
   onDelete: () => void;
   onUpdate: () => void
 };

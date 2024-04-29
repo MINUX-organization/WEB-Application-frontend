@@ -28,7 +28,8 @@ export function FlightSheetWithCustomMinerForm({
         newPoolTemplate: data.poolTemplate,
         newPoolURL: data.poolURL,
         newWallet: data.wallet,
-        newWalletAndWorkerTemplate: data.walletAndWorkerTemplate
+        newWalletAndWorkerTemplate: data.walletAndWorkerTemplate,
+        newPassword: data.password
       })
       .then(() => {
         onSubmit()
@@ -153,6 +154,19 @@ export function FlightSheetWithCustomMinerForm({
             >
               <FTextInput
                 placeholder="Write wallet and worker template..."
+                inputProps={{ className: "text-2xl" }}
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={12}>
+            <Form.Item
+              initialValue={flightSheet?.password ?? ""}
+              label={<div className="text-2xl">Password</div>}
+              name="password"
+              rules={[{ required: true }]}
+            >
+              <FTextInput
+                placeholder="Write password for pool..."
                 inputProps={{ className: "text-2xl" }}
               />
             </Form.Item>
