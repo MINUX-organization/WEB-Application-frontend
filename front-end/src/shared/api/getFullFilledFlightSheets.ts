@@ -7,7 +7,7 @@ const ResponseRuntype = rt.Record({
   flightSheets: rt.Array(
     rt.Union(
       rt.Record({
-        type: rt.Literal("SIMPLE"),
+        type: rt.Literal("GPU-SINGLE"),
         id: rt.Number,
         name: rt.String,
         additionalString: rt.String,
@@ -38,6 +38,44 @@ const ResponseRuntype = rt.Record({
         algorithm: rt.Record({
           id: rt.Number,
           name: rt.String,
+        }),
+      }),
+      rt.Record({
+        type: rt.Literal("GPU-MULTIPLE"),
+        id: rt.Number,
+        name: rt.String,
+        additionalString: rt.String,
+        configs: rt.Array(
+          rt.Record({
+            cryptocurrency: rt.Record({
+              id: rt.Number,
+              name: rt.String,
+              fullName: rt.String,
+              algorithmId: rt.Number,
+            }),
+            wallet: rt.Record({
+              id: rt.Number,
+              name: rt.String,
+              source: rt.String,
+              address: rt.String,
+              cryptocurrencyId: rt.Number,
+            }),
+            pool: rt.Record({
+              id: rt.Number,
+              host: rt.String,
+              port: rt.Number,
+              cryptocurrencyId: rt.Number,
+            }),
+            algorithm: rt.Record({
+              id: rt.Number,
+              name: rt.String,
+            }),
+          })
+        ),
+        miner: rt.Record({
+          id: rt.Number,
+          name: rt.String,
+          fullName: rt.String,
         }),
       }),
       rt.Record({

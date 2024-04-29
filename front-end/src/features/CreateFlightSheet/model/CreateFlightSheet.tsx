@@ -1,9 +1,9 @@
 import { FDropdown, FQuadCornerContainer } from '@/shared/ui';
 import { useState } from 'react';
-import styles from './CreateFlightSheet.module.scss';
-import { FlightSheetGpuForm } from '@/features/FlightSheetGpuForm';
+import { FlightSheetGpuSingleForm } from '@/features/FlightSheetGpuSingleForm';
 import { FlightSheetWithCustomMinerForm } from '@/features/FlightSheetWithCustomMinerForm';
 import { FlightSheetCpuForm } from '@/features/FlightSheetCpuForm';
+import styles from './CreateFlightSheet.module.scss';
 
 type TTypeOption = 'GPU' | 'CUSTOM' | 'CPU';
 const typeOptions: TTypeOption[] = ['GPU', 'CUSTOM', 'CPU'];
@@ -33,7 +33,7 @@ export function CreateFlightSheet({ onAdd }: TCreateFlightSheetProps) {
       <FQuadCornerContainer className={styles['box']}>
         {
           {
-            GPU: <FlightSheetGpuForm onSubmit={onAdd} />,
+            GPU: <FlightSheetGpuSingleForm onSubmit={onAdd} />,
             CUSTOM: <FlightSheetWithCustomMinerForm onSubmit={onAdd} />,
             CPU: <FlightSheetCpuForm onSubmit={onAdd} />,
           }[type]

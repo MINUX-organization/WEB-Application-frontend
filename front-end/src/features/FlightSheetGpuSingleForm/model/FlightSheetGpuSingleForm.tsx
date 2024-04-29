@@ -16,16 +16,16 @@ import {
   TStateObj,
   TWallet,
 } from "@/shared/types";
-import { createFlightSheet } from "@/shared/api";
 import { useBoolean } from "usehooks-ts";
 import { useBooleanUrl } from "@/shared/lib/useBooleanUrl";
 import { CreateCryptocurrency } from "@/features/CreateCryptocurrency";
 import { CreateWallet } from "@/features/CreateWallet";
 import { CreatePool } from "@/features/CreatePool";
 import { CreateMiner } from "@/features/CreateMiner";
-import styles from "./FlightSheetGpuForm.module.scss";
+import styles from "./FlightSheetGpuSingleForm.module.scss";
 import { toast } from "react-toastify";
-import { editFlightSheetSimple } from "@/shared/api/editFlightSheetSimple";
+import { editFlightSheetGpu } from "@/shared/api/editFlightSheetGpu";
+import { createFlightSheetGpu } from "@/shared/api/createFlightSheetGpu";
 
 const useAddModal = (
   title: string,
@@ -42,11 +42,11 @@ const useAddModal = (
 };
 
 type FlightSheetGpuFormProps = {
-  flightSheet?: Extract<TFlightSheetFilled, { type: 'SIMPLE' }>
+  flightSheet?: Extract<TFlightSheetFilled, { type: 'GPU-SINGLE' }>
   onSubmit: () => void;
 };
 
-export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuFormProps) => {
+export const FlightSheetGpuSingleForm = ({ onSubmit, flightSheet }: FlightSheetGpuFormProps) => {
   const flightSheeAddOptions = useFlightSheetAddOptions();
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');
@@ -244,7 +244,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
       isSubmitting.setTrue();
 
       if (flightSheet) {
-        editFlightSheetSimple({
+        editFlightSheetGpu({
           id: flightSheet.id,
           newAdditionalString: additionalString.value,
           newCryptocurrencyId: cryptocurrencySmart.id,
@@ -263,7 +263,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
           isSubmitting.setFalse()
         })
       } else {
-        createFlightSheet({
+        createFlightSheetGpu({
           name: name.value,
           cryptocurrencyId: cryptocurrencySmart.id,
           minerId: minerSmart.id,

@@ -1,7 +1,7 @@
 export { getUserInfo } from './getUserInfo'
 export { getCreateFlightSheetOptions } from './getCreateFlightSheetOptions'
 export { login } from './login'
-export { createFlightSheet } from './createFlightSheet'
+export { createFlightSheetGpu } from './createFlightSheetGpu'
 export { getFullFlightSheets } from './getFullFlightSheets'
 export { getFullAlgorithms } from './getFullAlgorithms'
 export { createCryptocurrency } from './createCryptocurrency'
