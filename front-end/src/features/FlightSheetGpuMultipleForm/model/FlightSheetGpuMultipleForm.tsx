@@ -38,7 +38,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');
   const miner = useStateObj<TMiner | null>(flightSheet?.miner ?? null);
-  const isTriple = useStateObj(false);
+  const isTriple = useStateObj(flightSheet?.configs.length === 3);
 
   const configs = useStateObj<TFlightSheetConfigInput[]>(
     flightSheet?.configs ?? [
@@ -306,6 +306,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
     reset: () => {
       if (flightSheet) {
         configs.setValue(flightSheet.configs);
+        isTriple.setValue(flightSheet.configs.length === 3);
         miner.setValue(flightSheet.miner);
         name.setValue(flightSheet.name);
         additionalString.setValue(flightSheet.additionalString);
@@ -315,8 +316,14 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
             cryptocurrency: null,
             pool: null,
             wallet: null
-          }
+          },
+          {
+            cryptocurrency: null,
+            pool: null,
+            wallet: null
+          },
         ])
+        isTriple.setValue(false);
         miner.setValue(null);
         name.setValue("");
         additionalString.setValue('');
