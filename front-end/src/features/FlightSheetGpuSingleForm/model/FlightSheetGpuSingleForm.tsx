@@ -351,6 +351,7 @@ export const FlightSheetGpuSingleForm = ({ onSubmit, flightSheet }: FlightSheetG
             onChange={additionalString.setValue}
             placeholder="--cclk 1200,1300 --mclk 900"
             multiline
+            minRows={6}
           />
         </div>
       </div>

@@ -3,7 +3,7 @@ import { FContainer, FModal } from '@/shared/ui';
 import { AiOutlineDown } from 'react-icons/ai';
 import { useBoolean, useElementSize } from 'usehooks-ts';
 import { CSSProperties } from 'react';
-import { deleteFlightSheet } from '@/shared/api';
+import { deleteFlightSheetGpu } from '@/shared/api';
 import { toast } from 'react-toastify';
 import styles from './CpulItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
@@ -28,7 +28,7 @@ export default function CpuItem({
 
   const handleDelete = () => {
     if (window.confirm("are you sure you want to delete flight sheet?")) {
-      deleteFlightSheet({
+      deleteFlightSheetGpu({
         id: item.id,
       })
         .then((res) => {

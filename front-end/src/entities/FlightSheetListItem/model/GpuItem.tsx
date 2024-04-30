@@ -4,12 +4,12 @@ import { AiOutlineDown } from 'react-icons/ai';
 import { useBoolean, useElementSize } from 'usehooks-ts';
 import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
-import { deleteFlightSheet } from '@/shared/api';
 import { toast } from 'react-toastify';
 import { FlightSheetGpuSingleForm } from '@/features/FlightSheetGpuSingleForm';
 import GpuListModal from './GpuListModal';
 import styles from './GpuItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
+import { deleteFlightSheetGpu } from '@/shared/api';
 
 type GpuItemProps = {
   item: Extract<TFlightSheetFilled, { type: 'GPU-SINGLE' }>;
@@ -31,7 +31,7 @@ export default function GpuItem({
 
   const handleDelete = () => {
     if (window.confirm("are you sure you want to delete flight sheet?")) {
-      deleteFlightSheet({
+      deleteFlightSheetGpu({
         id: item.id,
       })
         .then((res) => {
@@ -65,7 +65,7 @@ export default function GpuItem({
           <div className='flex gap-4 items-center mb-2 w-full'>
             <span className="flex-grow text-3xl">{item.name}</span>
             <div className="text-gray-500">
-              GPU
+              GPU-SINGLE
             </div>
             <div className={styles['inner-buttons']}>
               <ItemButtons

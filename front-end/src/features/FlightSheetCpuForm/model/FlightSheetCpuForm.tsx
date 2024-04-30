@@ -26,6 +26,7 @@ import { CreateMiner } from "@/features/CreateMiner";
 import styles from "./FlightSheetCpuForm.module.scss";
 import { toast } from "react-toastify";
 import { FNumInput } from "@/shared/ui/FNumInput";
+import FCodeInput from "@/shared/ui/FCodeInput";
 
 const useAddModal = (
   title: string,
@@ -360,45 +361,19 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
         </div>
         <div className={styles["flight-sheet-additional"]}>
           <div className={styles["flight-sheet-name-label"]}>Additional arguments</div>
-          <FTextInput
+          <FCodeInput
             value={additionalString.value}
             onChange={additionalString.setValue}
             placeholder="--cclk 1200,1300 --mclk 900"
             multiline
+            minRows={6}
           />
         </div>
         <div className={styles["flight-sheet-config-file"]}>
           <div className={styles["flight-sheet-name-label"]}>Config file</div>
-          <FTextInput
+          <FCodeInput
             value={configFile.value}
             onChange={configFile.setValue}
-            textareaProps={{
-              onKeyDown: (e) => {
-                if (e.code === 'Tab') {
-                  e.preventDefault()
-                  const tabSize = 2;
-                  const selectionStart = e.currentTarget.selectionStart;
-                  const lineStart = e.currentTarget.value.lastIndexOf('\n', selectionStart - 1) + 1;
-                  if (e.shiftKey) {
-                    const spaceCount = e.currentTarget.value.slice(lineStart, lineStart + tabSize).replace(/\S[\s\S]*/, '').length
-                    console.log(lineStart, selectionStart, spaceCount);
-                    e.currentTarget.value =
-                      e.currentTarget.value.slice(0, lineStart) +
-                      e.currentTarget.value.slice(lineStart + spaceCount);
-                    e.currentTarget.setSelectionRange(
-                      Math.max(selectionStart - spaceCount, lineStart),
-                      Math.max(selectionStart - spaceCount, lineStart)
-                    );
-                  } else {
-                    e.currentTarget.value =
-                      e.currentTarget.value.slice(0, lineStart + 0) +
-                      Array(tabSize).fill(' ').join('') +
-                      e.currentTarget.value.slice(lineStart);
-                    e.currentTarget.setSelectionRange(selectionStart + tabSize, selectionStart + tabSize);
-                  }
-                }
-              }
-            }}
             placeholder={JSON.stringify({ cclk: '1200, 1300', mclk: '900' }, null, 2)}
             multiline
             minRows={10}

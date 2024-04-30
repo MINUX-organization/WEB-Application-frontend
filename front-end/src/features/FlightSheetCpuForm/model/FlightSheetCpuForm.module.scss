@@ -48,12 +48,12 @@ $wrapper-height: 385px;
 }
 
 
-.flight-sheet-huge-pages, .flight-sheet-name, .flight-sheet-additional {
+.flight-sheet-huge-pages, .flight-sheet-name {
 	display: block;
 	grid-column: 1 / 3;
 }
 
-.flight-sheet-config-file {
+.flight-sheet-additional, .flight-sheet-config-file {
 	display: block;
 	grid-column: 1 / 6;
 }

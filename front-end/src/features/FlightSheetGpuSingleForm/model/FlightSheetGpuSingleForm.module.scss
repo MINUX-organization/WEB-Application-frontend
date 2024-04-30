@@ -47,9 +47,13 @@ $wrapper-height: 385px;
   }
 }
 
-.flight-sheet-name, .flight-sheet-additional {
+.flight-sheet-name {
 	display: block;
 	grid-column: 1 / 3;
+}
+
+.flight-sheet-additional {
+	grid-column: 1 / 6;
 }
 
 .flight-sheet-name-label {
@@ -71,11 +75,19 @@ $wrapper-height: 385px;
 	.buttons {
 		margin-right: 0;
 	}
+
+	.flight-sheet-additional {
+		grid-column: 1 / 3;
+	}
 }
 
 @media screen and (max-width: 950px) {
 	.box {
 		grid-template-columns: repeat(1, 1fr);
+	}
+
+	.flight-sheet-additional {
+		grid-column: 1 / 2;
 	}
 
 	.flight-sheet-name {
