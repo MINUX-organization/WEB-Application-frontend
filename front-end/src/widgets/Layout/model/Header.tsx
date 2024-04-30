@@ -3,6 +3,7 @@ import { HeaderItem } from './HeaderItem';
 import { ProfileButton } from './ProfileButton';
 import styles from './Header.module.scss'
 import { useMediaQuery } from 'usehooks-ts';
+import { FButton } from '@/shared/ui';
 
 const linkGroups: Array<Parameters<typeof HeaderItem>[0]['item']> = [
   {
@@ -40,14 +41,32 @@ const linkGroups: Array<Parameters<typeof HeaderItem>[0]['item']> = [
 export const Header = (props: HTMLProps<HTMLDivElement>) => {
   const above800 = useMediaQuery('(min-width: 800px)');
 
+  const handleRedirectToPort = (port: number) => {
+    window.open(window.location.origin.replace(/(?<=:)[^:]*$/, port.toString()));
+  }
+
   return (
     <>
       {above800 &&
-        <div {...props} className={props.className + ' ' + styles['wrapper']}>
+        <div {...props} className={props.className + ' ' + styles['header']}>
           <div className={styles['links']}>
             {linkGroups.map(linkGroup => (
               <HeaderItem key={linkGroup.title} item={linkGroup} />
             ))}
+          </div>
+          <div className={styles['header__extra-buttons']}>
+            <button
+              className={styles['header__extra-buttons__item']}
+              onClick={() => handleRedirectToPort(2222)}
+            >
+              Web Terminal
+            </button>
+            <button
+              className={styles['header__extra-buttons__item']}
+              onClick={() => handleRedirectToPort(3001)}
+            >
+              Chia Dashboard
+            </button>
           </div>
           <ProfileButton />
         </div>

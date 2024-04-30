@@ -1,12 +1,27 @@
 @use '../lib/shared.scss';
 @use '@/app/values.scss';
 
-.wrapper {
+.header {
   display: flex;
   height: var(--header-height);
   max-height: var(--header-height);
   overflow: visible;
   z-index: 1;
+  
+  &__extra-buttons {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+    &__item {
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.062);
+      color: #3C9EA5;
+      padding: 0 5px;
+      border-radius: 4px;
+    }
+  }
 }
 
 .links {
