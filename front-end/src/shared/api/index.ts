@@ -26,7 +26,8 @@ export { getGpuSetup } from './getGpuSetup'
 export { getGpuPresets } from './getGpuPresets'
 export { createGpuPreset } from './createGpuPreset'
 export { editGpuSetup } from './editGpuSetup'
-export { deleteFlightSheet } from './deleteFlightSheet'
+export { deleteFlightSheetGpu } from './deleteFlightSheetGpu';
+export { deleteFlightSheetGpuMultiple } from './deleteFlightSheetGpuMultiple';
 export { createFlightSheetWithCpu } from './createFlightSheetWithCpu'
 export { createFlightSheetWithCustomMiner } from './createFlightSheetWithCustomMiner'
 export { deleteFlightSheetWithCpu } from './deleteFlightSheetWithCpu'

@@ -8,7 +8,7 @@ const lineHeight = 32;
 const px = 10;
 const py = 15;
 
-type FTextInputProps = Omit<HTMLProps<HTMLDivElement>, 'value' | 'onChange' | 'rows'> & {
+export type FTextInputProps = Omit<HTMLProps<HTMLDivElement>, 'value' | 'onChange' | 'rows'> & {
   value?: string
   onChange?: (value: string) => void
   placeholder?: string

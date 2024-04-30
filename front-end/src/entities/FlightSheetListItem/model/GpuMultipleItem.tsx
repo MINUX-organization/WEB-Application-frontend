@@ -4,13 +4,12 @@ import { AiOutlineDown } from 'react-icons/ai';
 import { useBoolean, useElementSize } from 'usehooks-ts';
 import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
-import { deleteFlightSheet } from '@/shared/api';
 import { toast } from 'react-toastify';
-import { FlightSheetGpuSingleForm } from '@/features/FlightSheetGpuSingleForm';
 import GpuListModal from './GpuListModal';
-import styles from './GpuItem.module.scss';
+import styles from './GpuMultipleItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
-import { FlightSheetGpuMultipleForm } from '@/features/FlightSheetGpuMultipleForm/model/FlightSheetGpuMultipleForm';
+import { FlightSheetGpuMultipleForm } from '@/features/FlightSheetGpuMultipleForm';
+import { deleteFlightSheetGpuMultiple } from '@/shared/api';
 
 type GpuMultipleItemProps = {
   item: Extract<TFlightSheetFilled, { type: 'GPU-MULTIPLE' }>;
@@ -32,7 +31,7 @@ export default function GpuMultipleItem({
 
   const handleDelete = () => {
     if (window.confirm('are you sure you want to delete flight sheet?')) {
-      deleteFlightSheet({
+      deleteFlightSheetGpuMultiple({
         id: item.id,
       })
         .then((res) => {
@@ -65,7 +64,7 @@ export default function GpuMultipleItem({
         <div className={styles['common-data']}>
           <div className="flex gap-4 items-center mb-2 w-full">
             <span className="flex-grow text-3xl">{item.name}</span>
-            <div className="text-gray-500">GPU</div>
+            <div className="text-gray-500">GPU-MULTIPLE</div>
             <div className={styles['inner-buttons']}>
               <ItemButtons
                 direction="horizontal"
@@ -85,23 +84,6 @@ export default function GpuMultipleItem({
                 <div className={styles['label']}>Miner</div>
                 <div className={styles['value']}>{item.miner.name}</div>
               </div>
-              {item.configs.map((config) => (
-                <div
-                  key={config.cryptocurrency.id}
-                  className={styles['config']}
-                >
-                  {[
-                    { label: 'Coin', value: config.cryptocurrency.name },
-                    { label: 'Wallet', value: config.wallet.name },
-                    { label: 'Pool', value: config.pool.host },
-                  ].map((item) => (
-                    <div key={item.label} className={styles['field']}>
-                      <div className={styles['label']}>{item.label}</div>
-                      <div className={styles['value']}>{item.value}</div>
-                    </div>
-                  ))}
-                </div>
-              ))}
             </div>
             <AiOutlineDown
               className={styles['dropdown-icon']}
@@ -111,22 +93,25 @@ export default function GpuMultipleItem({
         </div>
         <div className={styles['extra-data-wrapper']}>
           <div ref={extraDataRef} className={styles['extra-data']}>
-            {item.configs.map((config) => (
-              <div className={styles['config-extra']}>
-                <div className={styles['field']}>
-                  <div className={styles['label']}>Wallet Address</div>
-                  <div className={styles['value']}>{config.wallet.address}</div>
+            <div className={styles['extra-data__config-list']}>
+              {item.configs.map((config) => (
+                <div className={styles['extra-data__config-list__item']}>
+                  {[
+                    { label: 'Coin', value: config.cryptocurrency.name },
+                    { label: 'Wallet', value: config.wallet.name },
+                    { label: 'Pool', value: config.pool.host },
+                    { label: 'Wallet Address', value: config.wallet.address },
+                    { label: 'Pool Host', value: config.pool.host },
+                    { label: 'Algorithm', value: config.algorithm.name },
+                  ].map((item) => (
+                    <div key={item.label} className={styles['field']}>
+                      <div className={styles['label']}>{item.label}</div>
+                      <div className={styles['value']}>{item.value}</div>
+                    </div>
+                  ))}
                 </div>
-                <div className={styles['field']}>
-                  <div className={styles['label']}>Pool Host</div>
-                  <div className={styles['value']}>{config.pool.host}</div>
-                </div>
-                <div className={styles['field']}>
-                  <div className={styles['label']}>Algorithm</div>
-                  <div className={styles['value']}>{config.algorithm.name}</div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </FContainer>

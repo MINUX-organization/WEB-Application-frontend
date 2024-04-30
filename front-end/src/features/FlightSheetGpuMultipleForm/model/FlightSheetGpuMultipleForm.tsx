@@ -100,7 +100,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
   );
 
   useEffect(() => {
-    if (isTriple.value && configs.value.length !== 3) {
+    if (isTriple.value) {
       if (configs.value.length < 3) {
         configs.setValue((prev) => (
           [
@@ -509,6 +509,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
             onChange={additionalString.setValue}
             placeholder="--cclk 1200,1300 --mclk 900"
             multiline
+            minRows={6}
           />
         </div>
       </div>
