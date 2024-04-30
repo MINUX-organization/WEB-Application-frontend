@@ -20,3 +20,8 @@ export type TFlightSheet = { id: number, name: string, cryptocurrency_id: number
 export type TWalletFilled = { id: number, name: string, source: string, address: string, cryptocurrency: TCryptocurrency }
 
 export type TFlightSheetFilled = TFullFilledFlightSheet;
+
+export type TFlightSheetConfig = Extract<TFullFilledFlightSheet, { type: 'GPU-MULTIPLE'}>['configs'][number]
+export type TFlightSheetConfigInput = {
+  [key in keyof Omit<TFlightSheetConfig, 'algorithm'>]: Omit<TFlightSheetConfig, 'algorithm'>[key] | null
+}

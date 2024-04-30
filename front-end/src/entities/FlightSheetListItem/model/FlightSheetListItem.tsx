@@ -2,6 +2,7 @@ import { TFlightSheetFilled } from "@/shared/types";
 import GpuItem from "./GpuItem";
 import CustomItem from "./CustomItem";
 import CpuItem from "./CpuItem";
+import GpuMultipleItem from "./GpuMultipleItem";
 
 type FlightSheetListItemProps = {
   item: TFlightSheetFilled;
@@ -17,6 +18,13 @@ export const FlightSheetListItem = ({ item, onDelete, onUpdate }: FlightSheetLis
         {
           "GPU-SINGLE": () => item.type === 'GPU-SINGLE' && (
             <GpuItem
+              item={item}
+              onDelete={onDelete}
+              onUpdate={onUpdate}
+            />
+          ),
+          "GPU-MULTIPLE": () => item.type === "GPU-MULTIPLE" && (
+            <GpuMultipleItem
               item={item}
               onDelete={onDelete}
               onUpdate={onUpdate}

@@ -16,16 +16,16 @@ import {
   TStateObj,
   TWallet,
 } from "@/shared/types";
-import { createFlightSheet } from "@/shared/api";
 import { useBoolean } from "usehooks-ts";
 import { useBooleanUrl } from "@/shared/lib/useBooleanUrl";
 import { CreateCryptocurrency } from "@/features/CreateCryptocurrency";
 import { CreateWallet } from "@/features/CreateWallet";
 import { CreatePool } from "@/features/CreatePool";
 import { CreateMiner } from "@/features/CreateMiner";
-import styles from "./FlightSheetGpuForm.module.scss";
+import styles from "./FlightSheetGpuSingleForm.module.scss";
 import { toast } from "react-toastify";
-import { editFlightSheetSimple } from "@/shared/api/editFlightSheetSimple";
+import { editFlightSheetGpu } from "@/shared/api/editFlightSheetGpu";
+import { createFlightSheetGpu } from "@/shared/api/createFlightSheetGpu";
 
 const useAddModal = (
   title: string,
@@ -46,7 +46,7 @@ type FlightSheetGpuFormProps = {
   onSubmit: () => void;
 };
 
-export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuFormProps) => {
+export const FlightSheetGpuSingleForm = ({ onSubmit, flightSheet }: FlightSheetGpuFormProps) => {
   const flightSheeAddOptions = useFlightSheetAddOptions();
   const name = useStateObj(flightSheet?.name ?? '');
   const additionalString = useStateObj(flightSheet?.additionalString ?? '');
@@ -159,6 +159,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
     getOptionLabel: (item: any) => string;
     getKey: (item: any) => string;
     modalOpenState: ReturnType<typeof useAddModal>;
+    addable: boolean
   }> = [
     {
       label: "Crypto",
@@ -169,6 +170,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
       getOptionLabel: (item: TCryptocurrency) => item.name,
       getKey: (item: TCryptocurrency) => item.name + item.id,
       modalOpenState: modalAddCryptocurrency,
+      addable: true,
     },
     {
       label: "Wallet",
@@ -179,6 +181,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
       getOptionLabel: (item: TWallet) => item.name,
       getKey: (item: TWallet) => item.name + item.id,
       modalOpenState: modalAddWallet,
+      addable: true,
     },
     {
       label: "Pool",
@@ -189,6 +192,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
       getOptionLabel: (item: TPool) => item.host,
       getKey: (item: TPool) => item.host + item.id,
       modalOpenState: modalAddPool,
+      addable: true,
     },
     {
       label: "Miner",
@@ -199,6 +203,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
       getOptionLabel: (item: TMiner) => item.name,
       getKey: (item: TMiner) => item.name + item.id,
       modalOpenState: modalAddMiner,
+      addable: false,
     },
   ];
 
@@ -244,7 +249,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
       isSubmitting.setTrue();
 
       if (flightSheet) {
-        editFlightSheetSimple({
+        editFlightSheetGpu({
           id: flightSheet.id,
           newAdditionalString: additionalString.value,
           newCryptocurrencyId: cryptocurrencySmart.id,
@@ -263,7 +268,7 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
           isSubmitting.setFalse()
         })
       } else {
-        createFlightSheet({
+        createFlightSheetGpu({
           name: name.value,
           cryptocurrencyId: cryptocurrencySmart.id,
           minerId: minerSmart.id,
@@ -293,12 +298,14 @@ export const FlightSheetGpuForm = ({ onSubmit, flightSheet }: FlightSheetGpuForm
           <div key={field.label} className={styles["field"]}>
             <div className={styles["field-header"]}>
               <div className={styles["field-label"]}>{field.label}</div>
-              <div
-                className={styles["field-add-button"]}
-                onClick={field.modalOpenState.isOpen.setTrue}
-              >
-                Add
-              </div>
+              {field.addable && (
+                <div
+                  className={styles["field-add-button"]}
+                  onClick={field.modalOpenState.isOpen.setTrue}
+                >
+                  Add
+                </div>
+              )}
             </div>
             <FDropdown
               warnWhenNoOptions
