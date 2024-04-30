@@ -13,4 +13,4 @@ type Request = {
 
 const ResponseRuntype = rt.String
 
-export const editFlightSheetSimple = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'edit/flight-sheet', ResponseRuntype)
+export const editFlightSheetGpu = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'edit/flight-sheet', ResponseRuntype)
