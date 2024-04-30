@@ -169,6 +169,7 @@ export function FlightSheetWithCustomMinerForm({
                 inputProps={{ className: "text-2xl" }}
                 textareaProps={{ className: "text-2xl" }}
                 multiline
+                minRows={6}
               />
             </Form.Item>
           </Col>

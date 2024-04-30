@@ -7,4 +7,4 @@ type Request = {
 
 const ResponseRuntype = rt.String;
 
-export const deleteFlightSheet = makeApiFunc<Request, typeof ResponseRuntype>("DELETE", 'delete/flight-sheet', ResponseRuntype)
+export const deleteFlightSheetGpu = makeApiFunc<Request, typeof ResponseRuntype>("DELETE", 'delete/flight-sheet', ResponseRuntype)
