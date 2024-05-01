@@ -2,7 +2,6 @@ import TotalGpus from '@/entities/totalValues/TotalGpus'
 import TotalNvidia from '@/entities/totalValues/TotalNvidia'
 import TotalAmd from '@/entities/totalValues/TotalAmd'
 import './gpu.scss'
-import { GpuItems } from '@/entities/gpu/index' 
 
 export default function Gpu() {
   return (
@@ -21,7 +20,7 @@ export default function Gpu() {
         </div>
       </div> 
       <div className='gpus-scroll-container'> 
-        <GpuItems/>
+        {/* <GpuItems/> */}
       </div>
     </div>
   )

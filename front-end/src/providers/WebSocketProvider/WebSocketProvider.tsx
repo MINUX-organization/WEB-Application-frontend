@@ -43,10 +43,19 @@ export const WebSocketProvider = ({ children } : PropsWithChildren) => {
       console.log('WebSocket connection closed:', event);
     }
     lws.onmessage = event => {
-      // TODO validate event.data
-      // console.log(event)
-      console.log(JSON.parse(event.data))
-      updateDynamicData(JSON.parse(event.data))
+      const data = JSON.parse(event.data) as Parameters<typeof updateDynamicData>[0];
+      
+      // FOR TESTING, DELETE THIS!
+      data.gpus?.forEach((gpu) => {
+        const algorithm = (gpu as any).algorithm;
+        const cryptocurrency = (gpu as any).cryptocurrency;
+        const hashrate = (gpu as any).hashrate;
+        const shares = (gpu as any).shares;
+        gpu.configs = [{ algorithm, cryptocurrency, hashrate, shares }]
+      })
+      // -------------------------
+      
+      updateDynamicData(data)
     }
     setWs(lws)
   }
