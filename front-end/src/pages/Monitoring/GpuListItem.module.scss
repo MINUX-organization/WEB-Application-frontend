@@ -1,15 +1,21 @@
+@use '@/app/values.scss' as values;
+@use './variables.scss' as lv;
+
 .gpu-list-item {
-  $xoffset: calc((#{$xborder} + #{$item-padding}));
+  $xoffset: calc((#{lv.$gpu-list-grid-xborder} + #{lv.$gpu-list-item-padding}));
   $id-min-width: 50px;
   $id-px: 20px;
 
   &__inner {
     display: grid;
-    grid-template-columns: calc($grid-first-element-width - $xoffset) $grid-middle-template-columns calc($grid-last-element-width - $xoffset);
-    gap: $grid-gap;
-    align-items: $grid-align-items;
-    justify-items: $grid-justify-items;
-    background: $bg-inner-color;
+    grid-template-columns:
+      calc(lv.$gpu-list-grid-first-element-width - $xoffset)
+      lv.$gpu-list-grid-middle-template-columns
+      calc(lv.$gpu-list-grid-last-element-width - $xoffset);
+    gap: lv.$gpu-list-grid-gap;
+    align-items: lv.$gpu-list-grid-align-items;
+    justify-items: lv.$gpu-list-grid-justify-items;
+    background: lv.$bg-inner-color;
     min-height: 80px;
   }
   
@@ -43,7 +49,7 @@
   &__dropdown {
     $transition: all 200ms;
     height: 0px;
-    transition: $transition;
+    transition: lv.$gpu-list-dropdown-transition;
     overflow: hidden;
 
     &--open {
@@ -56,14 +62,65 @@
   }
 
   &__dropdown-dropdown {
-    padding: $item-padding;
+    // padding: lv.$gpu-list-item-padding;
     height: fit-content;
     transform-origin: top center;
-    transition: $transition;
+    transition: lv.$gpu-list-dropdown-transition;
     transform: scaleY(0);
+    // display: flex;
+    gap: lv.$gpu-list-grid-gap;
+    // padding-left: calc($id-min-width + $id-px * 2);
+  }
+
+  &__dropdown-no-configs-message {
+    display: block;
+    margin: auto;
+  }
+
+  &__dropdown-configs {
+    display: block;
+  }
+
+  &__dropdown-configs-table {
+    margin-top: 10px;
+    display: block;
+
+    table {
+      width: 100%;
+      table-layout: auto;
+      border-spacing: 0;
+    }
+
+    th, td {
+      font-size: 20px;
+      font-weight: 400;
+      color: #ffffffa8;
+      &>* {
+        background: lv.$bg-inner-color;
+        box-sizing: border-box;
+        padding: 5px 10px;
+      }
+
+      &>*[data-type=number] {
+        text-align: right;
+      }
+
+      &:not(:last-child) {
+        &>* {
+          margin-right: 10px;
+        }
+      }
+    }
+    
+    td {
+      padding-top: 10px;
+    }
+  }
+
+  &__dropdown-info {
     display: flex;
-    gap: $grid-gap;
-    padding-left: calc($id-min-width + $id-px * 2);
+    margin-top: 10px;
+    gap: 10px;
   }
 
   @mixin gpu-dropdown-item {

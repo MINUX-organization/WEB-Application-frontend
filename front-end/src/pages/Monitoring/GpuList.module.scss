@@ -1,3 +1,6 @@
+@use './variables.scss' as lv;
+@use '@/app/values.scss' as values;
+
 .gpu-list {
   --gpu-list-width: 100%;
   --gpu-list-height: 500px;
@@ -10,13 +13,6 @@
   overflow: auto;
 
   &__list {
-    $grid-first-element-width: calc(var(--gpu-list-width) * 0.3);
-    $grid-last-element-width: calc(var(--gpu-list-width) * 0.11);
-    $grid-middle-template-columns: repeat(5, 1fr);
-    $grid-template-columns: $grid-first-element-width $grid-middle-template-columns $grid-last-element-width;
-    $grid-align-items: center;
-    $grid-justify-items: center;
-    $grid-gap: $item-padding;
     font-size: values.$text-size24;
     min-width: 1200px;
     width: 100%;
@@ -24,11 +20,13 @@
   
   &__list-header {
     display: grid;
-    grid-template-columns: $grid-first-element-width $grid-middle-template-columns $grid-last-element-width;;
-
-    align-items: $grid-align-items;
-    justify-items: $grid-justify-items;
-    gap: $grid-gap;
+    grid-template-columns:
+      lv.$gpu-list-grid-first-element-width
+      lv.$gpu-list-grid-middle-template-columns
+      lv.$gpu-list-grid-last-element-width;
+    align-items: lv.$gpu-list-grid-align-items;
+    justify-items: lv.$gpu-list-grid-justify-items;
+    gap: lv.$gpu-list-grid-gap;
     margin-bottom: 12px;
     color: rgba(255,255,255, .6);
   }
@@ -44,9 +42,8 @@
   }
   
   &__grid {
-    $xborder: 4px;
     border: 1px solid values.$line-color;
-    border-width: 1px $xborder;
+    border-width: 1px lv.$gpu-list-grid-xborder;
   }
 
   &__na-image {
@@ -60,7 +57,7 @@
   &__grid-body {
     display: flex;
     flex-direction: column;
-    padding: $item-padding;
-    gap: $grid-gap;
+    padding: lv.$gpu-list-item-padding;
+    gap: lv.$gpu-list-grid-gap;
   }
 }

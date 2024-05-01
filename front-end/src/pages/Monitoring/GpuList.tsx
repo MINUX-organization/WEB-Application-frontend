@@ -4,7 +4,7 @@ import { useElementSize } from 'usehooks-ts';
 import { useQuery } from 'react-query';
 import { valueOrZero } from '@/shared/utils';
 import { getCalculationsData } from '@/shared/api/getCalculationsData';
-import styles from './Monitoring.module.scss';
+import st from './GpuList.module.scss';
 import NaImage from '@/shared/components/NaImage';
 import GpuListItem from './GpuListItem';
 import CountBox from './CountBox';
@@ -18,7 +18,7 @@ export const GpuList = () => {
 
   return (
     <div
-      className={styles['gpu-list']}
+      className={st['gpu-list']}
       style={
         {
           '--gpu-list-width': `${size.width}px`,
@@ -26,9 +26,9 @@ export const GpuList = () => {
         } as CSSProperties
       }
     >
-      <div ref={gpuListRef} className={styles['gpu-list__list']}>
-        <div className={styles['gpu-list__list-header']}>
-          <div className={styles['gpu-list__list-header-counters']}>
+      <div ref={gpuListRef} className={st['gpu-list__list']}>
+        <div className={st['gpu-list__list-header']}>
+          <div className={st['gpu-list__list-header-counters']}>
             <CountBox
               label="GPUs"
               value={valueOrZero(data?.data.calculations.gpusCount)}
@@ -44,18 +44,15 @@ export const GpuList = () => {
               frameColor="#FC4E4E"
             />
           </div>
-          <div>Accepted</div>
-          <div>Rejected</div>
-          <div>Hashrate</div>
           <div>Temp</div>
           <div>Fan</div>
           <div>Power</div>
         </div>
-        <div className={styles['gpu-list__grid']}>
+        <div className={st['gpu-list__grid']}>
           {gpus.length === 0 && (
-            <NaImage className={styles['gpu-list__na-image']} alt={true} />
+            <NaImage className={st['gpu-list__na-image']} alt={true} />
           )}
-          <div className={styles['gpu-list__grid-body']}>
+          <div className={st['gpu-list__grid-body']}>
             {gpus.map((item) => (
               <GpuListItem key={item.id} item={item} />
             ))}

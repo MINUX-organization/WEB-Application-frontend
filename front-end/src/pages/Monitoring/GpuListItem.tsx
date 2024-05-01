@@ -22,15 +22,14 @@ export default function GpuListItem({ item }: GpuListitemProps) {
           </div>
           <div className={st['gpu-list-item__fullname']}>{item.fullName}</div>
         </div>
-
-        <div>{item.shares.accepted}</div>
+        {/* <div>{item.shares.accepted}</div>
         <div>{item.shares.rejected}</div>
         <div>
           {item.hashrate.value?.toFixed(3)}
           <span className={st['gpu-list-item__unit']}>
             {item.hashrate.measurement}
           </span>
-        </div>
+        </div> */}
         <div>
           {item.temperature}
           <span className={st['gpu-list-item__unit']}>°C</span>
@@ -56,33 +55,77 @@ export default function GpuListItem({ item }: GpuListitemProps) {
           } as CSSProperties
         }
       >
-        <div ref={dropdownRef} className={st['gpu-list__dropdown-dropdown']}>
-          <div className={st['gpu-list__dropdown-first-item']}>
-            <div className={st['gpu-list__dropdown-item-label']}>Crypto</div>
-            <div className={st['gpu-list__dropdown-item-value']}>
-              {item.cryptocurrency ?? 'Null'}
-            </div>
-            <div className={st['gpu-list__dropdown-item-label']}>Miner</div>
-            <div className={st['gpu-list__dropdown-item-value']}>
-              {item.miner.fullName ?? 'Null'}
-            </div>
+        <div ref={dropdownRef} className={st['gpu-list-item__dropdown-dropdown']}>
+          <div className={st['gpu-list-item__dropdown-configs']}>
+            {item.configs.length === 0 && (
+              <div className={st['gpu-list-item__dropdown-no-configs-message']}>
+                Mining nothing
+              </div>
+            )}
+            {item.configs.length !== 0 && (
+              <div className={st['gpu-list-item__dropdown-configs-table']}>
+                <table>
+                  <thead>
+                    <tr>
+                      <th><div>Cryptocurrency</div></th>
+                      <th><div>Algorithm</div></th>
+                      <th><div>Accepted</div></th>
+                      <th><div>Rejected</div></th>
+                      <th><div>Hashrate</div></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {item.configs.map((config, index) => (
+                      <tr key={index}>
+                        <td><div>{config.cryptocurrency ?? '-'}</div></td>
+                        <td><div>{config.algorithm ?? '-'}</div></td>
+                        <td><div data-type="number">{config.shares.accepted ?? '-'}</div></td>
+                        <td><div data-type="number">{config.shares.rejected ?? '-'}</div></td>
+                        <td>
+                          <div data-type="number">
+                            {config.hashrate.value ?? '-'}{' '}
+                            {config.hashrate.measurement && (
+                              <span className={st['gpu-list-item__unit']}>
+                                {config.hashrate.measurement}
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
-          <div className={st['gpu-list__dropdown-second-item']}>
-            <div className={st['gpu-list__dropdown-item-label']}>
-              Miner up time
+          <div className={st['gpu-list-item__dropdown-info']}>
+            <div className={st['gpu-list-item__dropdown-first-item']}>
+              {/* <div className={st['gpu-list__dropdown-item-label']}>Crypto</div>
+              <div className={st['gpu-list__dropdown-item-value']}>
+                {item.cryptocurrency ?? 'Null'}
+              </div> */}
+              <div className={st['gpu-list-item__dropdown-item-label']}>Miner</div>
+              <div className={st['gpu-list-item__dropdown-item-value']}>
+                {item.miner.fullName ?? 'Null'}
+              </div>
             </div>
-            <div className={st['gpu-list__dropdown-item-value']}>
-              {item.minerUpTime ?? 'Null'}
+            <div className={st['gpu-list-item__dropdown-second-item']}>
+              <div className={st['gpu-list-item__dropdown-item-label']}>
+                Miner up time
+              </div>
+              <div className={st['gpu-list-item__dropdown-item-value']}>
+                {item.minerUpTime ?? 'Null'}
+              </div>
             </div>
-          </div>
-          <div className={st['gpu-list__dropdown-third-item']}>
-            <div className={st['gpu-list__dropdown-item-label']}>
-              Flight sheet
-            </div>
-            <div className={st['gpu-list__dropdown-item-value']}>
-              {item.flightSheetName ??
-                item.flightSheetWithCustomMinerName ??
-                '-'}
+            <div className={st['gpu-list-item__dropdown-third-item']}>
+              <div className={st['gpu-list-item__dropdown-item-label']}>
+                Flight sheet
+              </div>
+              <div className={st['gpu-list-item__dropdown-item-value']}>
+                {item.flightSheetName ??
+                  item.flightSheetWithCustomMinerName ??
+                  '-'}
+              </div>
             </div>
           </div>
         </div>
