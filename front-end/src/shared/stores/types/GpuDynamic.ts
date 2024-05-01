@@ -30,6 +30,19 @@ import * as rt from 'runtypes';
  * hashrate, shares, cryptocurrencies, algorithm
  */
 
+const cryptoRuntype = rt.Record({
+  cryptocurrency: rt.Union(rt.String, rt.Null),
+  algorithm: rt.Union(rt.String, rt.Null),
+  shares: rt.Record({
+    accepted: rt.Union(rt.Number, rt.Null),
+    rejected: rt.Union(rt.Number, rt.Null),    
+  }),
+  hashrate: rt.Record({
+    value: rt.Union(rt.Number, rt.Null),
+    measurement: rt.Union(rt.String, rt.Null)
+  }),
+})
+
 export const GpuDynamicRuntype = rt.Record({
   id: rt.Number,
   flightSheetName: rt.Union(rt.String, rt.Null),
@@ -38,18 +51,11 @@ export const GpuDynamicRuntype = rt.Record({
   fullName: rt.Union(rt.String, rt.Null),
   temperature: rt.Union(rt.Number, rt.Null),
   fanSpeed: rt.Union(rt.Number, rt.Null),
-  configs: rt.Array(rt.Record({
-    cryptocurrency: rt.Union(rt.String, rt.Null),
-    algorithm: rt.Union(rt.String, rt.Null),
-    shares: rt.Record({
-      accepted: rt.Union(rt.Number, rt.Null),
-      rejected: rt.Union(rt.Number, rt.Null),    
-    }),
-    hashrate: rt.Record({
-      value: rt.Union(rt.Number, rt.Null),
-      measurement: rt.Union(rt.String, rt.Null)
-    }),
-  })),
+  crypto: rt.Record({
+    "1": cryptoRuntype,
+    "2": cryptoRuntype,
+    "3": cryptoRuntype
+  }),
   powerUsage: rt.Union(rt.Number, rt.Null),
   miner: rt.Record({
     uuid: rt.Union(rt.String, rt.Null),
