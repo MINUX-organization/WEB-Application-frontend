@@ -1,5 +1,5 @@
 import { GpuDynamic } from '@/shared/stores/types/GpuDynamic';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useMemo, useState } from 'react';
 import { useElementSize } from 'usehooks-ts';
 import st from './GpuListItem.module.scss';
 import clsx from 'clsx';
@@ -9,6 +9,11 @@ type GpuListitemProps = { item: GpuDynamic };
 export default function GpuListItem({ item }: GpuListitemProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownRef, size] = useElementSize();
+
+  const configs = useMemo(() => {
+    const arr = [item.crypto[1], item.crypto[2], item.crypto[3]];
+    return arr.filter((item) => item.algorithm);
+  }, [item.crypto])
 
   return (
     <div className={st['gpu-list-item']}>
@@ -57,12 +62,12 @@ export default function GpuListItem({ item }: GpuListitemProps) {
       >
         <div ref={dropdownRef} className={st['gpu-list-item__dropdown-dropdown']}>
           <div className={st['gpu-list-item__dropdown-configs']}>
-            {item.configs.length === 0 && (
+            {configs.length === 0 && (
               <div className={st['gpu-list-item__dropdown-no-configs-message']}>
                 Mining nothing
               </div>
             )}
-            {item.configs.length !== 0 && (
+            {configs.length !== 0 && (
               <div className={st['gpu-list-item__dropdown-configs-table']}>
                 <table>
                   <thead>
@@ -75,7 +80,7 @@ export default function GpuListItem({ item }: GpuListitemProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {item.configs.map((config, index) => (
+                    {configs.map((config, index) => (
                       <tr key={index}>
                         <td><div>{config.cryptocurrency ?? '-'}</div></td>
                         <td><div>{config.algorithm ?? '-'}</div></td>
