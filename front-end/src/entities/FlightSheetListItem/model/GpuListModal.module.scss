@@ -1,76 +1,104 @@
 @use "@/app/values.scss";
 
-.modal-body {
+.gpu-list-modal {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
 
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-
-.gpu-list-container {
-  display: grid;
-  width: 500px;
-  height: 600px;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.gpu-list-container-body {
-  background: transparent;
-}
-
-.gpu-list {
-  width: 100%;
-  background: transparent;
-  overflow: auto;
-}
-
-.scroll-track {
-  top: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.scroll-thumb {
-  background: color-mix(in srgb, values.$line-color 50%, transparent);
-}
-
-.gpu-item {
-  $bg-color: #222222;
-  margin-top: 10px;
-  display: flex;
-  gap: 20px;
-  padding: 0 20px;
-  align-items: center;
-  background: $bg-color;
-  cursor: pointer;
-
-  &:first-child {
-    margin-top: 0;
+  &__container {
+    display: grid;
+    width: 500px;
+    height: 600px;
+    max-width: 100%;
+    max-height: 100%;
   }
 
-  .gpu-item-index {
+  &__container-body {
+    background: transparent;
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__not-found-text {
+    width: fit-content;
+    margin: auto;
+  }
+
+  &__scrollbars {
+    width: 100%;
+    background: transparent;
+    overflow: auto;
+  }
+
+  &__scrollbars-scroll-track {
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &__scrollbars-scroll-thumb {
+    background: color-mix(in srgb, values.$line-color 50%, transparent);
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__gpu-item {
+    $bg-color: #222222;
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    align-items: center;
+    background: $bg-color;
+    cursor: pointer;
+  
+    &:first-child {
+      margin-top: 0;
+    }
+  
+    &:hover {
+      background: color-mix(in srgb, $bg-color 90%, white);
+    }
+  }
+
+  &__gpu-item-index {
     min-width: 30px;
     width: fit-content;
   }
 
-  .gpu-item-name {
+  &__gpu-item-name {
     flex-grow: 1;
   }
 
-  .checkbox {
+  &__gpu-item-checkbox {
     flex-shrink: 0;
   }
 
-  &:hover {
-    background: color-mix(in srgb, $bg-color 90%, white);
+  &__top-buttons {
+    float: right;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
-}
+  &__button {
+    padding: 0 5px;
+    font-size: 20px;
+    cursor: pointer;
+    background: #222222;
 
+    &:hover {
+      background: #333333;
+    }
+  }
+}

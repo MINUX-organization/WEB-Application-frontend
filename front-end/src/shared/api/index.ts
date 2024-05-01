@@ -21,6 +21,7 @@ export { getFullFilledWallets } from './getFullFilledWallets'
 export { getStaticHarddrives } from './getStaticHarddrives'
 export { getGpusForFlightSheets } from './getGpusForFlightSheets'
 export { editGpusForFlightSheets } from './editGpusForFlightSheets'
+export { editGpusForFlightSheetsMultiple } from './editGpusForFlightSheetsMultiple';
 export { getSettingsGpus } from './getSettingsGpus'
 export { getGpuSetup } from './getGpuSetup'
 export { getGpuPresets } from './getGpuPresets'

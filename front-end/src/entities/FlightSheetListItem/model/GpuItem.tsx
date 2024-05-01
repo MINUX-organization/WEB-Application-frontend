@@ -125,7 +125,7 @@ export default function GpuItem({
           direction='vertical'
         />
       </div>
-      <GpuListModal isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
+      <GpuListModal flightSheetType='single' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
       <FModal title="Edit flight sheet" open={isEditing.value} onClose={isEditing.setFalse}>
         <div className='bg-black p-8'>
           <FlightSheetGpuSingleForm flightSheet={item} onSubmit={onUpdate} />
