@@ -88,7 +88,7 @@ export default function GpuListItem({ item }: GpuListitemProps) {
                         <td><div data-type="number">{config.shares.rejected ?? '-'}</div></td>
                         <td>
                           <div data-type="number">
-                            {config.hashrate.value ?? '-'}{' '}
+                            {config.hashrate.value?.toFixed(3) ?? '-'}{' '}
                             {config.hashrate.measurement && (
                               <span className={st['gpu-list-item__unit']}>
                                 {config.hashrate.measurement}
