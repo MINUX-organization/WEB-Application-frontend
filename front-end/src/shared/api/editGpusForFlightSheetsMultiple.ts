@@ -2,7 +2,7 @@ import * as rt from 'runtypes'
 import { makeApiFunc } from "./_makeApiFunc";
 
 type Request = {
-  gpusForFlightSheets: Array<{
+  gpusForFlightSheetsMultiple: Array<{
     id: number
     flightSheetMultipleId: number | null
   }>

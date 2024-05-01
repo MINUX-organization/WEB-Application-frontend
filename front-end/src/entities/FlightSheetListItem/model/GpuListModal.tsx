@@ -104,7 +104,7 @@ export default function GpuListModal({
         case 'multiple':
           return (
             editGpusForFlightSheetsMultiple({
-              gpusForFlightSheets: modifiedGpuList.value.map((v) => ({
+              gpusForFlightSheetsMultiple: modifiedGpuList.value.map((v) => ({
                 id: v.id,
                 flightSheetMultipleId: v.flightSheetId
               })),
