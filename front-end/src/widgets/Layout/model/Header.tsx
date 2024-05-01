@@ -56,13 +56,13 @@ export const Header = (props: HTMLProps<HTMLDivElement>) => {
           </div>
           <div className={styles['header__extra-buttons']}>
             <button
-              className={styles['header__extra-buttons__item']}
+              className={styles['header__extra-buttons-button']}
               onClick={() => handleRedirectToPort(2222)}
             >
               Web Terminal
             </button>
             <button
-              className={styles['header__extra-buttons__item']}
+              className={styles['header__extra-buttons-button']}
               onClick={() => handleRedirectToPort(3001)}
             >
               Chia Dashboard

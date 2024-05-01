@@ -13,13 +13,17 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    
-    &__item {
-      font-size: 18px;
-      background: rgba(255, 255, 255, 0.062);
-      color: #3C9EA5;
-      padding: 0 5px;
-      border-radius: 4px;
+  }
+
+  &__extra-buttons-button {
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.062);
+    color: #3C9EA5;
+    padding: 0 5px;
+    border-radius: 4px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.13);
     }
   }
 }
