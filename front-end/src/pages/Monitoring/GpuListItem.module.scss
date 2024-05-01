@@ -81,7 +81,7 @@
     display: block;
   }
 
-  &__dropdown-configs-table {
+  &__configs-table {
     margin-top: 10px;
     display: block;
 
@@ -98,11 +98,18 @@
       &>* {
         background: lv.$bg-inner-color;
         box-sizing: border-box;
-        padding: 5px 10px;
+        padding: 0px 10px;
       }
 
       &>*[data-type=number] {
         text-align: right;
+      }
+
+      &>*[data-severity=good] {
+        color: rgb(67, 192, 155);
+      }
+      &>*[data-severity=bad] {
+        color: rgb(252, 78, 78);
       }
 
       &:not(:last-child) {

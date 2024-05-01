@@ -48,6 +48,45 @@ export default function GpuListItem({ item }: GpuListitemProps) {
           <span className={st['gpu-list-item__unit']}>W</span>
         </div>
       </div>
+      {configs.length !== 0 && (
+        <div className={st['gpu-list-item__configs-table']}>
+          <table>
+            <thead>
+              <tr>
+                <th><div>Cryptocurrency</div></th>
+                <th><div>Algorithm</div></th>
+                <th><div>Accepted</div></th>
+                <th><div>Rejected</div></th>
+                <th><div>Hashrate</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              {configs.map((config, index) => (
+                <tr key={index}>
+                  <td><div>{config.cryptocurrency ?? '-'}</div></td>
+                  <td><div>{config.algorithm ?? '-'}</div></td>
+                  <td><div data-type="number" data-severity="good">
+                    {config.shares.accepted ?? '-'}
+                  </div></td>
+                  <td><div data-type="number" data-severity="bad">
+                    {config.shares.rejected ?? '-'}
+                  </div></td>
+                  <td>
+                    <div data-type="number">
+                      {config.hashrate.value?.toFixed(3) ?? '-'}{' '}
+                      {config.hashrate.measurement && (
+                        <span className={st['gpu-list-item__unit']}>
+                          {config.hashrate.measurement}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       <div
         className={clsx(
           st['gpu-list-item__dropdown'],
@@ -61,7 +100,7 @@ export default function GpuListItem({ item }: GpuListitemProps) {
         }
       >
         <div ref={dropdownRef} className={st['gpu-list-item__dropdown-dropdown']}>
-          <div className={st['gpu-list-item__dropdown-configs']}>
+          {/* <div className={st['gpu-list-item__dropdown-configs']}>
             {configs.length === 0 && (
               <div className={st['gpu-list-item__dropdown-no-configs-message']}>
                 Mining nothing
@@ -102,7 +141,7 @@ export default function GpuListItem({ item }: GpuListitemProps) {
                 </table>
               </div>
             )}
-          </div>
+          </div> */}
           <div className={st['gpu-list-item__dropdown-info']}>
             <div className={st['gpu-list-item__dropdown-first-item']}>
               {/* <div className={st['gpu-list__dropdown-item-label']}>Crypto</div>
