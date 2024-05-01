@@ -123,7 +123,7 @@ export default function GpuMultipleItem({
           direction="vertical"
         />
       </div>
-      <GpuListModal isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
+      <GpuListModal flightSheetType='multiple' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
       <FModal
         title="Edit flight sheet"
         open={isEditing.value}

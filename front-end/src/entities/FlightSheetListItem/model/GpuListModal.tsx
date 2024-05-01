@@ -9,25 +9,55 @@ import { useEffect } from 'react';
 import Scrollbars from 'react-custom-scrollbars-2';
 import styles from './GpuListModal.module.scss';
 import _ from 'lodash';
+import { editGpusForFlightSheetsMultiple } from '@/shared/api';
 
 type GpuListModalProps = {
-  itemId: number
-  isOpen: ReturnType<typeof useBoolean>
-  onUpdate: () => void
-}
+  flightSheetType: 'single' | 'multiple'
+  itemId: number;
+  isOpen: ReturnType<typeof useBoolean>;
+  onUpdate: () => void;
+};
 
-export default function GpuListModal({ itemId, isOpen, onUpdate }: GpuListModalProps) {
+export default function GpuListModal({
+  flightSheetType,
+  itemId,
+  isOpen,
+  onUpdate,
+}: GpuListModalProps) {
   const gpuListQuery = useQuery(
-    ["load gpu for flight sheet"],
+    ['load gpu for flight sheet'],
     () => getGpusForFlightSheets({}),
     { enabled: false, onError: (error: any) => toast.error(error.message) }
   );
 
   const modifiedGpuList = useStateObj<
-    Exclude<typeof gpuListQuery.data, undefined>["data"]["gpusForFlightSheets"]
+    Exclude<typeof gpuListQuery.data, undefined>['data']['gpusForFlightSheets']
   >([]);
 
   const isUpdatingGPUList = useBoolean(false);
+
+  const handleSelectAllGpus = () => {
+    modifiedGpuList.setValue((prev) => {
+      prev.forEach((gpu) => {
+        gpu.flightSheetId = itemId;
+      });
+      return [...prev];
+    });
+  };
+
+  const handleDeselectAllGpus = () => {
+    modifiedGpuList.setValue((prev) => {
+      prev.forEach((gpu) => {
+        const oldFlightSheetId =
+          gpuListQuery.data!.data.gpusForFlightSheets.find(
+            (oldGpu) => oldGpu.id === gpu.id
+          )!.flightSheetId;
+        gpu.flightSheetId =
+          oldFlightSheetId !== itemId ? oldFlightSheetId : null;
+      });
+      return [...prev];
+    });
+  };
 
   const updateModifiedGpuListItem = (
     gpuId: number,
@@ -49,7 +79,7 @@ export default function GpuListModal({ itemId, isOpen, onUpdate }: GpuListModalP
       }
       return [...prev];
     });
-  }
+  };
 
   const resetGpuList = () => {
     if (gpuListQuery.data === undefined) {
@@ -59,23 +89,43 @@ export default function GpuListModal({ itemId, isOpen, onUpdate }: GpuListModalP
         _.cloneDeep(gpuListQuery.data.data.gpusForFlightSheets)
       );
     }
-  }
+  };
 
   const cancelGpuList = () => {
     resetGpuList();
     isOpen.setFalse();
-  }
+  };
 
   const updateFlightGPUList = () => {
     isUpdatingGPUList.setTrue();
-    editGpusForFlightSheets({
-      gpusForFlightSheets: modifiedGpuList.value.map((v) =>
-        _.omit(v, "name", "connected")
-      ),
-    })
+
+    const doFetch = () => {
+      switch (flightSheetType) {
+        case 'multiple':
+          return (
+            editGpusForFlightSheetsMultiple({
+              gpusForFlightSheets: modifiedGpuList.value.map((v) => ({
+                id: v.id,
+                flightSheetMultipleId: v.flightSheetId
+              })),
+            })
+          )
+        case 'single':
+          return (
+            editGpusForFlightSheets({
+              gpusForFlightSheets: modifiedGpuList.value.map((v) => ({
+                id: v.id,
+                flightSheetId: v.flightSheetId
+              })),
+            })
+          )
+      }
+    }
+
+    doFetch()
       .then((res) => {
         onUpdate();
-        toast.info("updated gpus for flight sheets");
+        toast.info('updated gpus for flight sheets');
       })
       .catch((e) => {
         toast.info(e.message);
@@ -83,105 +133,155 @@ export default function GpuListModal({ itemId, isOpen, onUpdate }: GpuListModalP
       .finally(() => {
         isUpdatingGPUList.setFalse();
       });
-  }
+  };
 
   useEffect(() => {
     resetGpuList();
-  }, [gpuListQuery.data])
+  }, [gpuListQuery.data]);
 
   useEffect(() => {
     if (isOpen.value) {
-      gpuListQuery.refetch()
+      gpuListQuery.refetch();
     }
-  }, [isOpen.value])
+  }, [isOpen.value]);
 
   return (
     <FModal
-        title="Select GPU"
-        open={isOpen.value}
-        onClose={() => isOpen.setFalse()}
-        bodyProps={{ className: styles["modal-body"] }}
+      title="Select GPU"
+      open={isOpen.value}
+      onClose={() => isOpen.setFalse()}
+      bodyProps={{ className: styles['gpu-list-modal'] }}
+    >
+      <FContainer
+        className={styles['gpu-list-modal__container']}
+        visibility={{ tc: false }}
+        bodyProps={{ className: styles['gpu-list-modal__container-body'] }}
       >
-        <FContainer
-          className={styles["gpu-list-container"]}
-          visibility={{ tc: false }}
-          bodyProps={{ className: styles["gpu-list-container-body"] }}
-        >
-          {gpuListQuery.isFetching && (
-            <Spin
-              size="large"
-              className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2"
-            />
-          )}
-          {gpuListQuery.data !== undefined &&
-            modifiedGpuList.value.length === 0 && (
-              <div className="w-fit mx-auto ">nothing found</div>
-            )}
-          <Scrollbars
-            autoHide
-            className={styles["gpu-list"]}
-            renderTrackVertical={(props) => (
-              <div {...props} className={styles["scroll-track"]} />
-            )}
-            renderThumbVertical={(props) => (
-              <div {...props} className={styles["scroll-thumb"]} />
-            )}
+        <div className={styles['gpu-list-modal__top-buttons']}>
+          <button
+            className={styles['gpu-list-modal__button']}
+            onClick={handleDeselectAllGpus}
           >
-            {gpuListQuery.data !== undefined &&
-              (() => {
-                const orphans = modifiedGpuList.value.filter(
-                  (v) => !v.connected
-                );
-                const connected = modifiedGpuList.value
-                  .filter((v) => v.connected)
-                  .sort((a, b) => a.id - b.id);
-                return (
-                  <>
-                    {orphans.length !== 0 && (
-                      <div className={styles["notification"]}>
-                        <span>{orphans.length}</span>Orphan GPUs
-                      </div>
-                    )}
-                    {connected.map((gpu) => (
-                      <div
-                        key={gpu.id + " " + gpu.flightSheetId}
-                        className={styles["gpu-item"]}
-                        onClick={() =>
-                          updateModifiedGpuListItem(
-                            gpu.id,
-                            !(gpu.flightSheetId === itemId)
-                              ? itemId
-                              : null
-                          )
-                        }
-                      >
-                        <div className={styles["gpu-item-index"]}>{gpu.id}</div>
-                        <div className={styles["gpu-item-name"]}>
-                          {gpu.name}
-                        </div>
-                        <FCheckbox
-                          className={styles["checkbox"]}
-                          value={gpu.flightSheetId === itemId}
-                        />
-                      </div>
-                    ))}
-                  </>
-                );
-              })()}
-          </Scrollbars>
-        </FContainer>
-        <div className={styles["modal-buttons"]}>
-          <FButton severity="bad" onClick={cancelGpuList}>
-            Cancel
-          </FButton>
-          <FButton
-            loading={isUpdatingGPUList.value}
-            severity="good"
-            onClick={updateFlightGPUList}
+            Deselect all
+          </button>
+          <button
+            className={styles['gpu-list-modal__button']}
+            onClick={handleSelectAllGpus}
           >
-            Apply
-          </FButton>
+            Select all
+          </button>
         </div>
-      </FModal>
-  )
+        {{
+          idle: () => null,
+          loading: () => (
+            <Spin size="large" className={styles['gpu-list-modal__spinner']} />
+          ),
+          error: () => (
+            <div>
+              Error fetching gpus
+              <button className={styles['gpu-list-modal__button']}>
+                Retry
+              </button>
+            </div>
+          ),
+          success: () =>
+            gpuListQuery.data && (
+              <>
+                {modifiedGpuList.value.length === 0 && (
+                  <div className={styles['gpu-list-modal__not-found-text']}>
+                    nothing found
+                  </div>
+                )}
+                {modifiedGpuList.value.length !== 0 && (
+                  <Scrollbars
+                    autoHide
+                    className={styles['gpu-list-modal__scrollbars']}
+                    renderTrackVertical={(props) => (
+                      <div
+                        {...props}
+                        className={
+                          styles['gpu-list-modal__scrollbars-scroll-track']
+                        }
+                      />
+                    )}
+                    renderThumbVertical={(props) => (
+                      <div
+                        {...props}
+                        className={
+                          styles['gpu-list-modal__scrollbars-scroll-thumb']
+                        }
+                      />
+                    )}
+                  >
+                    {gpuListQuery.data !== undefined &&
+                      (() => {
+                        const orphans = modifiedGpuList.value.filter(
+                          (v) => !v.connected
+                        );
+                        const connected = modifiedGpuList.value
+                          .filter((v) => v.connected)
+                          .sort((a, b) => a.id - b.id);
+                        return (
+                          <>
+                            {orphans.length !== 0 && (
+                              <div className={styles['notification']}>
+                                <span>{orphans.length}</span>Orphan GPUs
+                              </div>
+                            )}
+                            {connected.map((gpu) => (
+                              <div
+                                key={gpu.id + ' ' + gpu.flightSheetId}
+                                className={styles['gpu-list-modal__gpu-item']}
+                                onClick={() =>
+                                  updateModifiedGpuListItem(
+                                    gpu.id,
+                                    gpu.flightSheetId !== itemId ? itemId : null
+                                  )
+                                }
+                              >
+                                <div
+                                  className={
+                                    styles['gpu-list-modal__gpu-item-index']
+                                  }
+                                >
+                                  {gpu.id}
+                                </div>
+                                <div
+                                  className={
+                                    styles['gpu-list-modal__gpu-item-name']
+                                  }
+                                >
+                                  {gpu.name}
+                                </div>
+                                <FCheckbox
+                                  className={
+                                    styles['gpu-list-modal__gpu-item-checkbox']
+                                  }
+                                  value={gpu.flightSheetId === itemId}
+                                />
+                              </div>
+                            ))}
+                          </>
+                        );
+                      })()}
+                  </Scrollbars>
+                )}
+              </>
+            ),
+        }[gpuListQuery.status]()}
+      </FContainer>
+      <div className={styles['gpu-list-modal__buttons']}>
+        <FButton severity="bad" onClick={cancelGpuList}>
+          Cancel
+        </FButton>
+        <FButton
+          loading={isUpdatingGPUList.value}
+          severity="good"
+          onClick={updateFlightGPUList}
+        >
+          Apply
+        </FButton>
+      </div>
+    </FModal>
+  );
 }
