@@ -1,9 +1,9 @@
-import { FButton, FContainer, FDropdown, FModal, FTextInput } from "@/shared/ui"
+import { FButton, FContainer, FModal, FTextInput } from "@/shared/ui"
 import { useQuery } from "react-query"
-import { createGpuPreset, editGpuSetup, getFullFlightSheets, getGpuPresets, getGpuSetup } from "@/shared/api"
+import { createGpuPreset, editGpuSetup, getGpuPresets, getGpuSetup } from "@/shared/api"
 import { useEffect, useState } from "react"
 import { useBoolean } from "usehooks-ts"
-import { Button, Select, Spin } from "antd"
+import { Button, Spin } from "antd"
 import { FNumInput } from "@/shared/ui/FNumInput"
 import { toast } from "react-toastify"
 import { deleteGpuPreset } from "@/shared/api/deleteGpuPreset"
@@ -19,7 +19,6 @@ type EditGpuSetupProps = {
 }
 
 export const EditGpuSetup = (props: EditGpuSetupProps) => {
-  const { data: flightSheets, isLoading: isLoadingFlightSheets } = useQuery(['load flight sheets'], () => getFullFlightSheets({}), { onError: (e: any) => toast.error(e.message)})
   const { data: gpuSetup, isLoading: isLoadingGpuSetup } = useQuery(['load gpu setup', props.gpuId], async () => (await getGpuSetup({ gpuSetupId: props.gpuSetupId })).data.gpuSetup, { onError: (e: any) => toast.error(e.message)})
   const { data: gpuPresetsData, isLoading: isLoadingPresets, refetch: refetchPresets } = useQuery(['get gpu presets', props.gpuId], () => getGpuPresets({ gpuId: props.gpuId }), { onError: (e: any) => toast.error(e.message)})
 
@@ -28,7 +27,6 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   const [powerLimit, setPowerLimit] = useState<number>(NaN)
   const [critTemp, setCritTemp] = useState<number>(NaN)
   const [fanSpeed, setFanSpeed] = useState<number>(NaN)
-  const [flightSheet, setFlightSheet] = useState<null | Exclude<typeof flightSheets, undefined>['data']['flightSheets'][number]>(null)
 
   const isOpenSave = useBoolean(false);
   const [presetName, setPresetName] = useState('')
@@ -89,7 +87,6 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
       newCritTemp: _.isNaN(critTemp) ? -1 : critTemp,
       newFanSpeed: _.isNaN(fanSpeed) ? -1 : fanSpeed,
       newPowerLimit: _.isNaN(powerLimit) ? -1 : powerLimit,
-      newFlightSheetId: flightSheet?.id ?? null,
     }).then(res => {
       if (props.onApply !== undefined) props.onApply();
     }).catch(e => {
@@ -100,16 +97,14 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
   }
 
   useEffect(() => {
-    if (gpuSetup !== undefined && flightSheets !== undefined) {
-      const flightSheetsData = flightSheets.data.flightSheets
+    if (gpuSetup !== undefined) {
       setCoreClockOffset(gpuSetup.coreClockOffset)
       setMemoryClockOffset(gpuSetup.memoryClockOffset)
       setPowerLimit(gpuSetup.powerLimit === -1 ? NaN : gpuSetup.powerLimit)
       setCritTemp(gpuSetup.critTemp === -1 ? NaN : gpuSetup.critTemp)
       setFanSpeed(gpuSetup.fanSpeed === -1 ? NaN : gpuSetup.fanSpeed)
-      setFlightSheet(flightSheetsData.find(v => v.id === gpuSetup.flightSheetId) ?? null)
     }
-  }, [gpuSetup, flightSheets])
+  }, [gpuSetup])
   
   return (
     <div className={styles['wrapper']}>
@@ -117,52 +112,30 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
         <div className={styles['setup']}>
           {isLoadingGpuSetup && <Spin />}
           {gpuSetup !== undefined && (
-              <>
-                <div className={styles['label']}>Core Clock Offset</div>
-                <div className={styles['value']}><FNumInput value={coreClockOffset} onChange={value => setCoreClockOffset(value)} min={gpuSetup.options.clocks.minimalCoreOffset} max={gpuSetup.options.clocks.maximumCoreOffset} /></div>
-                <div className={styles['unit']}>Mhz</div>
-                <div className={styles['label']}>Memory Clock Offset</div>
-                <div className={styles['value']}><FNumInput value={memoryClockOffset} onChange={value => setMemoryClockOffset(value)} min={gpuSetup.options.clocks.minimalMemoryOffset} max={gpuSetup.options.clocks.maximumMemoryOffset} /></div>
-                <div className={styles['unit']}>Mhz</div>
-                <div className={styles['label']}>Power Limit</div>
-                <div className={styles['value']}><FNumInput value={powerLimit} onChange={value => setPowerLimit(value)} min={gpuSetup.options.power.minimal} max={gpuSetup.options.power.maximum} /></div>
-                <div className={styles['unit']}>Watt</div>
-                <div className={styles['label']}>Critical Temp.</div>
-                <div className={styles['value']}><FNumInput value={critTemp} onChange={value => setCritTemp(value)} min={0} max={gpuSetup.options.temperature.maximumCritical} /></div>
-                <div className={styles['unit']}>°C</div>
-                <div className={styles['label']}>Fan Speed</div>
-                <div className={styles['value']}><FNumInput value={fanSpeed} onChange={value => setFanSpeed(value)} min={0} max={100} /></div>
-                <div className={styles['unit']}>%</div>
-                <div className={styles['label']}>Flight Sheet</div>
-                <div className={styles['value'] + ' col-span-2'}>
-                  {/* <Select
-                    style={{ width: '100%' }}
-                    value={flightSheet === null ? null : {label: flightSheet.name, value: flightSheet.id, data: flightSheet}}
-                    loading={isLoadingFlightSheets}
-                    allowClear
-                    options={flightSheets?.data.flightSheets.map(v => ({ label: v.name, value: v.id, data: v})) ?? []}
-                    onChange={(value, option) => {
-                      if (value === undefined) {
-                        setFlightSheet(null)
-                      } else if (!_.isArray(option)) {
-                        setFlightSheet(option.data)
-                    }}}
-                  /> */}
-                  <FDropdown
-                    options={flightSheets?.data.flightSheets ?? []}
-                    getOptionLabel={(v => v.name)}
-                    getOptionValue={v => v.name}
-                    loading={isLoadingFlightSheets}
-                    value={flightSheet}
-                    onChange={value => setFlightSheet(value)}
-                  />
-                </div>
-              </>
+            <>
+              <div className={styles['label']}>Core Clock Offset</div>
+              <div className={styles['value']}><FNumInput value={coreClockOffset} onChange={value => setCoreClockOffset(value)} min={gpuSetup.options.clocks.minimalCoreOffset} max={gpuSetup.options.clocks.maximumCoreOffset} /></div>
+              <div className={styles['unit']}>Mhz</div>
+              <div className={styles['label']}>Memory Clock Offset</div>
+              <div className={styles['value']}><FNumInput value={memoryClockOffset} onChange={value => setMemoryClockOffset(value)} min={gpuSetup.options.clocks.minimalMemoryOffset} max={gpuSetup.options.clocks.maximumMemoryOffset} /></div>
+              <div className={styles['unit']}>Mhz</div>
+              <div className={styles['label']}>Power Limit</div>
+              <div className={styles['value']}><FNumInput value={powerLimit} onChange={value => setPowerLimit(value)} min={gpuSetup.options.power.minimal} max={gpuSetup.options.power.maximum} /></div>
+              <div className={styles['unit']}>Watt</div>
+              <div className={styles['label']}>Critical Temp.</div>
+              <div className={styles['value']}><FNumInput value={critTemp} onChange={value => setCritTemp(value)} min={0} max={gpuSetup.options.temperature.maximumCritical} /></div>
+              <div className={styles['unit']}>°C</div>
+              <div className={styles['label']}>Fan Speed</div>
+              <div className={styles['value']}><FNumInput value={fanSpeed} onChange={value => setFanSpeed(value)} min={0} max={100} /></div>
+              <div className={styles['unit']}>%</div>
+              <div className={styles['label']}>Flight Sheet</div>
+              <div className={styles['value'] + ' col-span-2'}>
+              </div>
+            </>
           )}
         </div>
       </FContainer>
       <FContainer visibility={{ _l: false, tc: false, bc: false }} className={styles['preset-box-wrapper']} bodyProps={{ className: styles['preset-box']}}>
-        {/* <GpuPresetList gpuId={props.gpuId} /> */}
         {isLoadingPresets && <Spin />}
         {gpuPresetsData !== undefined && (
           <>
