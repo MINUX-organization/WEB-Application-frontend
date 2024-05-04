@@ -25,7 +25,7 @@ export const Coins = () => {
               <Fragment key={index}>
                 <div>{item.coin}</div>
                 <div>{item.algorithm}</div>
-                <div>{item.value.toFixed(3)} <span className={styles['unit']}>Mh/s</span></div> 
+                <div>{item.value.toFixed(3)} <span className={styles['unit']}>{item.measurement}</span></div> 
               </Fragment>
             ))}
           </div>
