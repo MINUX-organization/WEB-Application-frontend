@@ -128,9 +128,6 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
               <div className={styles['label']}>Fan Speed</div>
               <div className={styles['value']}><FNumInput value={fanSpeed} onChange={value => setFanSpeed(value)} min={0} max={100} /></div>
               <div className={styles['unit']}>%</div>
-              <div className={styles['label']}>Flight Sheet</div>
-              <div className={styles['value'] + ' col-span-2'}>
-              </div>
             </>
           )}
         </div>
