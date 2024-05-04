@@ -4,7 +4,8 @@ import * as rt from 'runtypes'
 export const CoinsValue = rt.Record({
   coin: rt.String,
   algorithm: rt.String,
-  value: rt.Number
+  value: rt.Number,
+  measurement: rt.String
 })
 export type CoinsValue = rt.Static<typeof CoinsValue>
 
