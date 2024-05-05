@@ -40,9 +40,28 @@ export default function GpuListItem({ item }: GpuListitemProps) {
             {item.powerUsage}
             <span className={st['gpu-list-item__unit']}>W</span>
           </div>
+          {configs[0] && (
+            <>
+              <div>
+                {configs[0].cryptocurrency}
+              </div>
+              <div className={st['gpu-list-item__good-value']}>
+                {configs[0].shares.accepted}
+              </div>
+              <div className={st['gpu-list-item__bad-value']}>
+                {configs[0].shares.rejected}
+              </div>
+              <div>
+                {configs[0].hashrate.value?.toFixed(3)}
+                <span className={st['gpu-list-item__unit']}>
+                  {configs[0].hashrate.measurement}
+                </span>
+              </div>
+            </>
+          )}
         </div>
         <div className={st['gpu-list-item__inner-configs']}>
-          {configs.map((config) => (
+          {configs.slice(1).map((config) => (
             <>
               <div className={st['gpu-list-item__inner-configs-item-label']}>
               </div>
