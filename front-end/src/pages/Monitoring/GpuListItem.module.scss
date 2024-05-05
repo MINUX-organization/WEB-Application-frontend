@@ -20,7 +20,7 @@
     gap: lv.$gpu-list-grid-gap;
     align-items: lv.$gpu-list-grid-align-items;
     justify-items: lv.$gpu-list-grid-justify-items;
-    min-height: 80px;
+    min-height: fit-content;
   }
 
   &__inner-configs {
