@@ -7,6 +7,11 @@
   $id-px: 20px;
 
   &__inner {
+    display: block;
+    background: lv.$bg-inner-color;
+  }
+
+  &__inner-line {
     display: grid;
     grid-template-columns:
       calc(lv.$gpu-list-grid-first-element-width - $xoffset)
@@ -15,8 +20,46 @@
     gap: lv.$gpu-list-grid-gap;
     align-items: lv.$gpu-list-grid-align-items;
     justify-items: lv.$gpu-list-grid-justify-items;
-    background: lv.$bg-inner-color;
     min-height: 80px;
+  }
+
+  &__inner-configs {
+    display: grid;
+    grid-template-columns:
+      calc(lv.$gpu-list-grid-first-element-width - $xoffset)
+      lv.$gpu-list-grid-middle-template-columns
+      calc(lv.$gpu-list-grid-last-element-width - $xoffset);
+    gap: lv.$gpu-list-grid-gap;
+    align-items: lv.$gpu-list-grid-align-items;
+    justify-items: lv.$gpu-list-grid-justify-items;
+
+    &-item-label {
+      grid-column: span 4;
+      width: 100%;
+      display: flex;
+      gap: 20px;
+      justify-content: flex-end;
+  
+      &-group {
+        display: flex;
+        gap: 10px; 
+        &-label {
+          color: #ffffff41;
+        }
+        &-value {
+          display: block;
+        }
+      }
+    }
+  }
+
+
+  &__good-value {
+    color: rgb(67, 192, 155);
+  }
+
+  &__bad-value {
+    color: rgb(252, 78, 78);
   }
   
   &__unit {

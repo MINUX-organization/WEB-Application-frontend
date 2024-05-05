@@ -47,6 +47,9 @@ export const GpuList = () => {
           <div>Temp</div>
           <div>Fan</div>
           <div>Power</div>
+          <div>Accepted</div>
+          <div>Rejected</div>
+          <div>Hashrate</div>
         </div>
         <div className={st['gpu-list__grid']}>
           {gpus.length === 0 && (

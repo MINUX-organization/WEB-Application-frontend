@@ -3,7 +3,7 @@ $gpu-list-item-padding: 10px;
 
 $gpu-list-grid-first-element-width: calc(var(--gpu-list-width) * 0.3);
 $gpu-list-grid-last-element-width: calc(var(--gpu-list-width) * 0.11);
-$gpu-list-grid-middle-template-columns: repeat(2, 1fr);
+$gpu-list-grid-middle-template-columns: repeat(5, 1fr);
 $gpu-list-grid-align-items: center;
 $gpu-list-grid-justify-items: center;
 $gpu-list-grid-gap: $gpu-list-item-padding;
