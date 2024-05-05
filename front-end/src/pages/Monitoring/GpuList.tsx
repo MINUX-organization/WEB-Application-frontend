@@ -47,6 +47,7 @@ export const GpuList = () => {
           <div>Temp</div>
           <div>Fan</div>
           <div>Power</div>
+          <div>Coin</div>
           <div>Accepted</div>
           <div>Rejected</div>
           <div>Hashrate</div>

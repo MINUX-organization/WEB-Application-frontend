@@ -45,16 +45,10 @@ export default function GpuListItem({ item }: GpuListitemProps) {
           {configs.map((config) => (
             <>
               <div className={st['gpu-list-item__inner-configs-item-label']}>
-                <div className={st['gpu-list-item__inner-configs-item-label-group']}>
-                  <span className={st['gpu-list-item__inner-configs-item-label-group-label']}>
-                    Coin:
-                  </span>
-                  <span className={st['gpu-list-item__inner-configs-item-label-group-value']}>
-                    {config.cryptocurrency}
-                  </span>
-                </div>
               </div>
-
+              <div>
+                {config.cryptocurrency}
+              </div>
               <div className={st['gpu-list-item__good-value']}>
                 {config.shares.accepted}
               </div>
