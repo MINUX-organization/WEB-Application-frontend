@@ -17,7 +17,7 @@
       calc(lv.$gpu-list-grid-first-element-width - $xoffset)
       lv.$gpu-list-grid-middle-template-columns
       calc(lv.$gpu-list-grid-last-element-width - $xoffset);
-    gap: lv.$gpu-list-grid-gap;
+    column-gap: lv.$gpu-list-grid-gap;
     align-items: lv.$gpu-list-grid-align-items;
     justify-items: lv.$gpu-list-grid-justify-items;
     min-height: fit-content;
@@ -29,7 +29,7 @@
       calc(lv.$gpu-list-grid-first-element-width - $xoffset)
       lv.$gpu-list-grid-middle-template-columns
       calc(lv.$gpu-list-grid-last-element-width - $xoffset);
-    gap: lv.$gpu-list-grid-gap;
+    column-gap: lv.$gpu-list-grid-gap;
     align-items: lv.$gpu-list-grid-align-items;
     justify-items: lv.$gpu-list-grid-justify-items;
 
