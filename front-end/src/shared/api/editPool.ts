@@ -16,16 +16,20 @@
 //   })
 // }
 
-
-import * as rt from 'runtypes'
-import { makeApiFunc } from "./_makeApiFunc";
+import * as rt from 'runtypes';
+import { makeApiFunc } from './_makeApiFunc';
 
 type Request = {
-  newHost : string,
-	newPort : number,
-	newCryptocurrencyId : number
-}
+  id: number;
+  newHost: string;
+  newPort: number;
+  newCryptocurrencyId: number;
+};
 
-const ResponseRuntype = rt.String
+const ResponseRuntype = rt.String;
 
-export const editPool = makeApiFunc<Request, typeof ResponseRuntype>("POST", 'edit/pool', ResponseRuntype)
+export const editPool = makeApiFunc<Request, typeof ResponseRuntype>(
+  'POST',
+  'edit/pool',
+  ResponseRuntype
+);

@@ -14,7 +14,6 @@ const FCodeInput: typeof FTextInput = (props) => {
             const lineStart = e.currentTarget.value.lastIndexOf('\n', selectionStart - 1) + 1;
             if (e.shiftKey) {
               const spaceCount = e.currentTarget.value.slice(lineStart, lineStart + tabSize).replace(/\S[\s\S]*/, '').length
-              console.log(lineStart, selectionStart, spaceCount);
               e.currentTarget.value =
                 e.currentTarget.value.slice(0, lineStart) +
                 e.currentTarget.value.slice(lineStart + spaceCount);

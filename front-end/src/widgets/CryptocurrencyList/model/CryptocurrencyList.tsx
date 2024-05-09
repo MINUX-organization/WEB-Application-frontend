@@ -41,7 +41,6 @@ export function CryptocurrencyList({
   });
 
   const getAlgorithmById = (id: number) => {
-    console.log(algorithms);
     return algorithms?.find((item) => item.id === id);
   };
 

@@ -38,7 +38,6 @@ export const WalletListItem = (props: WalletListItemProps) => {
       }
     },
     update: () => {
-      console.log("hey")
       isEditModalOpen.setFalse();
       if (props.onUpdate !== undefined) props.onUpdate();
     }
