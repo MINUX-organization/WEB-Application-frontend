@@ -1,6 +1,6 @@
 @use '@/app/values.scss';
 
-$grid-template-columns: 1fr 1fr 1fr 1fr;
+$grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
 .cryptocurrency-list {
   border: values.$line-color solid 1px;

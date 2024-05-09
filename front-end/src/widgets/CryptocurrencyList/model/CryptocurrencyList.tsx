@@ -31,8 +31,8 @@ export function CryptocurrencyList({
     queryKey: ['get-full-cryptocurrencies'],
     queryFn: () =>
       getFullCryptocurrencies({})
-      .then((res) => res.data.cryptocurrencies)
-      .then((cryptocurrencies) => _.sortBy(cryptocurrencies, 'id')),
+        .then((res) => res.data.cryptocurrencies)
+        .then((cryptocurrencies) => _.sortBy(cryptocurrencies, 'id')),
   });
 
   const { data: algorithms } = useQuery({
@@ -95,7 +95,8 @@ export function CryptocurrencyList({
             <div className={st['cryptocurrency-list__list']}>
               <div className={st['cryptocurrency-list__list-header']}>
                 <div>ID</div>
-                <div>Full name (short name)</div>
+                <div>Short name</div>
+                <div>Full name</div>
                 <div>Algorithm</div>
                 <div></div>
               </div>
@@ -105,9 +106,8 @@ export function CryptocurrencyList({
                   className={st['cryptocurrency-list__list-item']}
                 >
                   <div>{cryptocurrency.id}</div>
-                  <div>
-                    {cryptocurrency.fullName} ({cryptocurrency.name})
-                  </div>
+                  <div>{cryptocurrency.name}</div>
+                  <div>{cryptocurrency.fullName}</div>
                   <div>
                     {getAlgorithmById(cryptocurrency.algorithmId)?.name ??
                       cryptocurrency.algorithmId}
