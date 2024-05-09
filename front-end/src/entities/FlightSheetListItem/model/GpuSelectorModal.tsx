@@ -7,7 +7,7 @@ import { useStateObj } from '@/shared/lib';
 import { useBoolean } from 'usehooks-ts';
 import { useEffect } from 'react';
 import Scrollbars from 'react-custom-scrollbars-2';
-import styles from './GpuListModal.module.scss';
+import st from './GpuSelectorModal.module.scss';
 import _ from 'lodash';
 import { editGpusForFlightSheetsMultiple } from '@/shared/api';
 
@@ -148,24 +148,24 @@ export default function GpuListModal({
   return (
     <FModal
       title="Select GPU"
-      open={isOpen.value}
+      isOpen={isOpen.value}
       onClose={() => isOpen.setFalse()}
-      bodyProps={{ className: styles['gpu-list-modal'] }}
+      bodyProps={{ className: st['gpu-list-modal'] }}
     >
       <FContainer
-        className={styles['gpu-list-modal__container']}
+        className={st['gpu-list-modal__container']}
         visibility={{ tc: false }}
-        bodyProps={{ className: styles['gpu-list-modal__container-body'] }}
+        bodyProps={{ className: st['gpu-list-modal__container-body'] }}
       >
-        <div className={styles['gpu-list-modal__top-buttons']}>
+        <div className={st['gpu-list-modal__top-buttons']}>
           <button
-            className={styles['gpu-list-modal__button']}
+            className={st['gpu-list-modal__button']}
             onClick={handleDeselectAllGpus}
           >
             Deselect all
           </button>
           <button
-            className={styles['gpu-list-modal__button']}
+            className={st['gpu-list-modal__button']}
             onClick={handleSelectAllGpus}
           >
             Select all
@@ -174,12 +174,12 @@ export default function GpuListModal({
         {{
           idle: () => null,
           loading: () => (
-            <Spin size="large" className={styles['gpu-list-modal__spinner']} />
+            <Spin size="large" className={st['gpu-list-modal__spinner']} />
           ),
           error: () => (
             <div>
               Error fetching gpus
-              <button className={styles['gpu-list-modal__button']}>
+              <button className={st['gpu-list-modal__button']}>
                 Retry
               </button>
             </div>
@@ -188,19 +188,19 @@ export default function GpuListModal({
             gpuListQuery.data && (
               <>
                 {modifiedGpuList.value.length === 0 && (
-                  <div className={styles['gpu-list-modal__not-found-text']}>
-                    nothing found
+                  <div className={st['gpu-list-modal__not-found-text']}>
+                    Nothing found
                   </div>
                 )}
                 {modifiedGpuList.value.length !== 0 && (
                   <Scrollbars
                     autoHide
-                    className={styles['gpu-list-modal__scrollbars']}
+                    className={st['gpu-list-modal__scrollbars']}
                     renderTrackVertical={(props) => (
                       <div
                         {...props}
                         className={
-                          styles['gpu-list-modal__scrollbars-scroll-track']
+                          st['gpu-list-modal__scrollbars-scroll-track']
                         }
                       />
                     )}
@@ -208,30 +208,32 @@ export default function GpuListModal({
                       <div
                         {...props}
                         className={
-                          styles['gpu-list-modal__scrollbars-scroll-thumb']
+                          st['gpu-list-modal__scrollbars-scroll-thumb']
                         }
                       />
                     )}
                   >
                     {gpuListQuery.data !== undefined &&
                       (() => {
+                        /** массив неподключенных видеокарт, они есть в БД, но не пришли в статических данных */
                         const orphans = modifiedGpuList.value.filter(
                           (v) => !v.connected
                         );
+                        /** Массив подключенных видеокарт */
                         const connected = modifiedGpuList.value
                           .filter((v) => v.connected)
                           .sort((a, b) => a.id - b.id);
                         return (
                           <>
                             {orphans.length !== 0 && (
-                              <div className={styles['notification']}>
+                              <div className={st['notification']}>
                                 <span>{orphans.length}</span>Orphan GPUs
                               </div>
                             )}
                             {connected.map((gpu) => (
                               <div
                                 key={gpu.id + ' ' + gpu.flightSheetId}
-                                className={styles['gpu-list-modal__gpu-item']}
+                                className={st['gpu-list-modal__gpu-item']}
                                 onClick={() =>
                                   updateModifiedGpuListItem(
                                     gpu.id,
@@ -241,21 +243,21 @@ export default function GpuListModal({
                               >
                                 <div
                                   className={
-                                    styles['gpu-list-modal__gpu-item-index']
+                                    st['gpu-list-modal__gpu-item-index']
                                   }
                                 >
                                   {gpu.id}
                                 </div>
                                 <div
                                   className={
-                                    styles['gpu-list-modal__gpu-item-name']
+                                    st['gpu-list-modal__gpu-item-name']
                                   }
                                 >
                                   {gpu.name}
                                 </div>
                                 <FCheckbox
                                   className={
-                                    styles['gpu-list-modal__gpu-item-checkbox']
+                                    st['gpu-list-modal__gpu-item-checkbox']
                                   }
                                   value={gpu.flightSheetId === itemId}
                                 />
@@ -270,7 +272,7 @@ export default function GpuListModal({
             ),
         }[gpuListQuery.status]()}
       </FContainer>
-      <div className={styles['gpu-list-modal__buttons']}>
+      <div className={st['gpu-list-modal__buttons']}>
         <FButton severity="bad" onClick={cancelGpuList}>
           Cancel
         </FButton>

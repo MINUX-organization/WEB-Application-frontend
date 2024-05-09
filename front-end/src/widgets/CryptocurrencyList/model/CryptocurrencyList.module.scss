@@ -1,0 +1,58 @@
+@use '@/app/values.scss';
+
+$grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+.cryptocurrency-list {
+  border: values.$line-color solid 1px;
+  background-color: rgba(0, 0, 0, 0.25); 
+  padding: 15px;
+
+  &__error-message {
+    display: block;
+  }
+
+  &__loading-spinner {
+    display: block;
+  }
+
+  &__list {
+    display: block;
+  }
+
+  &__list-header {
+    display: grid;
+    color: #ffffff36;
+    grid-template-columns: $grid-template-columns;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  &__list-item {
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns: $grid-template-columns;
+  }
+
+  &__actions {
+    justify-self: end;
+    display: flex;
+    gap: 10px;
+  }
+
+  &__icon-button {
+    font-size: 35px;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.137);
+    }
+    &:first-child {
+      margin-right: 5px;
+    }
+
+    &[data-severity=bad] {
+      color: values.$text-color-red;
+    }
+  }
+}

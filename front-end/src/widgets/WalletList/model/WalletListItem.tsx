@@ -38,7 +38,6 @@ export const WalletListItem = (props: WalletListItemProps) => {
       }
     },
     update: () => {
-      console.log("hey")
       isEditModalOpen.setFalse();
       if (props.onUpdate !== undefined) props.onUpdate();
     }
@@ -55,7 +54,7 @@ export const WalletListItem = (props: WalletListItemProps) => {
           <AiOutlineDelete className={styles['icon'] + ' ' + styles['sp1']} onClick={action.delete} />
         </div>
       </td>
-      <FModal title="Update wallet" open={isEditModalOpen.value} onClose={isEditModalOpen.setFalse}>
+      <FModal title="Update wallet" isOpen={isEditModalOpen.value} onClose={isEditModalOpen.setFalse}>
         <FContainer bodyProps={{ className: styles['modal-container']}} visibility={{ tc: false }}>
           <UpdateWallet item={props.item} onUpdate={action.update} />
         </FContainer>

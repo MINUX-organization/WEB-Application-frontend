@@ -145,7 +145,7 @@ export default function CpuItem({
           direction='vertical'
         />
       </div>
-      <FModal title="Edit flight sheet" open={isEditing.value} onClose={isEditing.setFalse}>
+      <FModal title="Edit flight sheet" isOpen={isEditing.value} onClose={isEditing.setFalse}>
         <div className='bg-black p-8'>
           <FlightSheetCpuForm flightSheet={item} onSubmit={onUpdate} />
         </div>

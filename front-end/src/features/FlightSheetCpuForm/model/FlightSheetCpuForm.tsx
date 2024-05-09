@@ -326,7 +326,7 @@ export const FlightSheetCpuForm = ({ onSubmit, flightSheet }: FlightSheetCpuForm
             />
             <FModal
               title={field.modalOpenState.title}
-              open={field.modalOpenState.isOpen.value}
+              isOpen={field.modalOpenState.isOpen.value}
               onClose={field.modalOpenState.isOpen.setFalse}
             >
               <FContainer

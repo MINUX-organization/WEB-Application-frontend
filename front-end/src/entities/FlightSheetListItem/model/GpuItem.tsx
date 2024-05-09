@@ -6,7 +6,7 @@ import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
 import { toast } from 'react-toastify';
 import { FlightSheetGpuSingleForm } from '@/features/FlightSheetGpuSingleForm';
-import GpuListModal from './GpuListModal';
+import GpuSelectorModal from './GpuSelectorModal';
 import styles from './GpuItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
 import { deleteFlightSheetGpu } from '@/shared/api';
@@ -125,8 +125,8 @@ export default function GpuItem({
           direction='vertical'
         />
       </div>
-      <GpuListModal flightSheetType='single' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
-      <FModal title="Edit flight sheet" open={isEditing.value} onClose={isEditing.setFalse}>
+      <GpuSelectorModal flightSheetType='single' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
+      <FModal title="Edit flight sheet" isOpen={isEditing.value} onClose={isEditing.setFalse}>
         <div className='bg-black p-8'>
           <FlightSheetGpuSingleForm flightSheet={item} onSubmit={onUpdate} />
         </div>

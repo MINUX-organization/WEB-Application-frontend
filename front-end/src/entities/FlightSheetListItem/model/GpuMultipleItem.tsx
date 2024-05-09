@@ -5,7 +5,7 @@ import { useBoolean, useElementSize } from 'usehooks-ts';
 import { CSSProperties } from 'react';
 import { useBooleanUrl } from '@/shared/lib/useBooleanUrl';
 import { toast } from 'react-toastify';
-import GpuListModal from './GpuListModal';
+import GpuSelectorModal from './GpuSelectorModal';
 import styles from './GpuMultipleItem.module.scss';
 import ItemButtons from '../ui/Itembuttons';
 import { FlightSheetGpuMultipleForm } from '@/features/FlightSheetGpuMultipleForm';
@@ -123,10 +123,10 @@ export default function GpuMultipleItem({
           direction="vertical"
         />
       </div>
-      <GpuListModal flightSheetType='multiple' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
+      <GpuSelectorModal flightSheetType='multiple' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
       <FModal
         title="Edit flight sheet"
-        open={isEditing.value}
+        isOpen={isEditing.value}
         onClose={isEditing.setFalse}
       >
         <div className="bg-black p-8">

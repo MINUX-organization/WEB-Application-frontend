@@ -8,7 +8,7 @@ type Request = {
 	newPowerLimit: number
 	newCritTemp: number
 	newFanSpeed: number
-	newFlightSheetId: number | null
+	// newFlightSheetId: number | null
 }
 
 const ResponseRuntype = rt.String
