@@ -126,7 +126,7 @@ export default function GpuMultipleItem({
       <GpuSelectorModal flightSheetType='multiple' isOpen={isOpen} itemId={item.id} onUpdate={onUpdateInner} />
       <FModal
         title="Edit flight sheet"
-        open={isEditing.value}
+        isOpen={isEditing.value}
         onClose={isEditing.setFalse}
       >
         <div className="bg-black p-8">

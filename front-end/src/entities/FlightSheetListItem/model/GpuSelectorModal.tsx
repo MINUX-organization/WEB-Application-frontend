@@ -148,7 +148,7 @@ export default function GpuListModal({
   return (
     <FModal
       title="Select GPU"
-      open={isOpen.value}
+      isOpen={isOpen.value}
       onClose={() => isOpen.setFalse()}
       bodyProps={{ className: st['gpu-list-modal'] }}
     >

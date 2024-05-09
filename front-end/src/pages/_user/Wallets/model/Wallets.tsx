@@ -17,7 +17,7 @@ export const Wallets = (props: HTMLProps<HTMLDivElement>) => {
       {walletListQuery.isFetching && <div className="flex justify-center"><Spin /></div>}
       {!walletListQuery.isFetching && walletListQuery.data !== undefined && <WalletList list={walletListQuery.data.data.wallets} onUpdate={walletListQuery.refetch} />}
       <FButton severity='good' className="self-end" onClick={isAddOpen.setTrue}>Add new</FButton>
-      <FModal open={isAddOpen.value} onClose={isAddOpen.setFalse} title="Add Wallet">
+      <FModal isOpen={isAddOpen.value} onClose={isAddOpen.setFalse} title="Add Wallet">
         <FContainer className={styles['new-wallet-wrapper']} bodyProps={{ className: styles['new-wallet-body']}}>
           <CreateWallet onAdd={() => {walletListQuery.refetch(); isAddOpen.setFalse()}} />
         </FContainer>

@@ -319,7 +319,7 @@ export const FlightSheetGpuSingleForm = ({ onSubmit, flightSheet }: FlightSheetG
             />
             <FModal
               title={field.modalOpenState.title}
-              open={field.modalOpenState.isOpen.value}
+              isOpen={field.modalOpenState.isOpen.value}
               onClose={field.modalOpenState.isOpen.setFalse}
             >
               <FContainer

@@ -54,7 +54,7 @@ export default function Field<T>({
       />
       <FModal
         title={modalOpenState.title}
-        open={modalOpenState.isOpen.value}
+        isOpen={modalOpenState.isOpen.value}
         onClose={modalOpenState.isOpen.setFalse}
       >
         <FContainer

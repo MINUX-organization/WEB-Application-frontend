@@ -156,7 +156,7 @@ export const EditGpuSetup = (props: EditGpuSetupProps) => {
       <div className="flex justify-end">
         <FButton severity="bad" onClick={props.onCancel}>Cancel</FButton>
       </div>
-      <FModal open={isOpenSave.value} onClose={isOpenSave.setFalse} title="Set name for preset" bodyProps={{ className: 'w-full' }} >
+      <FModal isOpen={isOpenSave.value} onClose={isOpenSave.setFalse} title="Set name for preset" bodyProps={{ className: 'w-full' }} >
         <FContainer className="flex w-full" bodyProps={{ style: { width: '100%', padding: '20px' }}}>
           <div>Name</div>
           <FTextInput value={presetName} onChange={value => setPresetName(value)} />

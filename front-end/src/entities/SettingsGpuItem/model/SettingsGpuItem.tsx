@@ -116,7 +116,7 @@ export const SettingsGpuItem = (props: SettingsGpuItemProps) => {
           </div>
         )}
       </FContainer>
-      <FModal open={isOpen.value} title={props.item.name ?? 'Empty Name'} onClose={isOpen.setFalse}>
+      <FModal isOpen={isOpen.value} title={props.item.name ?? 'Empty Name'} onClose={isOpen.setFalse}>
         <EditGpuSetup gpuId={props.item.gpuId} gpuSetupId={props.item.gpuSetupId} onCancel={isOpen.setFalse} onApply={() => {isOpen.setFalse(); if (props.onEdit !== undefined) props.onEdit()}} />
       </FModal>
     </>

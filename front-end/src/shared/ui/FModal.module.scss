@@ -5,7 +5,7 @@ $header-icon-size: 30px;
 $header-height: 50px;
 $header-body-gap: 15px;
 
-.wrapper {
+.fmodal {
   position: fixed;
   top: 0;
   left: 0;
@@ -25,37 +25,45 @@ $header-body-gap: 15px;
 
   transition: background 200ms;
 
-  &.open {
+  &--open {
     background: #000000af;
     pointer-events: all;
 
-    .header {
+    .fmodal__header {
       display: flex;
     }
   }
-}
 
-.inner {
-  min-width: fit-content;
-  width: fit-content;
-  max-width: 100%;
-  min-height: fit-content;
-  height: fit-content;
-  max-height: 100%;
-  margin: auto;
-}
+  &--black {
+    .fmodal__body {
+      &>* {
+        background: #000;
+      }
+    }
+  }
 
-.header {
-  display: none;
-  position: relative;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  color: values.$line-color;
-  height: calc($header-height + $header-body-gap);
-  border-bottom: 1px solid currentColor;
+  &__content {
+    min-width: fit-content;
+    width: fit-content;
+    max-width: 100%;
+    min-height: fit-content;
+    height: fit-content;
+    max-height: 100%;
+    margin: auto;
+  }
 
-  .side-lines {
+  &__header {
+    display: none;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: values.$line-color;
+    height: calc($header-height + $header-body-gap);
+    border-bottom: 1px solid currentColor;
+  }
+
+  &__header-side-lines {
     position: absolute;
     display: block;
     bottom: 0;
@@ -85,8 +93,12 @@ $header-body-gap: 15px;
     }
   }
 
+  &__header-left-filler {
+    width: $header-icon-size;
+    height: $header-icon-size;
+  }
 
-  .text {
+  &__header-text {
     line-height: calc($header-height + $header-body-gap);
     font-size: 32px;
     padding: 0 10px;
@@ -95,14 +107,7 @@ $header-body-gap: 15px;
     user-select: none;
   }
 
-  
-
-  .left-filler {
-    width: $header-icon-size;
-    height: $header-icon-size;
-  }
-
-  .icon {
+  &__header-icon {
     width: $header-icon-size;
     height: $header-icon-size;
     color: white;
@@ -112,17 +117,17 @@ $header-body-gap: 15px;
       background: #ffffff1a;
     }
   }
-}
 
-.body {
-  display: block;
-  min-width: 0;
-  min-height: 0;
-  height: fit-content;
-  width: fit-content;
-  max-width: 100%;
-  max-height: calc(100% - $header-body-gap - $header-height);
-  // overflow: auto;
-  padding-top: $header-body-gap;
-  font-size: 28px;
+  &__body {
+    display: block;
+    min-width: 0;
+    min-height: 0;
+    height: fit-content;
+    width: fit-content;
+    max-width: 100%;
+    max-height: calc(100% - $header-body-gap - $header-height);
+    // overflow: auto;
+    padding-top: $header-body-gap;
+    font-size: 28px;
+  }
 }

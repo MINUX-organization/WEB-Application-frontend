@@ -539,7 +539,7 @@ export const FlightSheetGpuMultipleForm = ({ onSubmit, flightSheet }: FlightShee
         <FModal
           key={modal.title}
           title={modal.title}
-          open={modal.isOpen.value}
+          isOpen={modal.isOpen.value}
           onClose={modal.isOpen.setFalse}
         >
           <FContainer

@@ -175,7 +175,7 @@ export default function CustomItem({ item, onDelete, onUpdate }: CustomItemProps
           onEditClick={isEditing.setTrue}
         />
       </div>
-      <FModal title="Edit flight sheet with custom miner" open={isEditing.value} onClose={isEditing.setFalse}>
+      <FModal title="Edit flight sheet with custom miner" isOpen={isEditing.value} onClose={isEditing.setFalse}>
         <div className="bg-black p-8">
           <FlightSheetWithCustomMinerForm flightSheet={item} onSubmit={onUpdate} />
         </div>
