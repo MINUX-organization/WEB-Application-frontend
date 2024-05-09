@@ -9,6 +9,7 @@ import { CryptocurrencyForm } from '@/features/CryptocurrencyForm';
 import { TCryptocurrency } from '@/shared/types';
 import clsx from 'clsx';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import _ from 'lodash';
 
 type CryptocurrencyListProps = {
   onEdit?: () => void;
@@ -29,7 +30,9 @@ export function CryptocurrencyList({
   } = useQuery({
     queryKey: ['get-full-cryptocurrencies'],
     queryFn: () =>
-      getFullCryptocurrencies({}).then((res) => res.data.cryptocurrencies),
+      getFullCryptocurrencies({})
+      .then((res) => res.data.cryptocurrencies)
+      .then((cryptocurrencies) => _.sortBy(cryptocurrencies, 'id')),
   });
 
   const { data: algorithms } = useQuery({
